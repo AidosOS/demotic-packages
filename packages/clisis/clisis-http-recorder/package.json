@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "version": "1.0.0-beta.1",
+  "name": "@demotic/clisis-http-recorder",
+  "description": "Record and replay Effect HTTP client traffic with deterministic cassettes",
+  "type": "module",
+  "license": "BSL-1.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AidosOS/demotic-clisis-coder.git",
+    "directory": "packages/http-recorder"
+  },
+  "homepage": "https://github.com/AidosOS/demotic-packages",
+  "bugs": "https://github.com/AidosOS/demotic-clisis-coder/issues",
+  "keywords": [
+    "effect",
+    "http",
+    "recording",
+    "replay",
+    "testing",
+    "vcr"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "scripts": {
+    "test": "bun test --timeout 30000",
+    "test:ci": "mkdir -p .artifacts/unit && bun test --timeout 30000 --reporter=junit --reporter-outfile=.artifacts/unit/junit.xml",
+    "typecheck": "tsgo --noEmit",
+    "build": "bun ./script/build.ts",
+    "verify:package": "bun ./script/verify-package.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./internal": "./src/internal.ts"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "devDependencies": {
+    "@tsconfig/node22": "22.0.2",
+    "@types/bun": "1.3.13",
+    "@types/node": "24.12.2",
+    "@typescript/native-preview": "7.0.0-dev.20251207.1",
+    "effect": "4.0.0-beta.74",
+    "typescript": "5.8.2"
+  },
+  "dependencies": {
+    "@effect/platform-node": "4.0.0-beta.74",
+    "@effect/platform-node-shared": "4.0.0-beta.74"
+  },
+  "peerDependencies": {
+    "effect": "4.0.0-beta.74"
+  },
+  "private": false,
+  "author": "Demotic Suite Contributors"
+}

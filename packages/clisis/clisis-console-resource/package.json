@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "@demotic/clisis-console-resource",
+  "license": "BSL-1.1",
+  "dependencies": {
+    "@cloudflare/workers-types": "4.20251008.0"
+  },
+  "exports": {
+    ".": {
+      "production": {
+        "import": "./resource.cloudflare.ts"
+      },
+      "import": "./resource.node.ts"
+    }
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "4.20251008.0",
+    "@tsconfig/node22": "22.0.2",
+    "@types/node": "24.12.2",
+    "cloudflare": "5.2.0"
+  },
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AidosOS/demotic-packages.git",
+    "directory": "clisis-console-resource"
+  },
+  "homepage": "https://github.com/AidosOS/demotic-packages",
+  "author": "Demotic Suite Contributors"
+}

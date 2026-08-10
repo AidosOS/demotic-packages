@@ -1,0 +1,196 @@
+﻿---
+title: Custom Tools
+description: Create tools the LLM can call in Clisis Coder.
+---
+
+custom toolì€ ëŒ€í™” ì¤‘ LLMì´ í˜¸ì¶œí•  ìˆ˜ ìžˆë„ë¡ ì‚¬ìš©ìžê°€ ì§ì ‘ ë§Œë“  í•¨ìˆ˜ìž…ë‹ˆë‹¤. `read`, `write`, `bash` ê°™ì€ Clisis Coderì˜ [built-in tools](/docs/tools)ì™€ í•¨ê»˜ ë™ìž‘í•©ë‹ˆë‹¤.
+
+---
+
+## ë„êµ¬ ë§Œë“¤ê¸°
+
+toolì€ **TypeScript** ë˜ëŠ” **JavaScript** íŒŒì¼ë¡œ ì •ì˜í•©ë‹ˆë‹¤. ë‹¤ë§Œ tool ì •ì˜ì—ì„œ í˜¸ì¶œí•˜ëŠ” ìŠ¤í¬ë¦½íŠ¸ëŠ” **ì–´ë–¤ ì–¸ì–´ë“ ** ì‚¬ìš©í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. ì¦‰, TypeScript/JavaScriptëŠ” tool ì •ì˜ ìžì²´ì—ë§Œ í•„ìš”í•©ë‹ˆë‹¤.
+
+---
+
+### ìœ„ì¹˜
+
+toolì€ ë‹¤ìŒ ìœ„ì¹˜ì— ë‘˜ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
+
+- í”„ë¡œì íŠ¸ì˜ `.Clisis Coder/tools/` ë””ë ‰í† ë¦¬(ë¡œì»¬)
+- `~/.config/Clisis Coder/tools/` ë””ë ‰í† ë¦¬(ì „ì—­)
+
+---
+
+### êµ¬ì¡°
+
+toolì„ ê°€ìž¥ ì‰½ê²Œ ë§Œë“œëŠ” ë°©ë²•ì€ íƒ€ìž… ì•ˆì •ì„±ê³¼ validationì„ ì œê³µí•˜ëŠ” `tool()` helperë¥¼ ì‚¬ìš©í•˜ëŠ” ê²ƒìž…ë‹ˆë‹¤.
+
+```ts title=".Clisis Coder/tools/database.ts" {1}
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Query the project database",
+  args: {
+    query: tool.schema.string().describe("SQL query to execute"),
+  },
+  async execute(args) {
+    // Your database logic here
+    return `Executed query: ${args.query}`
+  },
+})
+```
+
+**íŒŒì¼ ì´ë¦„**ì´ **tool ì´ë¦„**ì´ ë©ë‹ˆë‹¤. ìœ„ ì˜ˆì‹œëŠ” `database` toolì„ ìƒì„±í•©ë‹ˆë‹¤.
+
+---
+
+#### íŒŒì¼ í•˜ë‚˜ì— ì—¬ëŸ¬ tool ì •ì˜
+
+í•˜ë‚˜ì˜ íŒŒì¼ì—ì„œ ì—¬ëŸ¬ toolì„ exportí•  ìˆ˜ë„ ìžˆìŠµë‹ˆë‹¤. ê° exportëŠ” **ë³„ë„ì˜ tool**ì´ ë˜ë©° ì´ë¦„ì€ **`<filename>_<exportname>`** í˜•ì‹ì„ ì‚¬ìš©í•©ë‹ˆë‹¤.
+
+```ts title=".Clisis Coder/tools/math.ts"
+import { tool } from "@demotic/clisis-plugin"
+
+export const add = tool({
+  description: "Add two numbers",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args) {
+    return args.a + args.b
+  },
+})
+
+export const multiply = tool({
+  description: "Multiply two numbers",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args) {
+    return args.a * args.b
+  },
+})
+```
+
+ì´ ê²½ìš° `math_add`, `math_multiply` ë‘ toolì´ ìƒì„±ë©ë‹ˆë‹¤.
+
+---
+
+#### ê¸°ë³¸ ë„êµ¬ì™€ ì´ë¦„ ì¶©ëŒ
+
+ì»¤ìŠ¤í…€ ë„êµ¬ëŠ” ë„êµ¬ ì´ë¦„ìœ¼ë¡œ ì‹ë³„ë©ë‹ˆë‹¤. ì»¤ìŠ¤í…€ ë„êµ¬ê°€ ê¸°ë³¸ ë„êµ¬ì™€ ê°™ì€ ì´ë¦„ì„ ì‚¬ìš©í•˜ë©´ ì»¤ìŠ¤í…€ ë„êµ¬ê°€ ìš°ì„ ìˆœìœ„ë¥¼ ê°–ìŠµë‹ˆë‹¤.
+
+ì˜ˆë¥¼ ë“¤ì–´, ì´ íŒŒì¼ì€ ê¸°ë³¸ `bash` ë„êµ¬ë¥¼ ëŒ€ì²´í•©ë‹ˆë‹¤:
+
+```ts title=".Clisis Coder/tools/bash.ts"
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Restricted bash wrapper",
+  args: {
+    command: tool.schema.string(),
+  },
+  async execute(args) {
+    return `blocked: ${args.command}`
+  },
+})
+```
+
+:::note
+ì˜ë„ì ìœ¼ë¡œ ê¸°ë³¸ ë„êµ¬ë¥¼ ëŒ€ì²´í•˜ë ¤ëŠ” ê²½ìš°ê°€ ì•„ë‹ˆë¼ë©´ ê³ ìœ í•œ ì´ë¦„ì„ ì‚¬ìš©í•˜ëŠ” ê²ƒì´ ì¢‹ìŠµë‹ˆë‹¤. ë„êµ¬ë¥¼ ì˜¤ë²„ë¼ì´ë“œí•˜ì§€ ì•Šê³  ë¹„í™œì„±í™”ë§Œ í•˜ë ¤ë©´ [permissions](/docs/permissions)ë¥¼ ì‚¬ìš©í•˜ì„¸ìš”.
+:::
+
+---
+
+### ì¸ìž
+
+ì¸ìž íƒ€ìž…ì€ `tool.schema`ë¡œ ì •ì˜í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. `tool.schema`ëŠ” [Zod](https://zod.dev) ê¸°ë°˜ìž…ë‹ˆë‹¤.
+
+```ts "tool.schema"
+args: {
+  query: tool.schema.string().describe("SQL query to execute")
+}
+```
+
+[Zod](https://zod.dev)ë¥¼ ì§ì ‘ importí•´ì„œ ì¼ë°˜ ê°ì²´ë¥¼ ë°˜í™˜í•˜ëŠ” ë°©ì‹ë„ ì‚¬ìš©í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
+
+```ts {6}
+import { z } from "zod"
+
+export default {
+  description: "Tool description",
+  args: {
+    param: z.string().describe("Parameter description"),
+  },
+  async execute(args, context) {
+    // Tool implementation
+    return "result"
+  },
+}
+```
+
+---
+
+### Context
+
+toolì€ í˜„ìž¬ ì„¸ì…˜ì˜ context ì •ë³´ë¥¼ ì „ë‹¬ë°›ìŠµë‹ˆë‹¤.
+
+```ts title=".Clisis Coder/tools/project.ts" {8}
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Get project information",
+  args: {},
+  async execute(args, context) {
+    // Access context information
+    const { agent, sessionID, messageID, directory, worktree } = context
+    return `Agent: ${agent}, Session: ${sessionID}, Message: ${messageID}, Directory: ${directory}, Worktree: ${worktree}`
+  },
+})
+```
+
+ì„¸ì…˜ ìž‘ì—… ë””ë ‰í† ë¦¬ëŠ” `context.directory`ë¥¼ ì‚¬ìš©í•˜ì„¸ìš”.
+git worktree ë£¨íŠ¸ëŠ” `context.worktree`ë¥¼ ì‚¬ìš©í•˜ì„¸ìš”.
+
+---
+
+## ì˜ˆì‹œ
+
+### Pythonìœ¼ë¡œ tool ìž‘ì„±
+
+toolì€ ì›í•˜ëŠ” ì–¸ì–´ë¡œ ìž‘ì„±í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. ì•„ëž˜ëŠ” Pythonìœ¼ë¡œ ë‘ ìˆ«ìžë¥¼ ë”í•˜ëŠ” ì˜ˆì‹œìž…ë‹ˆë‹¤.
+
+ë¨¼ì € Python ìŠ¤í¬ë¦½íŠ¸ë¡œ toolì„ ë§Œë“­ë‹ˆë‹¤.
+
+```python title=".Clisis Coder/tools/add.py"
+import sys
+
+a = int(sys.argv[1])
+b = int(sys.argv[2])
+print(a + b)
+```
+
+ê·¸ë‹¤ìŒ ì´ ìŠ¤í¬ë¦½íŠ¸ë¥¼ í˜¸ì¶œí•˜ëŠ” tool ì •ì˜ë¥¼ ë§Œë“­ë‹ˆë‹¤.
+
+```ts title=".Clisis Coder/tools/python-add.ts" {10}
+import { tool } from "@demotic/clisis-plugin"
+import path from "path"
+
+export default tool({
+  description: "Add two numbers using Python",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args, context) {
+    const script = path.join(context.worktree, ".Clisis Coder/tools/add.py")
+    const result = await Bun.$`python3 ${script} ${args.a} ${args.b}`.text()
+    return result.trim()
+  },
+})
+```
+
+ì—¬ê¸°ì„œëŠ” Python ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì‹¤í–‰í•˜ê¸° ìœ„í•´ [`Bun.$`](https://bun.com/docs/runtime/shell) ìœ í‹¸ë¦¬í‹°ë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤.

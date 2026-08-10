@@ -1,0 +1,34 @@
+[package]
+name = "clisis-coder-desktop"
+version = "0.1.0"
+description = "Clisis Coder Desktop - Tauri v2"
+authors = ["Clisis Coder AI"]
+edition = "2021"
+
+[lib]
+name = "clisis_coder_desktop_lib"
+crate-type = ["lib", "cdylib", "staticlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+tauri-plugin-shell = "2"
+tauri-plugin-dialog = "2"
+tauri-plugin-fs = "2"
+tauri-plugin-notification = "2"
+tauri-plugin-process = "2"
+tauri-plugin-store = "2"
+tauri-plugin-updater = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+uuid = { version = "1", features = ["v4"] }
+portable-pty = "0.9"
+anyhow = "1"
+log = "0.4"
+reqwest = { version = "0.12", features = ["json"] }
+which = "7"
+open = "5"
+hostname = "0.4"

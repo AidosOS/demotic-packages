@@ -1,0 +1,48 @@
+{
+  "name": "@demotic/mona-plugin-runtime",
+  "version": "0.5.0",
+  "private": false,
+  "type": "module",
+  "description": "Pure-TS Mona Design plugin runtime: manifest parsers, adapters, merger, ref resolver, validator, digest. No node:fs imports — daemon/web/CI inject loaders.",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "scripts": {
+    "build": "node ./esbuild.config.mjs && tsc -p tsconfig.json --emitDeclarationOnly",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.tests.json --noEmit"
+  },
+  "dependencies": {
+    "@demotic/mona-contracts": "workspace:*",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "20.19.39",
+    "esbuild": "0.28.0",
+    "typescript": "5.9.3",
+    "vitest": "4.1.6"
+  },
+  "engines": {
+    "node": "~24"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AidosOS/demotic-packages.git",
+    "directory": "mona-plugin-runtime"
+  },
+  "homepage": "https://github.com/AidosOS/demotic-packages",
+  "author": "Demotic Suite Contributors",
+  "license": "BSL-1.1"
+}

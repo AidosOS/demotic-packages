@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "@demotic/clisis-plugin",
+  "version": "1.16.2",
+  "type": "module",
+  "license": "BSL-1.1",
+  "scripts": {
+    "typecheck": "tsgo --noEmit",
+    "build": "tsc"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./tool": "./src/tool.ts",
+    "./tui": "./src/tui.ts"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@demotic/clisis-sdk": "workspace:*",
+    "effect": "4.0.0-beta.74",
+    "zod": "4.1.8"
+  },
+  "peerDependencies": {
+    "@opentui/core": ">=0.3.2",
+    "@opentui/keymap": ">=0.3.2",
+    "@opentui/solid": ">=0.3.2"
+  },
+  "peerDependenciesMeta": {
+    "@opentui/core": {
+      "optional": true
+    },
+    "@opentui/keymap": {
+      "optional": true
+    },
+    "@opentui/solid": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@opentui/core": "0.3.2",
+    "@opentui/keymap": "0.3.2",
+    "@opentui/solid": "0.3.2",
+    "@tsconfig/node22": "22.0.2",
+    "@types/node": "24.12.2",
+    "typescript": "5.8.2",
+    "@typescript/native-preview": "7.0.0-dev.20251207.1"
+  },
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AidosOS/demotic-packages.git",
+    "directory": "clisis-plugin"
+  },
+  "homepage": "https://github.com/AidosOS/demotic-packages",
+  "author": "Demotic Suite Contributors"
+}

@@ -1,0 +1,34 @@
+{
+  "name": "@demotic/owl-ee-den-admin-mcp",
+  "version": "0.4.0",
+  "description": "Read-only admin analytics MCP server for the Owl WorkMate Den database — growth, retention, company/user lookups",
+  "license": "BSL-1.1",
+  "private": false,
+  "type": "module",
+  "bin": {
+    "den-admin-mcp": "index.mjs"
+  },
+  "files": [
+    "index.mjs"
+  ],
+  "scripts": {
+    "check": "node --check index.mjs && node --check scripts/smoke.mjs",
+    "test": "sh -lc 'DATABASE_URL=${DATABASE_URL:-mysql://root:password@127.0.0.1:3306/OPENWORK_den} node scripts/smoke.mjs'"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "mysql2": "^3.11.3",
+    "zod": "^3.25.76"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AidosOS/demotic-packages.git",
+    "directory": "owl-ee-den-admin-mcp"
+  },
+  "homepage": "https://github.com/AidosOS/demotic-packages",
+  "author": "Demotic Suite Contributors"
+}

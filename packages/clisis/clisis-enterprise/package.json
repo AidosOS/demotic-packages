@@ -1,0 +1,56 @@
+{
+  "name": "@demotic/clisis-enterprise",
+  "version": "1.16.2",
+  "private": false,
+  "type": "module",
+  "license": "BSL-1.1",
+  "scripts": {
+    "typecheck": "tsgo --noEmit",
+    "dev": "vite dev",
+    "build": "vite build",
+    "build:cloudflare": "ClisisCoder_DEPLOYMENT_TARGET=cloudflare vite build",
+    "start": "vite start",
+    "shell-prod": "sst shell --target Teams --stage production"
+  },
+  "dependencies": {
+    "@demotic/clisis-core": "workspace:*",
+    "@demotic/clisis-ui": "workspace:*",
+    "aws4fetch": "^1.0.20",
+    "@pierre/diffs": "1.1.0-beta.18",
+    "@solidjs/router": "0.15.4",
+    "@solidjs/start": "https://pkg.pr.new/@solidjs/start@dfb2020",
+    "@solidjs/meta": "0.29.4",
+    "@hono/standard-validator": "0.2.0",
+    "hono": "4.10.7",
+    "hono-openapi": "1.1.2",
+    "js-base64": "3.7.7",
+    "luxon": "3.6.1",
+    "nitro": "3.0.1-alpha.1",
+    "solid-js": "1.9.10",
+    "zod": "4.1.8"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "4.20251008.0",
+    "@tailwindcss/vite": "4.1.11",
+    "@typescript/native-preview": "7.0.0-dev.20251207.1",
+    "@types/bun": "1.3.13",
+    "@types/luxon": "3.7.1",
+    "tailwindcss": "4.1.11",
+    "typescript": "5.8.2",
+    "vite": "7.1.4"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AidosOS/demotic-packages.git",
+    "directory": "clisis-enterprise"
+  },
+  "homepage": "https://github.com/AidosOS/demotic-packages",
+  "author": "Demotic Suite Contributors"
+}

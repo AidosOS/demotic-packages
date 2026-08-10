@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "@demotic/clisis-storybook",
+  "private": false,
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build": "storybook build"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.1.11",
+    "@demotic/clisis-ui": "workspace:*",
+    "@solidjs/meta": "0.29.4",
+    "@storybook/addon-a11y": "^10.2.13",
+    "@storybook/addon-docs": "^10.2.13",
+    "@storybook/addon-links": "^10.2.13",
+    "@storybook/addon-onboarding": "^10.2.13",
+    "@storybook/addon-vitest": "^10.2.13",
+    "@tsconfig/node22": "22.0.2",
+    "@types/node": "24.12.2",
+    "@types/react": "18.0.25",
+    "react": "18.2.0",
+    "solid-js": "1.9.10",
+    "storybook": "^10.2.13",
+    "storybook-solidjs-vite": "^10.0.9",
+    "typescript": "5.8.2",
+    "vite": "7.1.4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AidosOS/demotic-packages.git",
+    "directory": "clisis-storybook"
+  },
+  "homepage": "https://github.com/AidosOS/demotic-packages",
+  "author": "Demotic Suite Contributors",
+  "license": "BSL-1.1"
+}

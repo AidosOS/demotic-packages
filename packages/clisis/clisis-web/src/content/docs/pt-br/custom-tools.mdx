@@ -1,0 +1,196 @@
+﻿---
+title: Ferramentas Personalizadas
+description: Crie ferramentas que o LLM pode chamar no Clisis Coder.
+---
+
+Ferramentas personalizadas sÃ£o funÃ§Ãµes que vocÃª cria e que o LLM pode chamar durante as conversas. Elas funcionam junto com as [ferramentas integradas](/docs/tools) do Clisis Coder, como `read`, `write` e `bash`.
+
+---
+
+## Criando uma ferramenta
+
+As ferramentas sÃ£o definidas como arquivos **TypeScript** ou **JavaScript**. No entanto, a definiÃ§Ã£o da ferramenta pode invocar scripts escritos em **qualquer linguagem** â€” TypeScript ou JavaScript Ã© usado apenas para a definiÃ§Ã£o da ferramenta em si.
+
+---
+
+### LocalizaÃ§Ã£o
+
+Elas podem ser definidas:
+
+- Localmente, colocando-as no diretÃ³rio `.Clisis Coder/tools/` do seu projeto.
+- Ou globalmente, colocando-as em `~/.config/Clisis Coder/tools/`.
+
+---
+
+### Estrutura
+
+A maneira mais fÃ¡cil de criar ferramentas Ã© usando o helper `tool()`, que fornece seguranÃ§a de tipo e validaÃ§Ã£o.
+
+```ts title=".Clisis Coder/tools/database.ts" {1}
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Consultar o banco de dados do projeto",
+  args: {
+    query: tool.schema.string().describe("Consulta SQL para executar"),
+  },
+  async execute(args) {
+    // Sua lÃ³gica de banco de dados aqui
+    return `Consulta executada: ${args.query}`
+  },
+})
+```
+
+O **nome do arquivo** se torna o **nome da ferramenta**. O acima cria uma ferramenta `database`.
+
+---
+
+#### MÃºltiplas ferramentas por arquivo
+
+VocÃª tambÃ©m pode exportar vÃ¡rias ferramentas de um Ãºnico arquivo. Cada exportaÃ§Ã£o se torna **uma ferramenta separada** com o nome **`<filename>_<exportname>`**:
+
+```ts title=".Clisis Coder/tools/math.ts"
+import { tool } from "@demotic/clisis-plugin"
+
+export const add = tool({
+  description: "Adicionar dois nÃºmeros",
+  args: {
+    a: tool.schema.number().describe("Primeiro nÃºmero"),
+    b: tool.schema.number().describe("Segundo nÃºmero"),
+  },
+  async execute(args) {
+    return args.a + args.b
+  },
+})
+
+export const multiply = tool({
+  description: "Multiplicar dois nÃºmeros",
+  args: {
+    a: tool.schema.number().describe("Primeiro nÃºmero"),
+    b: tool.schema.number().describe("Segundo nÃºmero"),
+  },
+  async execute(args) {
+    return args.a * args.b
+  },
+})
+```
+
+Isso cria duas ferramentas: `math_add` e `math_multiply`.
+
+---
+
+#### ColisÃµes de nome com ferramentas integradas
+
+Ferramentas personalizadas sÃ£o chaveadas pelo nome da ferramenta. Se uma ferramenta personalizada usar o mesmo nome que uma ferramenta integrada, a ferramenta personalizada tem precedÃªncia.
+
+Por exemplo, este arquivo substitui a ferramenta `bash` integrada:
+
+```ts title=".Clisis Coder/tools/bash.ts"
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Restricted bash wrapper",
+  args: {
+    command: tool.schema.string(),
+  },
+  async execute(args) {
+    return `blocked: ${args.command}`
+  },
+})
+```
+
+:::note
+Prefira nomes Ãºnicos, a menos que vocÃª queira intencionalmente substituir uma ferramenta integrada. Se vocÃª quiser desabilitar uma ferramenta integrada, mas nÃ£o substituÃ­-la, use [permissÃµes](/docs/permissions).
+:::
+
+---
+
+### Argumentos
+
+VocÃª pode usar `tool.schema`, que Ã© apenas [Zod](https://zod.dev), para definir tipos de argumentos.
+
+```ts "tool.schema"
+args: {
+  query: tool.schema.string().describe("Consulta SQL para executar")
+}
+```
+
+VocÃª tambÃ©m pode importar [Zod](https://zod.dev) diretamente e retornar um objeto simples:
+
+```ts {6}
+import { z } from "zod"
+
+export default {
+  description: "DescriÃ§Ã£o da ferramenta",
+  args: {
+    param: z.string().describe("DescriÃ§Ã£o do parÃ¢metro"),
+  },
+  async execute(args, context) {
+    // ImplementaÃ§Ã£o da ferramenta
+    return "result"
+  },
+}
+```
+
+---
+
+### Contexto
+
+As ferramentas recebem contexto sobre a sessÃ£o atual:
+
+```ts title=".Clisis Coder/tools/project.ts" {8}
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Obter informaÃ§Ãµes do projeto",
+  args: {},
+  async execute(args, context) {
+    // Acessar informaÃ§Ãµes de contexto
+    const { agent, sessionID, messageID, directory, worktree } = context
+    return `Agent: ${agent}, Session: ${sessionID}, Message: ${messageID}, Directory: ${directory}, Worktree: ${worktree}`
+  },
+})
+```
+
+Use `context.directory` para o diretÃ³rio de trabalho da sessÃ£o.
+Use `context.worktree` para a raiz do worktree do git.
+
+---
+
+## Exemplos
+
+### Escrevendo uma ferramenta em Python
+
+VocÃª pode escrever suas ferramentas em qualquer linguagem que desejar. Aqui estÃ¡ um exemplo que adiciona dois nÃºmeros usando Python.
+
+Primeiro, crie a ferramenta como um script Python:
+
+```python title=".Clisis Coder/tools/add.py"
+import sys
+
+a = int(sys.argv[1])
+b = int(sys.argv[2])
+print(a + b)
+```
+
+Em seguida, crie a definiÃ§Ã£o da ferramenta que a invoca:
+
+```ts title=".Clisis Coder/tools/python-add.ts" {10}
+import { tool } from "@demotic/clisis-plugin"
+import path from "path"
+
+export default tool({
+  description: "Adicionar dois nÃºmeros usando Python",
+  args: {
+    a: tool.schema.number().describe("Primeiro nÃºmero"),
+    b: tool.schema.number().describe("Segundo nÃºmero"),
+  },
+  async execute(args, context) {
+    const script = path.join(context.worktree, ".Clisis Coder/tools/add.py")
+    const result = await Bun.$`python3 ${script} ${args.a} ${args.b}`.text()
+    return result.trim()
+  },
+})
+```
+
+Aqui estamos usando o utilitÃ¡rio [`Bun.$`](https://bun.com/docs/runtime/shell) para executar o script Python.

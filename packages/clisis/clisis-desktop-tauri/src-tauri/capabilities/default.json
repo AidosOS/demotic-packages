@@ -1,0 +1,36 @@
+{
+  "identifier": "default",
+  "description": "Default capabilities for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "shell:allow-open",
+    "shell:allow-spawn",
+    "shell:allow-execute",
+    "dialog:default",
+    "dialog:allow-open",
+    "dialog:allow-save",
+    "dialog:allow-message",
+    "dialog:allow-ask",
+    "fs:default",
+    "fs:allow-read",
+    "fs:allow-write",
+    "notification:default",
+    "notification:allow-notify",
+    "process:default",
+    "process:allow-exit",
+    "process:allow-restart",
+    "store:default",
+    "updater:default",
+    {
+      "identifier": "shell:allow-spawn",
+      "allow": [
+        {
+          "name": "clisis-coder-server",
+          "cmd": "node",
+          "args": true
+        }
+      ]
+    }
+  ]
+}

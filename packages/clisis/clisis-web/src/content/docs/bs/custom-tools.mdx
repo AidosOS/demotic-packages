@@ -1,0 +1,195 @@
+﻿---
+title: PrilagoÄ‘eni alati
+description: Kreirajte alate koje LLM moÅ¾e pozvati u otvorenom kodu.
+---
+
+PrilagoÄ‘eni alati su funkcije koje kreirate i koje LLM moÅ¾e pozvati tokom razgovora. Oni rade zajedno sa [ugraÄ‘enim Clisis Coder](/docs/tools) alatima kao Å¡to su `read`, `write` i `bash`.
+
+---
+
+## Kreiranje alata
+
+Alati su definisani kao **TypeScript** ili **JavaScript** datoteke. MeÄ‘utim, definicija alata moÅ¾e pozvati skripte napisane na **bilo kom jeziku** â€” TypeScript ili JavaScript se koriste samo za samu definiciju alata.
+
+---
+
+### Lokacija
+
+Mogu se definisati:
+
+- Lokalno postavljanjem u `.Clisis Coder/tools/` direktorij vaÅ¡eg projekta.
+- Ili globalno, postavljanjem u `~/.config/Clisis Coder/tools/`.
+
+---
+
+### Struktura
+
+NajlakÅ¡i naÄin za kreiranje alata je koriÅ¡tenje pomoÄ‡nika `tool()` koji pruÅ¾a sigurnost tipa i validaciju.
+
+```ts title=".Clisis Coder/tools/database.ts" {1}
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Query the project database",
+  args: {
+    query: tool.schema.string().describe("SQL query to execute"),
+  },
+  async execute(args) {
+    // Your database logic here
+    return `Executed query: ${args.query}`
+  },
+})
+```
+
+**ime datoteke** postaje **naziv alata**. Gore navedeno je kreirano pomoÄ‡u `database` alata.
+
+---
+
+#### ViÅ¡e alata po datoteci
+
+TakoÄ‘er moÅ¾ete izvesti viÅ¡e alata iz jedne datoteke. Svaki izvoz postaje **poseban alat** pod nazivom **`<filename>_<exportname>`**:
+
+```ts title=".Clisis Coder/tools/math.ts"
+import { tool } from "@demotic/clisis-plugin"
+
+export const add = tool({
+  description: "Add two numbers",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args) {
+    return args.a + args.b
+  },
+})
+
+export const multiply = tool({
+  description: "Multiply two numbers",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args) {
+    return args.a * args.b
+  },
+})
+```
+
+Ovo stvara dva alata: `math_add` i `math_multiply`.
+
+---
+
+#### Sukob imena s ugraÄ‘enim alatima
+
+PrilagoÄ‘eni alati su prepoznati po imenu. Ako prilagoÄ‘eni alat koristi isto ime kao ugraÄ‘eni alat, prilagoÄ‘eni alat ima prednost.
+
+Na primjer, ova datoteka zamjenjuje ugraÄ‘eni `bash` alat:
+
+```ts title=".Clisis Coder/tools/bash.ts"
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Restricted bash wrapper",
+  args: {
+    command: tool.schema.string(),
+  },
+  async execute(args) {
+    return `blocked: ${args.command}`
+  },
+})
+```
+
+:::note
+Preferirajte jedinstvena imena osim ako namjerno ne Å¾elite zamijeniti ugraÄ‘eni alat. Ako Å¾elite onemoguÄ‡iti ugraÄ‘eni alat, ali ne i nadjaÄati ga, koristite [dozvole](/docs/permissions).
+:::
+
+---
+
+### Argumenti
+
+MoÅ¾ete koristiti `tool.schema`, Å¡to je samo [Zod](https://zod.dev), da definirate tipove argumenata.
+
+```ts "tool.schema"
+args: {
+  query: tool.schema.string().describe("SQL query to execute")
+}
+```
+
+TakoÄ‘er moÅ¾ete direktno uvesti [Zod](https://zod.dev) i vratiti obiÄan objekt:
+
+```ts {6}
+import { z } from "zod"
+
+export default {
+  description: "Tool description",
+  args: {
+    param: z.string().describe("Parameter description"),
+  },
+  async execute(args, context) {
+    // Tool implementation
+    return "result"
+  },
+}
+```
+
+---
+
+### Kontekst
+
+Alati primaju kontekst o trenutnoj sesiji:
+
+```ts title=".Clisis Coder/tools/project.ts" {8}
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Get project information",
+  args: {},
+  async execute(args, context) {
+    // Access context information
+    const { agent, sessionID, messageID, directory, worktree } = context
+    return `Agent: ${agent}, Session: ${sessionID}, Message: ${messageID}, Directory: ${directory}, Worktree: ${worktree}`
+  },
+})
+```
+
+Koristite `context.directory` za radni direktorij sesije.
+Koristite `context.worktree` za korijen git radnog stabla.
+
+---
+
+## Primjeri
+
+### Pisanje alata u Python-u
+
+MoÅ¾ete pisati svoje alate na bilo kom jeziku koji Å¾elite. Evo primjera koji zbraja dva broja koristeÄ‡i Python.
+Prvo kreirajte alat kao Python skriptu:
+
+```python title=".Clisis Coder/tools/add.py"
+import sys
+
+a = int(sys.argv[1])
+b = int(sys.argv[2])
+print(a + b)
+```
+
+Zatim kreirajte definiciju alata koja ga poziva:
+
+```ts title=".Clisis Coder/tools/python-add.ts" {10}
+import { tool } from "@demotic/clisis-plugin"
+import path from "path"
+
+export default tool({
+  description: "Add two numbers using Python",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args, context) {
+    const script = path.join(context.worktree, ".Clisis Coder/tools/add.py")
+    const result = await Bun.$`python3 ${script} ${args.a} ${args.b}`.text()
+    return result.trim()
+  },
+})
+```
+
+Ovdje koristimo [`Bun.$`](https://bun.com/docs/runtime/shell) usluÅ¾ni program za pokretanje Python skripte.

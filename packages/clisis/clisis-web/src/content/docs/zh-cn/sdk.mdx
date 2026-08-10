@@ -1,0 +1,463 @@
+﻿---
+title: SDK
+description: Clisis Coder æœåŠ¡å™¨çš„ç±»åž‹å®‰å…¨ JS å®¢æˆ·ç«¯ã€‚
+---
+
+import config from "../../../../config.mjs"
+export const typesUrl = `${config.github}/blob/dev/packages/sdk/js/src/gen/types.gen.ts`
+
+Clisis Coder JS/TS SDK æä¾›äº†ä¸€ä¸ªç±»åž‹å®‰å…¨çš„å®¢æˆ·ç«¯ï¼Œç”¨äºŽä¸ŽæœåŠ¡å™¨è¿›è¡Œäº¤äº’ã€‚
+ä½ å¯ä»¥ç”¨å®ƒæ¥æž„å»ºé›†æˆæ–¹æ¡ˆï¼Œå¹¶ä»¥ç¼–ç¨‹æ–¹å¼æŽ§åˆ¶ Clisis Coderã€‚
+
+[äº†è§£æ›´å¤š](/docs/server)å…³äºŽæœåŠ¡å™¨çš„å·¥ä½œåŽŸç†ã€‚å¦‚éœ€ç¤ºä¾‹ï¼Œè¯·æŸ¥çœ‹ç¤¾åŒºæž„å»ºçš„[é¡¹ç›®](/docs/ecosystem#projects)ã€‚
+
+---
+
+## å®‰è£…
+
+ä»Ž npm å®‰è£… SDKï¼š
+
+```bash
+npm install @demotic/clisis-sdk
+```
+
+---
+
+## åˆ›å»ºå®¢æˆ·ç«¯
+
+åˆ›å»ºä¸€ä¸ª Clisis Coder å®žä¾‹ï¼š
+
+```javascript
+import { createClisisCoder } from "@demotic/clisis-sdk"
+
+const { client } = await createClisisCoder()
+```
+
+è¿™ä¼šåŒæ—¶å¯åŠ¨æœåŠ¡å™¨å’Œå®¢æˆ·ç«¯ã€‚
+
+#### é€‰é¡¹
+
+| é€‰é¡¹       | ç±»åž‹          | æè¿°                       | é»˜è®¤å€¼      |
+| ---------- | ------------- | -------------------------- | ----------- |
+| `hostname` | `string`      | æœåŠ¡å™¨ä¸»æœºå               | `127.0.0.1` |
+| `port`     | `number`      | æœåŠ¡å™¨ç«¯å£                 | `4096`      |
+| `signal`   | `AbortSignal` | ç”¨äºŽå–æ¶ˆæ“ä½œçš„ä¸­æ­¢ä¿¡å·     | `undefined` |
+| `timeout`  | `number`      | æœåŠ¡å™¨å¯åŠ¨è¶…æ—¶æ—¶é—´ï¼ˆæ¯«ç§’ï¼‰ | `5000`      |
+| `config`   | `Config`      | é…ç½®å¯¹è±¡                   | `{}`        |
+
+---
+
+## é…ç½®
+
+ä½ å¯ä»¥ä¼ å…¥ä¸€ä¸ªé…ç½®å¯¹è±¡æ¥è‡ªå®šä¹‰è¡Œä¸ºã€‚å®žä¾‹ä»ç„¶ä¼šè¯»å–ä½ çš„ `Clisis Coder.json`ï¼Œä½†ä½ å¯ä»¥é€šè¿‡å†…è”æ–¹å¼è¦†ç›–æˆ–æ·»åŠ é…ç½®ï¼š
+
+```javascript
+import { createClisisCoder } from "@demotic/clisis-sdk"
+
+const Clisis Coder = await createClisisCoder({
+  hostname: "127.0.0.1",
+  port: 4096,
+  config: {
+    model: "anthropic/claude-3-5-sonnet-20241022",
+  },
+})
+
+console.log(`Server running at ${Clisis Coder.server.url}`)
+
+Clisis Coder.server.close()
+```
+
+## ä»…å®¢æˆ·ç«¯æ¨¡å¼
+
+å¦‚æžœä½ å·²ç»æœ‰ä¸€ä¸ªæ­£åœ¨è¿è¡Œçš„ Clisis Coder å®žä¾‹ï¼Œå¯ä»¥åˆ›å»ºä¸€ä¸ªå®¢æˆ·ç«¯å®žä¾‹æ¥è¿žæŽ¥å®ƒï¼š
+
+```javascript
+import { createClisisCoderClient } from "@demotic/clisis-sdk"
+
+const client = createClisisCoderClient({
+  baseUrl: "http://localhost:4096",
+})
+```
+
+#### é€‰é¡¹
+
+| é€‰é¡¹            | ç±»åž‹       | æè¿°                         | é»˜è®¤å€¼                  |
+| --------------- | ---------- | ---------------------------- | ----------------------- |
+| `baseUrl`       | `string`   | æœåŠ¡å™¨ URL                   | `http://localhost:4096` |
+| `fetch`         | `function` | è‡ªå®šä¹‰ fetch å®žçŽ°            | `globalThis.fetch`      |
+| `parseAs`       | `string`   | å“åº”è§£æžæ–¹å¼                 | `auto`                  |
+| `responseStyle` | `string`   | è¿”å›žé£Žæ ¼ï¼š`data` æˆ– `fields` | `fields`                |
+| `throwOnError`  | `boolean`  | æŠ›å‡ºé”™è¯¯è€Œéžè¿”å›žé”™è¯¯         | `false`                 |
+
+---
+
+## ç±»åž‹
+
+SDK åŒ…å«æ‰€æœ‰ API ç±»åž‹çš„ TypeScript å®šä¹‰ã€‚ä½ å¯ä»¥ç›´æŽ¥å¯¼å…¥å®ƒä»¬ï¼š
+
+```typescript
+import type { Session, Message, Part } from "@demotic/clisis-sdk"
+```
+
+æ‰€æœ‰ç±»åž‹å‡æ ¹æ®æœåŠ¡å™¨çš„ OpenAPI è§„èŒƒç”Ÿæˆï¼Œå¯åœ¨<a href={typesUrl}>ç±»åž‹æ–‡ä»¶</a>ä¸­æŸ¥çœ‹ã€‚
+
+---
+
+## é”™è¯¯å¤„ç†
+
+SDK å¯èƒ½ä¼šæŠ›å‡ºé”™è¯¯ï¼Œä½ å¯ä»¥æ•èŽ·å¹¶å¤„ç†è¿™äº›é”™è¯¯ï¼š
+
+```typescript
+try {
+  await client.session.get({ path: { id: "invalid-id" } })
+} catch (error) {
+  console.error("Failed to get session:", (error as Error).message)
+}
+```
+
+---
+
+## ç»“æž„åŒ–è¾“å‡º
+
+ä½ å¯ä»¥é€šè¿‡æŒ‡å®šå¸¦æœ‰ JSON Schema çš„ `format` æ¥è¯·æ±‚æ¨¡åž‹è¿”å›žç»“æž„åŒ–çš„ JSON è¾“å‡ºã€‚æ¨¡åž‹ä¼šä½¿ç”¨ `StructuredOutput` å·¥å…·è¿”å›žç¬¦åˆä½  Schema çš„ç»è¿‡éªŒè¯çš„ JSONã€‚
+
+### åŸºæœ¬ç”¨æ³•
+
+```typescript
+const result = await client.session.prompt({
+  path: { id: sessionId },
+  body: {
+    parts: [{ type: "text", text: "Research Anthropic and provide company info" }],
+    format: {
+      type: "json_schema",
+      schema: {
+        type: "object",
+        properties: {
+          company: { type: "string", description: "Company name" },
+          founded: { type: "number", description: "Year founded" },
+          products: {
+            type: "array",
+            items: { type: "string" },
+            description: "Main products",
+          },
+        },
+        required: ["company", "founded"],
+      },
+    },
+  },
+})
+
+// Access the structured output
+console.log(result.data.info.structured_output)
+// { company: "Anthropic", founded: 2021, products: ["Claude", "Claude API"] }
+```
+
+### è¾“å‡ºæ ¼å¼ç±»åž‹
+
+| ç±»åž‹          | æè¿°                                    |
+| ------------- | --------------------------------------- |
+| `text`        | é»˜è®¤å€¼ã€‚æ ‡å‡†æ–‡æœ¬å“åº”ï¼ˆæ— ç»“æž„åŒ–è¾“å‡ºï¼‰    |
+| `json_schema` | è¿”å›žç¬¦åˆæ‰€æä¾› Schema çš„ç»è¿‡éªŒè¯çš„ JSON |
+
+### JSON Schema æ ¼å¼
+
+ä½¿ç”¨ `type: 'json_schema'` æ—¶ï¼Œéœ€æä¾›ä»¥ä¸‹å­—æ®µï¼š
+
+| å­—æ®µ         | ç±»åž‹            | æè¿°                                  |
+| ------------ | --------------- | ------------------------------------- |
+| `type`       | `'json_schema'` | å¿…å¡«ã€‚æŒ‡å®š JSON Schema æ¨¡å¼           |
+| `schema`     | `object`        | å¿…å¡«ã€‚å®šä¹‰è¾“å‡ºç»“æž„çš„ JSON Schema å¯¹è±¡ |
+| `retryCount` | `number`        | å¯é€‰ã€‚éªŒè¯é‡è¯•æ¬¡æ•°ï¼ˆé»˜è®¤å€¼ï¼š2ï¼‰       |
+
+### é”™è¯¯å¤„ç†
+
+å¦‚æžœæ¨¡åž‹åœ¨æ‰€æœ‰é‡è¯•åŽä»æ— æ³•ç”Ÿæˆæœ‰æ•ˆçš„ç»“æž„åŒ–è¾“å‡ºï¼Œå“åº”ä¸­ä¼šåŒ…å« `StructuredOutputError`ï¼š
+
+```typescript
+if (result.data.info.error?.name === "StructuredOutputError") {
+  console.error("Failed to produce structured output:", result.data.info.error.message)
+  console.error("Attempts:", result.data.info.error.retries)
+}
+```
+
+### æœ€ä½³å®žè·µ
+
+1. **åœ¨ Schema å±žæ€§ä¸­æä¾›æ¸…æ™°çš„æè¿°**ï¼Œå¸®åŠ©æ¨¡åž‹ç†è§£éœ€è¦æå–çš„æ•°æ®
+2. **ä½¿ç”¨ `required`** æŒ‡å®šå“ªäº›å­—æ®µå¿…é¡»å­˜åœ¨
+3. **ä¿æŒ Schema ç®€æ´** â€” å¤æ‚çš„åµŒå¥— Schema å¯èƒ½ä¼šè®©æ¨¡åž‹æ›´éš¾æ­£ç¡®å¡«å……
+4. **è®¾ç½®åˆé€‚çš„ `retryCount`** â€” å¯¹äºŽå¤æ‚ Schema å¯å¢žåŠ é‡è¯•æ¬¡æ•°ï¼Œå¯¹äºŽç®€å• Schema å¯å‡å°‘
+
+---
+
+## API
+
+SDK é€šè¿‡ç±»åž‹å®‰å…¨çš„å®¢æˆ·ç«¯æš´éœ²æ‰€æœ‰æœåŠ¡å™¨ APIã€‚
+
+---
+
+### Global
+
+| æ–¹æ³•              | æè¿°                     | å“åº”                                 |
+| ----------------- | ------------------------ | ------------------------------------ |
+| `global.health()` | æ£€æŸ¥æœåŠ¡å™¨å¥åº·çŠ¶æ€å’Œç‰ˆæœ¬ | `{ healthy: true, version: string }` |
+
+---
+
+#### ç¤ºä¾‹
+
+```javascript
+const health = await client.global.health()
+console.log(health.data.version)
+```
+
+---
+
+### App
+
+| æ–¹æ³•           | æè¿°               | å“åº”                                        |
+| -------------- | ------------------ | ------------------------------------------- |
+| `app.log()`    | å†™å…¥ä¸€æ¡æ—¥å¿—       | `boolean`                                   |
+| `app.agents()` | åˆ—å‡ºæ‰€æœ‰å¯ç”¨çš„ä»£ç† | <a href={typesUrl}><code>Agent[]</code></a> |
+
+---
+
+#### ç¤ºä¾‹
+
+```javascript
+// Write a log entry
+await client.app.log({
+  body: {
+    service: "my-app",
+    level: "info",
+    message: "Operation completed",
+  },
+})
+
+// List available agents
+const agents = await client.app.agents()
+```
+
+---
+
+### Project
+
+| æ–¹æ³•                | æè¿°         | å“åº”                                          |
+| ------------------- | ------------ | --------------------------------------------- |
+| `project.list()`    | åˆ—å‡ºæ‰€æœ‰é¡¹ç›® | <a href={typesUrl}><code>Project[]</code></a> |
+| `project.current()` | èŽ·å–å½“å‰é¡¹ç›® | <a href={typesUrl}><code>Project</code></a>   |
+
+---
+
+#### ç¤ºä¾‹
+
+```javascript
+// List all projects
+const projects = await client.project.list()
+
+// Get current project
+const currentProject = await client.project.current()
+```
+
+---
+
+### Path
+
+| æ–¹æ³•         | æè¿°         | å“åº”                                     |
+| ------------ | ------------ | ---------------------------------------- |
+| `path.get()` | èŽ·å–å½“å‰è·¯å¾„ | <a href={typesUrl}><code>Path</code></a> |
+
+---
+
+#### ç¤ºä¾‹
+
+```javascript
+// Get current path information
+const pathInfo = await client.path.get()
+```
+
+---
+
+### Config
+
+| æ–¹æ³•                 | æè¿°                 | å“åº”                                                                                                  |
+| -------------------- | -------------------- | ----------------------------------------------------------------------------------------------------- |
+| `config.get()`       | èŽ·å–é…ç½®ä¿¡æ¯         | <a href={typesUrl}><code>Config</code></a>                                                            |
+| `config.providers()` | åˆ—å‡ºæä¾›å•†å’Œé»˜è®¤æ¨¡åž‹ | `{ providers: `<a href={typesUrl}><code>Provider[]</code></a>`, default: { [key: string]: string } }` |
+
+---
+
+#### ç¤ºä¾‹
+
+```javascript
+const config = await client.config.get()
+
+const { providers, default: defaults } = await client.config.providers()
+```
+
+---
+
+### Sessions
+
+| æ–¹æ³•                                                       | æè¿°                       | å¤‡æ³¨                                                                                                                                                                                           |
+| ---------------------------------------------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `session.list()`                                           | åˆ—å‡ºä¼šè¯                   | è¿”å›ž <a href={typesUrl}><code>Session[]</code></a>                                                                                                                                             |
+| `session.get({ path })`                                    | èŽ·å–ä¼šè¯                   | è¿”å›ž <a href={typesUrl}><code>Session</code></a>                                                                                                                                               |
+| `session.children({ path })`                               | åˆ—å‡ºå­ä¼šè¯                 | è¿”å›ž <a href={typesUrl}><code>Session[]</code></a>                                                                                                                                             |
+| `session.create({ body })`                                 | åˆ›å»ºä¼šè¯                   | è¿”å›ž <a href={typesUrl}><code>Session</code></a>                                                                                                                                               |
+| `session.delete({ path })`                                 | åˆ é™¤ä¼šè¯                   | è¿”å›ž `boolean`                                                                                                                                                                                 |
+| `session.update({ path, body })`                           | æ›´æ–°ä¼šè¯å±žæ€§               | è¿”å›ž <a href={typesUrl}><code>Session</code></a>                                                                                                                                               |
+| `session.init({ path, body })`                             | åˆ†æžåº”ç”¨å¹¶åˆ›å»º `AGENTS.md` | è¿”å›ž `boolean`                                                                                                                                                                                 |
+| `session.abort({ path })`                                  | ä¸­æ­¢æ­£åœ¨è¿è¡Œçš„ä¼šè¯         | è¿”å›ž `boolean`                                                                                                                                                                                 |
+| `session.share({ path })`                                  | åˆ†äº«ä¼šè¯                   | è¿”å›ž <a href={typesUrl}><code>Session</code></a>                                                                                                                                               |
+| `session.unshare({ path })`                                | å–æ¶ˆåˆ†äº«ä¼šè¯               | è¿”å›ž <a href={typesUrl}><code>Session</code></a>                                                                                                                                               |
+| `session.summarize({ path, body })`                        | æ€»ç»“ä¼šè¯                   | è¿”å›ž `boolean`                                                                                                                                                                                 |
+| `session.messages({ path })`                               | åˆ—å‡ºä¼šè¯ä¸­çš„æ¶ˆæ¯           | è¿”å›ž `{ info: `<a href={typesUrl}><code>Message</code></a>`, parts: `<a href={typesUrl}><code>Part[]</code></a>`}[]`                                                                           |
+| `session.message({ path })`                                | èŽ·å–æ¶ˆæ¯è¯¦æƒ…               | è¿”å›ž `{ info: `<a href={typesUrl}><code>Message</code></a>`, parts: `<a href={typesUrl}><code>Part[]</code></a>`}`                                                                             |
+| `session.prompt({ path, body })`                           | å‘é€æç¤ºè¯æ¶ˆæ¯             | `body.noReply: true` è¿”å›ž UserMessageï¼ˆä»…æ³¨å…¥ä¸Šä¸‹æ–‡ï¼‰ã€‚é»˜è®¤è¿”å›žå¸¦æœ‰ AI å“åº”çš„ <a href={typesUrl}><code>AssistantMessage</code></a>ã€‚æ”¯æŒé€šè¿‡ `body.outputFormat` ä½¿ç”¨[ç»“æž„åŒ–è¾“å‡º](#ç»“æž„åŒ–è¾“å‡º) |
+| `session.command({ path, body })`                          | å‘ä¼šè¯å‘é€å‘½ä»¤             | è¿”å›ž `{ info: `<a href={typesUrl}><code>AssistantMessage</code></a>`, parts: `<a href={typesUrl}><code>Part[]</code></a>`}`                                                                    |
+| `session.shell({ path, body })`                            | æ‰§è¡Œ shell å‘½ä»¤            | è¿”å›ž <a href={typesUrl}><code>AssistantMessage</code></a>                                                                                                                                      |
+| `session.revert({ path, body })`                           | æ’¤å›žæ¶ˆæ¯                   | è¿”å›ž <a href={typesUrl}><code>Session</code></a>                                                                                                                                               |
+| `session.unrevert({ path })`                               | æ¢å¤å·²æ’¤å›žçš„æ¶ˆæ¯           | è¿”å›ž <a href={typesUrl}><code>Session</code></a>                                                                                                                                               |
+| `postSessionByIdPermissionsByPermissionId({ path, body })` | å“åº”æƒé™è¯·æ±‚               | è¿”å›ž `boolean`                                                                                                                                                                                 |
+
+---
+
+#### ç¤ºä¾‹
+
+```javascript
+// Create and manage sessions
+const session = await client.session.create({
+  body: { title: "My session" },
+})
+
+const sessions = await client.session.list()
+
+// Send a prompt message
+const result = await client.session.prompt({
+  path: { id: session.id },
+  body: {
+    model: { providerID: "anthropic", modelID: "claude-3-5-sonnet-20241022" },
+    parts: [{ type: "text", text: "Hello!" }],
+  },
+})
+
+// Inject context without triggering AI response (useful for plugins)
+await client.session.prompt({
+  path: { id: session.id },
+  body: {
+    noReply: true,
+    parts: [{ type: "text", text: "You are a helpful assistant." }],
+  },
+})
+```
+
+---
+
+### Files
+
+| æ–¹æ³•                      | æè¿°                 | å“åº”                                                                                |
+| ------------------------- | -------------------- | ----------------------------------------------------------------------------------- |
+| `find.text({ query })`    | æœç´¢æ–‡ä»¶ä¸­çš„æ–‡æœ¬     | åŒ…å« `path`ã€`lines`ã€`line_number`ã€`absolute_offset`ã€`submatches` çš„åŒ¹é…å¯¹è±¡æ•°ç»„ |
+| `find.files({ query })`   | æŒ‰åç§°æŸ¥æ‰¾æ–‡ä»¶å’Œç›®å½• | `string[]`ï¼ˆè·¯å¾„ï¼‰                                                                  |
+| `find.symbols({ query })` | æŸ¥æ‰¾å·¥ä½œåŒºç¬¦å·       | <a href={typesUrl}><code>Symbol[]</code></a>                                        |
+| `file.read({ query })`    | è¯»å–æ–‡ä»¶             | `{ type: "raw" \| "patch", content: string }`                                       |
+| `file.status({ query? })` | èŽ·å–å·²è·Ÿè¸ªæ–‡ä»¶çš„çŠ¶æ€ | <a href={typesUrl}><code>File[]</code></a>                                          |
+
+`find.files` æ”¯æŒä»¥ä¸‹å¯é€‰æŸ¥è¯¢å­—æ®µï¼š
+
+- `type`ï¼š`"file"` æˆ– `"directory"`
+- `directory`ï¼šè¦†ç›–æœç´¢çš„é¡¹ç›®æ ¹ç›®å½•
+- `limit`ï¼šæœ€å¤§ç»“æžœæ•°ï¼ˆ1â€“200ï¼‰
+
+---
+
+#### ç¤ºä¾‹
+
+```javascript
+// Search and read files
+const textResults = await client.find.text({
+  query: { pattern: "function.*Clisis Coder" },
+})
+
+const files = await client.find.files({
+  query: { query: "*.ts", type: "file" },
+})
+
+const directories = await client.find.files({
+  query: { query: "packages", type: "directory", limit: 20 },
+})
+
+const content = await client.file.read({
+  query: { path: "src/index.ts" },
+})
+```
+
+---
+
+### TUI
+
+| æ–¹æ³•                           | æè¿°             | å“åº”      |
+| ------------------------------ | ---------------- | --------- |
+| `tui.appendPrompt({ body })`   | å‘æç¤ºè¯è¿½åŠ æ–‡æœ¬ | `boolean` |
+| `tui.openHelp()`               | æ‰“å¼€å¸®åŠ©å¯¹è¯æ¡†   | `boolean` |
+| `tui.openSessions()`           | æ‰“å¼€ä¼šè¯é€‰æ‹©å™¨   | `boolean` |
+| `tui.openThemes()`             | æ‰“å¼€ä¸»é¢˜é€‰æ‹©å™¨   | `boolean` |
+| `tui.openModels()`             | æ‰“å¼€æ¨¡åž‹é€‰æ‹©å™¨   | `boolean` |
+| `tui.submitPrompt()`           | æäº¤å½“å‰æç¤ºè¯   | `boolean` |
+| `tui.clearPrompt()`            | æ¸…é™¤æç¤ºè¯       | `boolean` |
+| `tui.executeCommand({ body })` | æ‰§è¡Œå‘½ä»¤         | `boolean` |
+| `tui.showToast({ body })`      | æ˜¾ç¤º Toast é€šçŸ¥  | `boolean` |
+
+---
+
+#### ç¤ºä¾‹
+
+```javascript
+// Control TUI interface
+await client.tui.appendPrompt({
+  body: { text: "Add this to prompt" },
+})
+
+await client.tui.showToast({
+  body: { message: "Task completed", variant: "success" },
+})
+```
+
+---
+
+### Auth
+
+| æ–¹æ³•                | æè¿°         | å“åº”      |
+| ------------------- | ------------ | --------- |
+| `auth.set({ ... })` | è®¾ç½®è®¤è¯å‡­æ® | `boolean` |
+
+---
+
+#### ç¤ºä¾‹
+
+```javascript
+await client.auth.set({
+  path: { id: "anthropic" },
+  body: { type: "api", key: "your-api-key" },
+})
+```
+
+---
+
+### Events
+
+| æ–¹æ³•                | æè¿°               | å“åº”               |
+| ------------------- | ------------------ | ------------------ |
+| `event.subscribe()` | æœåŠ¡å™¨å‘é€çš„äº‹ä»¶æµ | æœåŠ¡å™¨å‘é€çš„äº‹ä»¶æµ |
+
+---
+
+#### ç¤ºä¾‹
+
+```javascript
+// Listen to real-time events
+const events = await client.event.subscribe()
+for await (const event of events.stream) {
+  console.log("Event:", event.type, event.properties)
+}
+```

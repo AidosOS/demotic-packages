@@ -1,0 +1,388 @@
+﻿---
+title: Eklentiler
+description: Clisis Coder'u geniÅŸletmek iÃ§in kendi eklentilerinizi yazÄ±n.
+---
+
+Eklentiler, Ã§eÅŸitli olaylara baÄŸlanarak ve davranÄ±ÅŸÄ± Ã¶zelleÅŸtirerek Clisis Coder'u geniÅŸletmenize olanak tanÄ±r. Yeni Ã¶zellikler eklemek, harici hizmetlerle entegrasyon saÄŸlamak veya Clisis Coder'un varsayÄ±lan davranÄ±ÅŸÄ±nÄ± deÄŸiÅŸtirmek iÃ§in eklentiler oluÅŸturabilirsiniz.
+
+Ã–rnekler iÃ§in topluluk tarafÄ±ndan oluÅŸturulan [eklentilere](/docs/ecosystem#plugins) gÃ¶z atÄ±n.
+
+---
+
+## Eklenti kullanÄ±mÄ±
+
+Eklentileri yÃ¼klemenin iki yolu vardÄ±r.
+
+---
+
+### Yerel dosyalardan
+
+JavaScript veya TypeScript dosyalarÄ±nÄ± eklenti dizinine yerleÅŸtirin.
+
+- `.Clisis Coder/plugins/` - Proje dÃ¼zeyinde eklentiler
+- `~/.config/Clisis Coder/plugins/` - Genel eklentiler
+
+Bu dizinlerdeki dosyalar baÅŸlangÄ±Ã§ta otomatik olarak yÃ¼klenir.
+
+---
+
+### npm'den
+
+YapÄ±landÄ±rma dosyanÄ±zda npm paketlerini belirtin.
+
+```json title="Clisis Coder.json"
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "plugin": ["Clisis Coder-helicone-session", "Clisis Coder-wakatime", "@my-org/custom-plugin"]
+}
+```
+
+Hem normal hem de kapsamlÄ± npm paketleri desteklenir.
+
+[Ekosistem](/docs/ecosystem#plugins)'deki mevcut eklentilere gÃ¶z atÄ±n.
+
+---
+
+### Eklentiler nasÄ±l kurulur?
+
+**npm eklentileri** baÅŸlangÄ±Ã§ta Bun kullanÄ±larak otomatik olarak yÃ¼klenir. Paketler ve baÄŸÄ±mlÄ±lÄ±klarÄ± `~/.cache/Clisis Coder/node_modules/`'da Ã¶nbelleÄŸe alÄ±nÄ±r.
+
+**Yerel eklentiler** doÄŸrudan eklenti dizininden yÃ¼klenir. Harici paketleri kullanmak iÃ§in, sisteminizin dizininde bir `package.json` oluÅŸturmanÄ±z (bkz. [BaÄŸÄ±mlÄ±lÄ±klar](#dependencies)) veya eklentiyi npm ve [yapÄ±landÄ±rmanÄ±za eklemeniz](/docs/config#plugins) gerekir.
+
+---
+
+### YÃ¼kleme sÄ±rasÄ±
+
+Eklentiler tÃ¼m kaynaklardan yÃ¼klenir ve tÃ¼m kancalar sÄ±rayla Ã§alÄ±ÅŸÄ±r. YÃ¼kleme sÄ±rasÄ± ÅŸÃ¶yledir:
+
+1. Global config (`~/.config/Clisis Coder/Clisis Coder.json`)
+2. Project config (`Clisis Coder.json`)
+3. Global eklenti dizini (`~/.config/Clisis Coder/plugins/`)
+4. Proje eklenti dizini (`.Clisis Coder/plugins/`)
+
+AynÄ± ad ve sÃ¼rÃ¼me sahip yinelenen npm paketleri bir kez yÃ¼klenir. Ancak benzer adlara sahip bir yerel eklenti ve bir npm eklentisinin her ikisi de ayrÄ± ayrÄ± yÃ¼klenir.
+
+---
+
+## Eklenti oluÅŸturma
+
+Eklenti, bir veya daha fazla eklenti iÅŸlevini dÄ±ÅŸa aktaran bir **JavaScript/TypeScript modÃ¼lÃ¼dÃ¼r**. Her iÅŸlev bir baÄŸlam nesnesi alÄ±r ve bir kanca nesnesi dÃ¶ndÃ¼rÃ¼r.
+
+---
+
+### BaÄŸÄ±mlÄ±lÄ±klar
+
+Yerel eklentiler ve Ã¶zel araÃ§lar harici npm paketlerini kullanabilir. Ä°htiyacÄ±nÄ±z olan baÄŸÄ±mlÄ±lÄ±klarÄ± iÃ§eren config dizininize bir `package.json` ekleyin.
+
+```json title=".Clisis Coder/package.json"
+{
+  "dependencies": {
+    "shescape": "^2.1.0"
+  }
+}
+```
+
+Clisis Coder bunlarÄ± yÃ¼klemek iÃ§in baÅŸlangÄ±Ã§ta `bun install` komutunu Ã§alÄ±ÅŸtÄ±rÄ±r. Eklentileriniz ve araÃ§larÄ±nÄ±z daha sonra bunlarÄ± iÃ§e aktarabilir.
+
+```ts title=".Clisis Coder/plugins/my-plugin.ts"
+import { escape } from "shescape"
+
+export const MyPlugin = async (ctx) => {
+  return {
+    "tool.execute.before": async (input, output) => {
+      if (input.tool === "bash") {
+        output.args.command = escape(output.args.command)
+      }
+    },
+  }
+}
+```
+
+---
+
+### Temel yapÄ±
+
+```js title=".Clisis Coder/plugins/example.js"
+export const MyPlugin = async ({ project, client, $, directory, worktree }) => {
+  console.log("Plugin initialized!")
+
+  return {
+    // Hook implementations go here
+  }
+}
+```
+
+Eklenti iÅŸlevi ÅŸunlarÄ± alÄ±r:
+
+- `project`: Mevcut proje bilgisi.
+- `directory`: GÃ¼ncel Ã§alÄ±ÅŸma dizini.
+- `worktree`: Git Ã§alÄ±ÅŸma aÄŸacÄ± yolu.
+- `client`: Yapay zeka ile etkileÅŸim kurmak iÃ§in bir Clisis Coder SDK istemcisi.
+- `$`: Bun'un komutlarÄ± yÃ¼rÃ¼tmek iÃ§in kullandÄ±ÄŸÄ± [shell API](https://bun.com/docs/runtime/shell).
+
+---
+
+### TypeScript desteÄŸi
+
+TypeScript eklentileri iÃ§in tÃ¼rleri eklenti paketinden iÃ§e aktarabilirsiniz:
+
+```ts title="my-plugin.ts" {1}
+import type { Plugin } from "@demotic/clisis-plugin"
+
+export const MyPlugin: Plugin = async ({ project, client, $, directory, worktree }) => {
+  return {
+    // Type-safe hook implementations
+  }
+}
+```
+
+---
+
+### Olaylar
+
+Eklentiler aÅŸaÄŸÄ±daki Ã–rnekler bÃ¶lÃ¼mÃ¼nde gÃ¶rÃ¼ldÃ¼ÄŸÃ¼ gibi etkinliklere abone olabilirler. Burada mevcut farklÄ± etkinliklerin bir listesi bulunmaktadÄ±r.
+
+#### Komut OlaylarÄ±
+
+- `command.executed`
+
+#### Dosya OlaylarÄ±
+
+- `file.edited`
+- `file.watcher.updated`
+
+#### Kurulum OlaylarÄ±
+
+- `installation.updated`
+
+#### LSP OlaylarÄ±
+
+- `lsp.client.diagnostics`
+- `lsp.updated`
+
+#### Mesaj OlaylarÄ±
+
+- `message.part.removed`
+- `message.part.updated`
+- `message.removed`
+- `message.updated`
+
+#### Ä°zin OlaylarÄ±
+
+- `permission.asked`
+- `permission.replied`
+
+#### Sunucu OlaylarÄ±
+
+- `server.connected`
+
+#### Oturum OlaylarÄ±
+
+- `session.created`
+- `session.compacted`
+- `session.deleted`
+- `session.diff`
+- `session.error`
+- `session.idle`
+- `session.status`
+- `session.updated`
+
+#### YapÄ±lacaklar OlaylarÄ±
+
+- `todo.updated`
+
+#### Kabuk OlaylarÄ±
+
+- `shell.env`
+
+#### AraÃ§ OlaylarÄ±
+
+- `tool.execute.after`
+- `tool.execute.before`
+
+#### TUI OlaylarÄ±
+
+- `tui.prompt.append`
+- `tui.command.execute`
+- `tui.toast.show`
+
+---
+
+## Ã–rnekler
+
+Clisis Coder'u geniÅŸletmek iÃ§in kullanabileceÄŸiniz bazÄ± eklenti Ã¶rneklerini burada bulabilirsiniz.
+
+---
+
+### Bildirim GÃ¶nderme
+
+Belirli olaylar meydana geldiÄŸinde bildirim gÃ¶nderin:
+
+```js title=".Clisis Coder/plugins/notification.js"
+export const NotificationPlugin = async ({ project, client, $, directory, worktree }) => {
+  return {
+    event: async ({ event }) => {
+      // Send notification on session completion
+      if (event.type === "session.idle") {
+        await $`osascript -e 'display notification "Session completed!" with title "Clisis Coder"'`
+      }
+    },
+  }
+}
+```
+
+macOS'ta AppleScript'i Ã§alÄ±ÅŸtÄ±rmak iÃ§in `osascript` kullanÄ±yoruz. Burada bildirim gÃ¶ndermek iÃ§in kullanÄ±yoruz.
+
+:::note
+Clisis Coder masaÃ¼stÃ¼ uygulamasÄ±nÄ± kullanÄ±yorsanÄ±z yanÄ±t hazÄ±r olduÄŸunda veya oturum hatalarÄ± oluÅŸtuÄŸunda otomatik olarak sistem bildirimleri gÃ¶nderebilir.
+:::
+
+---
+
+### .env KorumasÄ±
+
+Clisis Coder'un `.env` dosyalarÄ±nÄ± okumasÄ±nÄ± Ã¶nleyin:
+
+```javascript title=".Clisis Coder/plugins/env-protection.js"
+export const EnvProtection = async ({ project, client, $, directory, worktree }) => {
+  return {
+    "tool.execute.before": async (input, output) => {
+      if (input.tool === "read" && output.args.filePath.includes(".env")) {
+        throw new Error("Do not read .env files")
+      }
+    },
+  }
+}
+```
+
+---
+
+### Ortam deÄŸiÅŸkenlerini enjekte etme
+
+Ortam deÄŸiÅŸkenlerini tÃ¼m kabuk yÃ¼rÃ¼tmeye (AI araÃ§larÄ± ve kullanÄ±cÄ± terminalleri) enjekte edin:
+
+```javascript title=".Clisis Coder/plugins/inject-env.js"
+export const InjectEnvPlugin = async () => {
+  return {
+    "shell.env": async (input, output) => {
+      output.env.MY_API_KEY = "secret"
+      output.env.PROJECT_ROOT = input.cwd
+    },
+  }
+}
+```
+
+---
+
+### Ã–zel araÃ§lar
+
+Eklentiler ayrÄ±ca Clisis Coder'a Ã¶zel araÃ§lar da ekleyebilir:
+
+```ts title=".Clisis Coder/plugins/custom-tools.ts"
+import { type Plugin, tool } from "@demotic/clisis-plugin"
+
+export const CustomToolsPlugin: Plugin = async (ctx) => {
+  return {
+    tool: {
+      mytool: tool({
+        description: "This is a custom tool",
+        args: {
+          foo: tool.schema.string(),
+        },
+        async execute(args, context) {
+          const { directory, worktree } = context
+          return `Hello ${args.foo} from ${directory} (worktree: ${worktree})`
+        },
+      }),
+    },
+  }
+}
+```
+
+`tool` yardÄ±mcÄ±sÄ±, Clisis Coder'un Ã§aÄŸÄ±rabileceÄŸi Ã¶zel bir araÃ§ oluÅŸturur. Bir Zod ÅŸemasÄ± iÅŸlevini alÄ±r ve aÅŸaÄŸÄ±dakileri iÃ§eren bir araÃ§ tanÄ±mÄ± dÃ¶ndÃ¼rÃ¼r:
+
+- `description`: AraÃ§ ne yapar?
+- `args`: AracÄ±n argÃ¼manlarÄ± iÃ§in Zod ÅŸemasÄ±
+- `execute`: AraÃ§ Ã§aÄŸrÄ±ldÄ±ÄŸÄ±nda Ã§alÄ±ÅŸan fonksiyon
+
+Ã–zel araÃ§larÄ±nÄ±z, yerleÅŸik araÃ§larÄ±n yanÄ± sÄ±ra Clisis Coder'a da hazÄ±r olacaktÄ±r.
+
+:::note
+EÄŸer bir eklenti aracÄ± yerleÅŸik bir araÃ§la aynÄ± adÄ± kullanÄ±rsa, eklenti aracÄ± Ã¶ncelik kazanÄ±r.
+:::
+
+---
+
+### GÃ¼nlÃ¼ÄŸe kaydetme
+
+YapÄ±landÄ±rÄ±lmÄ±ÅŸ gÃ¼nlÃ¼k kaydÄ± iÃ§in `console.log` yerine `client.app.log()` kullanÄ±n:
+
+```ts title=".Clisis Coder/plugins/my-plugin.ts"
+export const MyPlugin = async ({ client }) => {
+  await client.app.log({
+    body: {
+      service: "my-plugin",
+      level: "info",
+      message: "Plugin initialized",
+      extra: { foo: "bar" },
+    },
+  })
+}
+```
+
+Seviyeler: `debug`, `info`, `warn`, `error`. AyrÄ±ntÄ±lar iÃ§in [SDK belgelerine](https://Clisis Coder.ai/docs/sdk) bakÄ±n.
+
+---
+
+### SÄ±kÄ±ÅŸtÄ±rma kancalarÄ±
+
+Bir oturum sÄ±kÄ±ÅŸtÄ±rÄ±ldÄ±ÄŸÄ±nda iÃ§erilen baÄŸlamÄ± Ã¶zelleÅŸtirin:
+
+```ts title=".Clisis Coder/plugins/compaction.ts"
+import type { Plugin } from "@demotic/clisis-plugin"
+
+export const CompactionPlugin: Plugin = async (ctx) => {
+  return {
+    "experimental.session.compacting": async (input, output) => {
+      // Inject additional context into the compaction prompt
+      output.context.push(`
+## Custom Context
+
+Include any state that should persist across compaction:
+- Current task status
+- Important decisions made
+- Files being actively worked on
+`)
+    },
+  }
+}
+```
+
+`experimental.session.compacting` kancasÄ±, LLM bir devam Ã¶zeti oluÅŸturmadan Ã¶nce tetiklenir. VarsayÄ±lan sÄ±kÄ±ÅŸtÄ±rma isteminin kaÃ§Ä±racaÄŸÄ± etki alanÄ±na Ã¶zgÃ¼ baÄŸlamÄ± enjekte etmek iÃ§in bunu kullanÄ±n.
+
+AyrÄ±ca `output.prompt` ayarÄ±nÄ± yaparak sÄ±kÄ±ÅŸtÄ±rma istemini tamamen deÄŸiÅŸtirebilirsiniz:
+
+```ts title=".Clisis Coder/plugins/custom-compaction.ts"
+import type { Plugin } from "@demotic/clisis-plugin"
+
+export const CustomCompactionPlugin: Plugin = async (ctx) => {
+  return {
+    "experimental.session.compacting": async (input, output) => {
+      // Replace the entire compaction prompt
+      output.prompt = `
+You are generating a continuation prompt for a multi-agent swarm session.
+
+Summarize:
+1. The current task and its status
+2. Which files are being modified and by whom
+3. Any blockers or dependencies between agents
+4. The next steps to complete the work
+
+Format as a structured prompt that a new agent can use to resume work.
+`
+    },
+  }
+}
+```
+
+`output.prompt` ayarlandÄ±ÄŸÄ±nda, varsayÄ±lan sÄ±kÄ±ÅŸtÄ±rma isteminin tamamen yerini alÄ±r. Bu durumda `output.context` dizisi dikkate alÄ±nmaz.

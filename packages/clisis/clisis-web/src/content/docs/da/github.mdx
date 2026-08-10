@@ -1,0 +1,321 @@
+﻿---
+title: GitHub
+description: Brug Clisis Coder i GitHub-problemer og Pull Requests.
+---
+
+Clisis Coder integreres med din GitHub arbejdsgang. NÃ¦vn `/Clisis Coder` eller `/oc` i din kommentar, og Clisis Coder vil udfÃ¸re opgaver i din GitHub Actions-lÃ¸ber.
+
+---
+
+## Funktioner
+
+- **Triageproblemer**: Bed Clisis Coder om at undersÃ¸ge et problem og forklare dig det.
+- **Ret og implementer**: Bed Clisis Coder om at lÃ¸se et problem eller implementere en funktion. Og det vil fungere i en ny branch og indsende en PR med alle Ã¦ndringerne.
+- **Sikker**: Clisis Coder lÃ¸ber inde i din GitHubs lÃ¸bere.
+
+---
+
+## Installation
+
+KÃ¸r fÃ¸lgende kommando i et projekt, der er i en GitHub repo:
+
+```bash
+Clisis Coder github install
+```
+
+Dette vil lede dig gennem installation af GitHub-appen, oprettelse af arbejdsgangen og opsÃ¦tning af hemmeligheder.
+
+---
+
+### Manuel opsÃ¦tning
+
+Eller du kan indstille det manuelt.
+
+1. **Installationsprogrammet GitHub-appen**
+
+   GÃ¥ over til [**github.com/apps/Clisis Coder-agent**](https://github.com/apps/Clisis Coder-agent). SÃ¸rg for, at det er installeret pÃ¥ mÃ¥llageret.
+
+2. **TilfÃ¸j arbejdsgangen**
+
+   TilfÃ¸j fÃ¸lgende workflow-fil til `.github/workflows/Clisis Coder.yml` i din repo. SÃ¸rg for at indstille de relevante `model` og nÃ¸dvendige API-nÃ¸gler i `env`.
+
+   ```yml title=".github/workflows/Clisis Coder.yml" {24,26}
+   name: Clisis Coder
+
+   on:
+     issue_comment:
+       types: [created]
+     pull_request_review_comment:
+       types: [created]
+
+   jobs:
+     Clisis Coder:
+       if: |
+         contains(github.event.comment.body, '/oc') ||
+         contains(github.event.comment.body, '/Clisis Coder')
+       runs-on: ubuntu-latest
+       permissions:
+         id-token: write
+       steps:
+          - name: Checkout repository
+            uses: actions/checkout@v6
+            with:
+              fetch-depth: 1
+              persist-credentials: false
+
+          - name: Run Clisis Coder
+           uses: AidosOS/demotic-clisis-coder/github@latest
+           env:
+             ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+           with:
+             model: anthropic/claude-sonnet-4-20250514
+             # share: true
+             # github_token: xxxx
+   ```
+
+3. **Opbevar API-nÃ¸glerne i hemmeligheder**
+
+   I din organisation eller dit projekt **indstillinger** skal du udvide **Hemmeligheder og variabler** til venstre og vÃ¦lge **Handlinger**. Og tilfÃ¸j de nÃ¸dvendige API-nÃ¸gler.
+
+---
+
+## Konfiguration
+
+- `model`: Den model, der skal bruges med Clisis Coder. Antager formatet `provider/model`. Dette er **pÃ¥krÃ¦vet**.
+- `agent`: Agenten, der skal bruges. Skal vÃ¦re en primÃ¦r agent. Falder tilbage til `default_agent` fra config eller `"build"`, hvis den ikke findes.
+- `share`: Om Clisis Coder-sessionen skal dele. Standard er **true** for offentlige arkiver.
+- `prompt`: Valgfri brugerdefineret prompt for at tilsidesÃ¦tte standardadfÃ¦rden. Brug dette til at tilpasse, hvordan Clisis Coder behandler anmodninger.
+- `token`: Valgfrit GitHub adgangstoken til at udfÃ¸re operationer sÃ¥som oprettelse af kommentarer, begÃ¥ Ã¦ndringer og Ã¥bning af Pull Requests. Som standard bruger Clisis Coder installationsadgangstokenet fra Clisis Coder GitHub-appen, sÃ¥ commits, kommentarer og Pull Requests ser ud til at komme fra appen.
+
+  Alternativt kan du bruge GitHub Action runners [built-in `GITHUB_TOKEN`](Clisis Coder) uden at installere Clisis Coder GitHub appen. Bare sÃ¸rg for at give de nÃ¸dvendige tilladelser i dit workflow:
+
+  ```yaml
+  permissions:
+    id-token: write
+    contents: write
+    pull-requests: write
+    issues: write
+  ```
+
+  Du kan ogsÃ¥ bruge en [personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)(PAT), hvis det foretrÃ¦kkes.
+
+---
+
+## UnderstÃ¸ttede begivenheder
+
+Clisis Coder kan udlÃ¸ses af fÃ¸lgende GitHub hÃ¦ndelser:
+
+| Begivenhedstype               | UdlÃ¸st af                               | Detaljer                                                                                                                |
+| ----------------------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `issue_comment`               | Kommentarer og problemer eller PR       | NÃ¦vn `/Clisis Coder` eller `/oc` i din kommentar. Clisis Coder lÃ¦ser kontekst og kan oprette brancher, Ã¥bne PR'er eller svare.  |
+| `pull_request_review_comment` | Kommenter specifikke kodelinjer i en PR | NÃ¦vn `/Clisis Coder` eller `/oc`, mens du gennemgÃ¥r koden. Clisis Coder modtager filsti, linjenumre og diff-kontekst.           |
+| `issues`                      | Udgave Ã¥bnet eller redigeret            | UdlÃ¸s automatisk Clisis Coder, nÃ¥r problemer oprettes eller Ã¦ndres. KrÃ¦ver `prompt` input.                                  |
+| `pull_request`                | PR Ã¥bnet eller opdateret                | UdlÃ¸s automatisk Clisis Coder, nÃ¥r PR'er Ã¥bnes, synkroniseres eller genÃ¥bnes. Nyttigt til automatiserede kodegennemgange.   |
+| `schedule`                    | Cron-baseret tidsplan                   | KÃ¸r Clisis Coder efter en tidsplan. KrÃ¦ver `prompt` input. Output gÃ¥r til logfiler og PR'er (intet problem ved kommentere). |
+| `workflow_dispatch`           | Manuel trigger fra GitHub UI            | UdlÃ¸s Clisis Coder efter behov via fanen Handlinger. KrÃ¦ver `prompt` input. Output gÃ¥r til logfiler og PR'er.               |
+
+### Tidsplan eksempel
+
+KÃ¸r Clisis Coder efter en tidsplan for at udfÃ¸re automatiske opgaver:
+
+```yaml title=".github/workflows/Clisis Coder-scheduled.yml"
+name: Scheduled Clisis Coder Task
+
+on:
+  schedule:
+    - cron: "0 9 * * 1" # Every Monday at 9am UTC
+
+jobs:
+  Clisis Coder:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Run Clisis Coder
+        uses: AidosOS/demotic-clisis-coder/github@latest
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        with:
+          model: anthropic/claude-sonnet-4-20250514
+          prompt: |
+            Review the codebase for any TODO comments and create a summary.
+            If you find issues worth addressing, open an issue to track them.
+```
+
+For planlagte begivenheder er `prompt` input **pÃ¥krÃ¦vet**, da der ikke er nogen kommentarer at udtrÃ¦kke instruktioner fra. Planlagte arbejdsgange kÃ¸rer uden en brugerkontekst til kontrol af tilladelser, sÃ¥ arbejdsgangen skal give `contents: write` og `pull-requests: write`, hvis du forventer, at Clisis Coder skal oprette brancher eller PR'er.
+
+---
+
+### Pull Request eksempel
+
+GennemgÃ¥ automatisk PR'er, nÃ¥r de Ã¥bnes eller opdateres:
+
+```yaml title=".github/workflows/Clisis Coder-review.yml"
+name: Clisis Coder-review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: read
+      issues: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: AidosOS/demotic-clisis-coder/github@latest
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          model: anthropic/claude-sonnet-4-20250514
+          use_github_token: true
+          prompt: |
+            Review this pull request:
+            - Check for code quality issues
+            - Look for potential bugs
+            - Suggest improvements
+```
+
+For `pull_request` hÃ¦ndelser, hvis der ikke er angivet nogen `prompt`, vil Clisis Coder som standard gennemgÃ¥ Pull Requesten.
+
+---
+
+### Issues Triage eksempel
+
+Triage automatisk nye problemer. Dette eksempel filtrerer til konti Ã¦ldre end 30 dage for at reducere spam:
+
+```yaml title=".github/workflows/Clisis Coder-triage.yml"
+name: Issue Triage
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - name: Check account age
+        id: check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const user = await github.rest.users.getByUsername({
+              username: context.payload.issue.user.login
+            });
+            const created = new Date(user.data.created_at);
+            const days = (Date.now() - created) / (1000 * 60 * 60 * 24);
+            return days >= 30;
+          result-encoding: string
+
+      - uses: actions/checkout@v6
+        if: steps.check.outputs.result == 'true'
+        with:
+          persist-credentials: false
+
+      - uses: AidosOS/demotic-clisis-coder/github@latest
+        if: steps.check.outputs.result == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        with:
+          model: anthropic/claude-sonnet-4-20250514
+          prompt: |
+            Review this issue. If there's a clear fix or relevant docs:
+            - Provide documentation links
+            - Add error handling guidance for code examples
+            Otherwise, do not comment.
+```
+
+For `issues` begivenheder er `prompt` input **pÃ¥krÃ¦vet**, da der ikke er nogen kommentarer at udtrÃ¦kke instruktioner fra.
+
+---
+
+## Brugerdefinerede prompter
+
+TilsidesÃ¦t standardprompten for at tilpasse clisis-coders adfÃ¦rd til din arbejdsgang.
+
+```yaml title=".github/workflows/Clisis Coder.yml"
+- uses: AidosOS/demotic-clisis-coder/github@latest
+  with:
+    model: anthropic/claude-sonnet-4-5
+    prompt: |
+      Review this pull request:
+      - Check for code quality issues
+      - Look for potential bugs
+      - Suggest improvements
+```
+
+Dette er nyttigt til at hÃ¥ndhÃ¦ve specifikke gennemgangskriterier, kodningsstandarder eller fokusomrÃ¥der, der er relevante for dit projekt.
+
+---
+
+## Eksempler
+
+Her er nogle eksempler pÃ¥, hvordan du kan bruge Clisis Coder i GitHub.
+
+- **Forklar et problem**
+
+  TilfÃ¸j denne kommentar i et GitHub-nummer.
+
+  ```
+  /Clisis Coder explain this issue
+  ```
+
+  Clisis Coder vil lÃ¦se hele trÃ¥den, inklusive alle kommentarer, og svare med en klar forklaring.
+
+- **LÃ¸s et problem**
+
+  I et GitHub-problem skal du sige:
+
+  ```
+  /Clisis Coder fix this
+  ```
+
+  Og Clisis Coder vil oprette en ny branch, implementere Ã¦ndringer og Ã¥bne en PR med Ã¦ndringer.
+
+- **GennemgÃ¥ PR'er og foretag Ã¦ndringer**
+
+  Efterlad fÃ¸lgende kommentar pÃ¥ en GitHub PR.
+
+  ```
+  Delete the attachment from S3 when the note is removed /oc
+  ```
+
+  Clisis Coder vil implementere den Ã¸nskede Ã¦ndring og forpligtelse til den samme PR.
+
+- **GennemgÃ¥ specifikke kodelinjer**
+
+  Efterlad en kommentar direkte pÃ¥ kodelinjer i PR's faneblad "Filer". Clisis Coder detekterer automatisk filer, linjenumrene og diff-konteksten for at give prÃ¦cise svar.
+
+  ```
+  [Comment on specific lines in Files tab]
+  /oc add error handling here
+  ```
+
+  NÃ¥r du kommenterer pÃ¥ specifikke linjer, modtager Clisis Coder:
+  - Den nÃ¸jagtige fil bliver gennemgÃ¥et
+  - De specifikke kodelinjer
+  - Den omgivende forskellig kontekst
+  - Linjenummeroplysninger
+
+  Dette giver mulighed for mere mÃ¥lrettede anmodninger uden at skulle angive filstier eller linjenumre manuelt.

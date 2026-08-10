@@ -1,0 +1,33 @@
+{
+  "name": "@demotic/clisis-console-mail",
+  "version": "1.16.2",
+  "dependencies": {
+    "@jsx-email/all": "2.2.3",
+    "@jsx-email/cli": "1.4.3",
+    "@tsconfig/bun": "1.0.9",
+    "@types/react": "18.0.25",
+    "react": "18.2.0",
+    "solid-js": "1.9.10"
+  },
+  "exports": {
+    "./*": "./emails/templates/*"
+  },
+  "$schema": "https://json.schemastore.org/package.json",
+  "private": false,
+  "scripts": {
+    "dev": "email preview emails/templates"
+  },
+  "type": "module",
+  "license": "BSL-1.1",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AidosOS/demotic-packages.git",
+    "directory": "clisis-console-mail"
+  },
+  "homepage": "https://github.com/AidosOS/demotic-packages",
+  "author": "Demotic Suite Contributors"
+}

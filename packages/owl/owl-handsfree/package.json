@@ -1,0 +1,35 @@
+{
+  "name": "@demotic/owl-handsfree",
+  "private": false,
+  "version": "0.1.0",
+  "description": "macOS semantic AX and background computer-use runtime for Owl WorkMate",
+  "license": "BSL-1.1",
+  "type": "module",
+  "bin": {
+    "openwork-handsfree-computer-use": "bin/openwork-handsfree-computer-use.mjs"
+  },
+  "scripts": {
+    "check": "pnpm run check:js && pnpm run check:native",
+    "check:js": "node --check bin/openwork-handsfree-computer-use.mjs && node --check src/cua-runner.mjs && node --check src/realtime-tools.mjs && node --check test/e2e/run.mjs",
+    "build:native": "swift build --package-path native/HandsFree -c release --product HandsFreeComputerUse",
+    "check:native": "swift build --package-path native/HandsFree --product HandsFreeComputerUse",
+    "test:e2e": "node test/e2e/run.mjs"
+  },
+  "files": [
+    "bin",
+    "src",
+    "native",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AidosOS/demotic-packages.git",
+    "directory": "owl-handsfree"
+  },
+  "homepage": "https://github.com/AidosOS/demotic-packages",
+  "author": "Demotic Suite Contributors"
+}

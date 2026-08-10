@@ -1,0 +1,5 @@
+[
+  { "src": "den-admin-mcp", "name": "owl-ee-den-admin-mcp", "pkg": "@demotic/owl-ee-den-admin-mcp" },
+  { "src": "den-db", "name": "owl-ee-den-db", "pkg": "@demotic/owl-ee-den-db" },
+  { "src": "utils", "name": "owl-ee-utils", "pkg": "@demotic/owl-ee-utils" }
+]

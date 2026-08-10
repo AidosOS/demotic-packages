@@ -1,0 +1,371 @@
+﻿---
+title: Dodaci
+description: NapiÅ¡ite vlastite dodatke za proÅ¡irenje Clisis Coder.
+---
+
+Dodaci vam omoguÄ‡avaju da proÅ¡irite Clisis Coder spajanjem na razliÄite dogaÄ‘aje i prilagoÄ‘avanjem ponaÅ¡anja. MoÅ¾ete kreirati dodatke za dodavanje novih funkcija, integraciju sa eksternim uslugama ili izmenu zadanog ponaÅ¡anja Clisis Coder.
+Za primjere, pogledajte [plugins](/docs/ecosystem#plugins) kreirane od strane zajednice.
+
+---
+
+## KoriÅ¡tenje dodatka
+
+Postoje dva naÄina za uÄitavanje dodataka.
+
+### Iz lokalnih datoteka
+
+Postavite JavaScript ili TypeScript datoteke u direktorij dodataka.
+
+- `.Clisis Coder/plugins/` - Dodaci na nivou projekta
+- `~/.config/Clisis Coder/plugins/` - Globalni dodaci
+  Datoteke u ovim direktorijumima se automatski uÄitavaju pri pokretanju.
+
+---
+
+### Iz npm-a
+
+Navedite npm pakete u vaÅ¡oj konfiguracijskoj datoteci.
+
+```json title="Clisis Coder.json"
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "plugin": ["Clisis Coder-helicone-session", "Clisis Coder-wakatime", "@my-org/custom-plugin"]
+}
+```
+
+PodrÅ¾ani su i regularni i npm paketi sa opsegom.
+Pregledajte dostupne dodatke u [ecosystem](/docs/ecosystem#plugins).
+
+---
+
+### Kako se instaliraju dodaci
+
+**npm dodaci** se instaliraju automatski pomoÄ‡u Bun pri pokretanju. Paketi i njihove zavisnosti su keÅ¡irani u `~/.cache/Clisis Coder/node_modules/`.
+**Lokalni dodaci** se uÄitavaju direktno iz direktorija dodataka. Da biste koristili vanjske pakete, morate kreirati `package.json` unutar svog konfiguracijskog direktorija (pogledajte [Zavisnosti](#dependencies)) ili objaviti dodatak na npm i [dodati ga u svoju konfiguraciju](/docs/config#plugins).
+
+---
+
+### Redoslijed uÄitavanja
+
+Dodaci se uÄitavaju iz svih izvora i svi zakaÄnjaci rade u nizu. Redoslijed uÄitavanja je:
+
+1. Globalna konfiguracija (`~/.config/Clisis Coder/Clisis Coder.json`)
+2. Konfiguracija projekta (`Clisis Coder.json`)
+3. Globalni direktorij dodataka (`~/.config/Clisis Coder/plugins/`)
+4. Direktorij dodataka projekta (`.Clisis Coder/plugins/`)
+   Duplicirani npm paketi sa istim imenom i verzijom se uÄitavaju jednom. MeÄ‘utim, lokalni dodatak i npm dodatak sa sliÄnim nazivima se uÄitavaju odvojeno.
+
+---
+
+## Kreiranje dodatka
+
+Dodatak je **JavaScript/TypeScript modul** koji izvozi jedan ili viÅ¡e dodataka
+funkcije. Svaka funkcija prima objekt konteksta i vraÄ‡a hooks objekt.
+
+---
+
+### Zavisnosti
+
+Lokalni dodaci i prilagoÄ‘eni alati mogu koristiti vanjske npm pakete. Dodajte `package.json` u svoj konfiguracijski direktorij sa zavisnostima koje su vam potrebne.
+
+```json title=".Clisis Coder/package.json"
+{
+  "dependencies": {
+    "shescape": "^2.1.0"
+  }
+}
+```
+
+Clisis Coder pokreÄ‡e `bun install` pri pokretanju da ih instalira. VaÅ¡i dodaci i alati ih zatim mogu uvesti.
+
+```ts title=".Clisis Coder/plugins/my-plugin.ts"
+import { escape } from "shescape"
+
+export const MyPlugin = async (ctx) => {
+  return {
+    "tool.execute.before": async (input, output) => {
+      if (input.tool === "bash") {
+        output.args.command = escape(output.args.command)
+      }
+    },
+  }
+}
+```
+
+---
+
+### Osnovna struktura
+
+```js title=".Clisis Coder/plugins/example.js"
+export const MyPlugin = async ({ project, client, $, directory, worktree }) => {
+  console.log("Plugin initialized!")
+
+  return {
+    // Hook implementations go here
+  }
+}
+```
+
+Funkcija dodatka prima:
+
+- `project`: Trenutne informacije o projektu.
+- `directory`: Trenutni radni direktorij.
+- `worktree`: Putanja git radnog stabla.
+- `client`: Clisis Coder SDK klijent za interakciju sa AI.
+- `$`: Bun's [shell API](https://bun.com/docs/runtime/shell) za izvrÅ¡avanje naredbi.
+
+---
+
+### PodrÅ¡ka za TypeScript
+
+Za TypeScript dodatke, moÅ¾ete uvesti tipove iz paketa dodataka:
+
+```ts title="my-plugin.ts" {1}
+import type { Plugin } from "@demotic/clisis-plugin"
+
+export const MyPlugin: Plugin = async ({ project, client, $, directory, worktree }) => {
+  return {
+    // Type-safe hook implementations
+  }
+}
+```
+
+---
+
+### DogaÄ‘aji
+
+Dodaci se mogu pretplatiti na dogaÄ‘aje kao Å¡to je prikazano ispod u odjeljku Primjeri. Evo liste razliÄitih dostupnih dogaÄ‘aja.
+
+#### Komandni dogaÄ‘aji
+
+- `command.executed`
+
+#### DogaÄ‘aji datoteka
+
+- `file.edited`
+- `file.watcher.updated`
+
+#### Instalacijski dogaÄ‘aji
+
+- `installation.updated`
+
+#### LSP dogaÄ‘aji
+
+- `lsp.client.diagnostics`
+- `lsp.updated`
+
+#### DogaÄ‘aji poruka
+
+- `message.part.removed`
+- `message.part.updated`
+- `message.removed`
+- `message.updated`
+
+#### DogaÄ‘aji dozvola
+
+- `permission.asked`
+- `permission.replied`
+
+#### Serverski dogaÄ‘aji
+
+- `server.connected`
+
+#### DogaÄ‘aji sesije
+
+- `session.created`
+- `session.compacted`
+- `session.deleted`
+- `session.diff`
+- `session.error`
+- `session.idle`
+- `session.status`
+- `session.updated`
+
+#### Todo dogaÄ‘aji
+
+- `todo.updated`
+
+#### Shell dogaÄ‘aji
+
+- `shell.env`
+
+#### DogaÄ‘aji alata
+
+- `tool.execute.after`
+- `tool.execute.before`
+
+#### TUI dogaÄ‘aji
+
+- `tui.prompt.append`
+- `tui.command.execute`
+- `tui.toast.show`
+
+---
+
+## Primjeri
+
+Evo nekoliko primjera dodataka koje moÅ¾ete koristiti za proÅ¡irenje Clisis Coder.
+
+### Slanje obavjeÅ¡tenja
+
+PoÅ¡aljite obavjeÅ¡tenja kada se dogode odreÄ‘eni dogaÄ‘aji:
+
+```js title=".Clisis Coder/plugins/notification.js"
+export const NotificationPlugin = async ({ project, client, $, directory, worktree }) => {
+  return {
+    event: async ({ event }) => {
+      // Send notification on session completion
+      if (event.type === "session.idle") {
+        await $`osascript -e 'display notification "Session completed!" with title "Clisis Coder"'`
+      }
+    },
+  }
+}
+```
+
+Koristimo `osascript` za pokretanje AppleScript-a na macOS-u. Ovdje ga koristimo za slanje obavjeÅ¡tenja.
+:::note
+Ako alat dodatka koristi isto ime kao ugraÄ‘eni alat, alat dodatka ima prednost.
+:::
+
+---
+
+### .env zaÅ¡tita
+
+SprijeÄite Clisis Coder da Äita `.env` fajlove:
+
+```javascript title=".Clisis Coder/plugins/env-protection.js"
+export const EnvProtection = async ({ project, client, $, directory, worktree }) => {
+  return {
+    "tool.execute.before": async (input, output) => {
+      if (input.tool === "read" && output.args.filePath.includes(".env")) {
+        throw new Error("Do not read .env files")
+      }
+    },
+  }
+}
+```
+
+---
+
+### Ubacivanje varijabli okruÅ¾enja
+
+Ubacite varijable okruÅ¾enja u sva izvrÅ¡avanja ljuske (AI alati i korisniÄki terminali):
+
+```javascript title=".Clisis Coder/plugins/inject-env.js"
+export const InjectEnvPlugin = async () => {
+  return {
+    "shell.env": async (input, output) => {
+      output.env.MY_API_KEY = "secret"
+      output.env.PROJECT_ROOT = input.cwd
+    },
+  }
+}
+```
+
+---
+
+### PrilagoÄ‘eni alati
+
+Dodaci takoÄ‘er mogu dodati prilagoÄ‘ene alate u Clisis Coder:
+
+```ts title=".Clisis Coder/plugins/custom-tools.ts"
+import { type Plugin, tool } from "@demotic/clisis-plugin"
+
+export const CustomToolsPlugin: Plugin = async (ctx) => {
+  return {
+    tool: {
+      mytool: tool({
+        description: "This is a custom tool",
+        args: {
+          foo: tool.schema.string(),
+        },
+        async execute(args, context) {
+          const { directory, worktree } = context
+          return `Hello ${args.foo} from ${directory} (worktree: ${worktree})`
+        },
+      }),
+    },
+  }
+}
+```
+
+PomoÄ‡nik `tool` kreira prilagoÄ‘eni alat koji Clisis Coder moÅ¾e pozvati. Uzima funkciju Zod sheme i vraÄ‡a definiciju alata sa:
+
+- `description`: Å ta alat radi
+- `args`: Zod Å¡ema za argumente alata
+- `execute`: Funkcija koja se pokreÄ‡e kada se pozove alat
+  VaÅ¡i prilagoÄ‘eni alati Ä‡e biti dostupni za Clisis Coder zajedno sa ugraÄ‘enim alatima.
+
+---
+
+### BiljeÅ¾enje
+
+Koristite `client.app.log()` umjesto `console.log` za strukturirano biljeÅ¾enje:
+
+```ts title=".Clisis Coder/plugins/my-plugin.ts"
+export const MyPlugin = async ({ client }) => {
+  await client.app.log({
+    body: {
+      service: "my-plugin",
+      level: "info",
+      message: "Plugin initialized",
+      extra: { foo: "bar" },
+    },
+  })
+}
+```
+
+Nivoi su: `debug`, `info`, `warn`, `error`. Pogledajte [SDK dokumentaciju](https://Clisis Coder.ai/docs/sdk) za detalje.
+
+### Kuke za saÅ¾imanje
+
+Prilagodite kontekst ukljuÄen kada se sesija zbije:
+
+```ts title=".Clisis Coder/plugins/compaction.ts"
+import type { Plugin } from "@demotic/clisis-plugin"
+
+export const CompactionPlugin: Plugin = async (ctx) => {
+  return {
+    "experimental.session.compacting": async (input, output) => {
+      // Inject additional context into the compaction prompt
+      output.context.push(`
+## Custom Context
+
+Include any state that should persist across compaction:
+- Current task status
+- Important decisions made
+- Files being actively worked on
+`)
+    },
+  }
+}
+```
+
+`experimental.session.compacting` kuka se aktivira prije nego Å¡to LLM generira saÅ¾etak nastavka. Koristite ga za ubacivanje konteksta specifiÄnog za domenu koji bi zadani prompt za saÅ¾imanje propustio.
+TakoÄ‘er moÅ¾ete u potpunosti zamijeniti prompt za sabijanje postavljanjem `output.prompt`:
+
+```ts title=".Clisis Coder/plugins/custom-compaction.ts"
+import type { Plugin } from "@demotic/clisis-plugin"
+
+export const CustomCompactionPlugin: Plugin = async (ctx) => {
+  return {
+    "experimental.session.compacting": async (input, output) => {
+      // Replace the entire compaction prompt
+      output.prompt = `
+You are generating a continuation prompt for a multi-agent swarm session.
+
+Summarize:
+1. The current task and its status
+2. Which files are being modified and by whom
+3. Any blockers or dependencies between agents
+4. The next steps to complete the work
+
+Format as a structured prompt that a new agent can use to resume work.
+`
+    },
+  }
+}
+```
+
+Kada je `output.prompt` postavljen, on u potpunosti zamjenjuje zadani prompt za saÅ¾imanje. Niz `output.context` se zanemaruje u ovom sluÄaju.

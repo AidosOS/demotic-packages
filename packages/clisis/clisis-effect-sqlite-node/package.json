@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "version": "1.16.2",
+  "name": "@demotic/clisis-effect-sqlite-node",
+  "type": "module",
+  "license": "BSL-1.1",
+  "private": false,
+  "scripts": {
+    "typecheck": "tsgo --noEmit"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "devDependencies": {
+    "@tsconfig/bun": "1.0.9",
+    "@types/node": "24.12.2",
+    "@typescript/native-preview": "7.0.0-dev.20251207.1"
+  },
+  "dependencies": {
+    "effect": "4.0.0-beta.74"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AidosOS/demotic-packages.git",
+    "directory": "clisis-effect-sqlite-node"
+  },
+  "homepage": "https://github.com/AidosOS/demotic-packages",
+  "author": "Demotic Suite Contributors"
+}

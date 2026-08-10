@@ -1,0 +1,170 @@
+﻿---
+title: Outils personnalisÃ©s
+description: CrÃ©ez des outils que le LLM peut appeler dans Clisis Coder.
+---
+
+Les outils personnalisÃ©s sont des fonctions que vous crÃ©ez et que le LLM peut appeler pendant les conversations. Ils fonctionnent avec les [outils intÃ©grÃ©s](/docs/tools) de Clisis Coder comme `read`, `write` et `bash`.
+
+---
+
+## CrÃ©ation d'un outil
+
+Les outils sont dÃ©finis sous forme de fichiers **TypeScript** ou **JavaScript**. Cependant, la dÃ©finition de l'outil peut appeler des scripts Ã©crits dans **n'importe quel langage** : TypeScript ou JavaScript n'est utilisÃ© que pour la dÃ©finition de l'outil elle-mÃªme.
+
+---
+
+### Emplacement
+
+Ils peuvent Ãªtre dÃ©finis :
+
+- Localement en les plaÃ§ant dans le rÃ©pertoire `.Clisis Coder/tools/` de votre projet.
+- Ou globalement, en les plaÃ§ant dans `~/.config/Clisis Coder/tools/`.
+
+---
+
+### Structure
+
+Le moyen le plus simple de crÃ©er des outils est d'utiliser l'assistant `tool()` qui fournit la sÃ©curitÃ© et la validation de type.
+
+```ts title=".Clisis Coder/tools/database.ts" {1}
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Query the project database",
+  args: {
+    query: tool.schema.string().describe("SQL query to execute"),
+  },
+  async execute(args) {
+    // Your database logic here
+    return `Executed query: ${args.query}`
+  },
+})
+```
+
+Le **nom de fichier** devient le **nom de l'outil**. Ce qui prÃ©cÃ¨de crÃ©e un outil `database`.
+
+---
+
+#### Plusieurs outils par fichier
+
+Vous pouvez Ã©galement exporter plusieurs outils Ã  partir d'un seul fichier. Chaque exportation devient **un outil distinct** portant le nom **`<filename>_<exportname>`** :
+
+```ts title=".Clisis Coder/tools/math.ts"
+import { tool } from "@demotic/clisis-plugin"
+
+export const add = tool({
+  description: "Add two numbers",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args) {
+    return args.a + args.b
+  },
+})
+
+export const multiply = tool({
+  description: "Multiply two numbers",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args) {
+    return args.a * args.b
+  },
+})
+```
+
+Cela crÃ©e deux outils : `math_add` et `math_multiply`.
+
+---
+
+### Arguments
+
+Vous pouvez utiliser `tool.schema`, qui est simplement [Zod](https://zod.dev), pour dÃ©finir les types d'arguments.
+
+```ts "tool.schema"
+args: {
+  query: tool.schema.string().describe("SQL query to execute")
+}
+```
+
+Vous pouvez Ã©galement importer [Zod](https://zod.dev) directement et renvoyer un objet simple :
+
+```ts {6}
+import { z } from "zod"
+
+export default {
+  description: "Tool description",
+  args: {
+    param: z.string().describe("Parameter description"),
+  },
+  async execute(args, context) {
+    // Tool implementation
+    return "result"
+  },
+}
+```
+
+---
+
+### Contexte
+
+Les outils reÃ§oivent le contexte de la session en cours :
+
+```ts title=".Clisis Coder/tools/project.ts" {8}
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Get project information",
+  args: {},
+  async execute(args, context) {
+    // Access context information
+    const { agent, sessionID, messageID, directory, worktree } = context
+    return `Agent: ${agent}, Session: ${sessionID}, Message: ${messageID}, Directory: ${directory}, Worktree: ${worktree}`
+  },
+})
+```
+
+Utilisez `context.directory` pour le rÃ©pertoire de travail de la session.
+Utilisez `context.worktree` pour la racine du worktree git.
+
+---
+
+## Exemples
+
+### Ã‰crire un outil en Python
+
+Vous pouvez Ã©crire vos outils dans le langage de votre choix. Voici un exemple qui ajoute deux nombres Ã  l'aide de Python.
+
+Tout d'abord, crÃ©ez l'outil en tant que script Python :
+
+```python title=".Clisis Coder/tools/add.py"
+import sys
+
+a = int(sys.argv[1])
+b = int(sys.argv[2])
+print(a + b)
+```
+
+CrÃ©ez ensuite la dÃ©finition d'outil qui l'invoque :
+
+```ts title=".Clisis Coder/tools/python-add.ts" {10}
+import { tool } from "@demotic/clisis-plugin"
+import path from "path"
+
+export default tool({
+  description: "Add two numbers using Python",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args, context) {
+    const script = path.join(context.worktree, ".Clisis Coder/tools/add.py")
+    const result = await Bun.$`python3 ${script} ${args.a} ${args.b}`.text()
+    return result.trim()
+  },
+})
+```
+
+Ici, nous utilisons l'utilitaire [`Bun.$`](https://bun.com/docs/runtime/shell) pour exÃ©cuter le script Python.

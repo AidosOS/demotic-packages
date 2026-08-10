@@ -1,0 +1,196 @@
+﻿---
+title: Ã–zel AraÃ§lar
+description: LLM'un Clisis Coder'da Ã§aÄŸÄ±rabileceÄŸi araÃ§larÄ± birleÅŸtirebilir.
+---
+
+Ã–zel araÃ§lar, LLM'un konuÅŸmalar sÄ±rasÄ±nda arayabileceÄŸi, oluÅŸturduÄŸunuz iÅŸlevlerdir. Clisis Coder'un [built-in tools](/docs/tools) ile birlikte `read`, `write` ve `bash` gibi Ã§alÄ±ÅŸÄ±rlar.
+
+---
+
+## AraÃ§ oluÅŸturma
+
+AraÃ§lar **TypeScript** veya **JavaScript** dosyalarÄ± olarak tanÄ±mlanÄ±r. Ancak araÃ§ tanÄ±mÄ± **herhangi bir dilde** yazÄ±lmÄ±ÅŸ komut dosyalarÄ±nÄ± Ã§aÄŸÄ±rabilir; TypeScript veya JavaScript yalnÄ±zca araÃ§ tanÄ±mÄ±nÄ±n kendisi iÃ§in kullanÄ±lÄ±r.
+
+---
+
+### Konum
+
+Bunlar tanÄ±mlanabilir:
+
+- Yerel olarak bunlarÄ± projenizin `.Clisis Coder/tools/` dizinine yerleÅŸtirerek.
+- Veya kÃ¼resel olarak bunlarÄ± `~/.config/Clisis Coder/tools/` iÃ§ine yerleÅŸtirerek.
+
+---
+
+### YapÄ±
+
+AraÃ§ oluÅŸturmanÄ±n en kolay yolu, tÃ¼r gÃ¼venliÄŸi ve doÄŸrulama saÄŸlayan `tool()` yardÄ±mcÄ±sÄ±nÄ± kullanmaktÄ±r.
+
+```ts title=".Clisis Coder/tools/database.ts" {1}
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Query the project database",
+  args: {
+    query: tool.schema.string().describe("SQL query to execute"),
+  },
+  async execute(args) {
+    // Your database logic here
+    return `Executed query: ${args.query}`
+  },
+})
+```
+
+**dosya adÄ±**, **araÃ§ adÄ±** olur. YukarÄ±dakiler bir `database` aracÄ± oluÅŸturur.
+
+---
+
+#### Dosya baÅŸÄ±na birden fazla araÃ§
+
+AyrÄ±ca tek bir dosyadan birden fazla aracÄ± dÄ±ÅŸa aktarabilirsiniz. Her dÄ±ÅŸa aktarma, **`<filename>_<exportname>`** adÄ±yla **ayrÄ± bir araÃ§** haline gelir:
+
+```ts title=".Clisis Coder/tools/math.ts"
+import { tool } from "@demotic/clisis-plugin"
+
+export const add = tool({
+  description: "Add two numbers",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args) {
+    return args.a + args.b
+  },
+})
+
+export const multiply = tool({
+  description: "Multiply two numbers",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args) {
+    return args.a * args.b
+  },
+})
+```
+
+Bu iki araÃ§ oluÅŸturur: `math_add` ve `math_multiply`.
+
+---
+
+#### YerleÅŸik araÃ§larla ad Ã§akÄ±ÅŸmalarÄ±
+
+Ã–zel araÃ§lar, araÃ§ adÄ±na gÃ¶re anahtarlanÄ±r. Ã–zel bir araÃ§ yerleÅŸik bir araÃ§la aynÄ± adÄ± kullanÄ±yorsa, Ã¶zel araÃ§ Ã¶nceliklidir.
+
+Ã–rneÄŸin, bu dosya yerleÅŸik `bash` aracÄ±nÄ±n yerini alÄ±r:
+
+```ts title=".Clisis Coder/tools/bash.ts"
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Restricted bash wrapper",
+  args: {
+    command: tool.schema.string(),
+  },
+  async execute(args) {
+    return `blocked: ${args.command}`
+  },
+})
+```
+
+:::note
+KasÄ±tlÄ± olarak yerleÅŸik bir aracÄ± deÄŸiÅŸtirmek istemiyorsanÄ±z benzersiz adlarÄ± tercih edin. YerleÅŸik bir aracÄ± devre dÄ±ÅŸÄ± bÄ±rakmak ancak geÃ§ersiz kÄ±lmak istemiyorsanÄ±z [izinleri](/docs/permissions) kullanÄ±n.
+:::
+
+---
+
+### ArgÃ¼manlar
+
+BaÄŸÄ±msÄ±z deÄŸiÅŸken tÃ¼rlerini tanÄ±mlamak iÃ§in yalnÄ±zca [Zod](https://zod.dev) olan `tool.schema` Ã¶ÄŸesini kullanabilirsiniz.
+
+```ts "tool.schema"
+args: {
+  query: tool.schema.string().describe("SQL query to execute")
+}
+```
+
+AyrÄ±ca [Zod](https://zod.dev) Ã¶ÄŸesini doÄŸrudan iÃ§e aktarabilir ve dÃ¼z bir nesne dÃ¶ndÃ¼rebilirsiniz:
+
+```ts {6}
+import { z } from "zod"
+
+export default {
+  description: "Tool description",
+  args: {
+    param: z.string().describe("Parameter description"),
+  },
+  async execute(args, context) {
+    // Tool implementation
+    return "result"
+  },
+}
+```
+
+---
+
+### BaÄŸlam
+
+AraÃ§lar geÃ§erli oturumla ilgili baÄŸlamÄ± alÄ±r:
+
+```ts title=".Clisis Coder/tools/project.ts" {8}
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Get project information",
+  args: {},
+  async execute(args, context) {
+    // Access context information
+    const { agent, sessionID, messageID, directory, worktree } = context
+    return `Agent: ${agent}, Session: ${sessionID}, Message: ${messageID}, Directory: ${directory}, Worktree: ${worktree}`
+  },
+})
+```
+
+Oturum Ã§alÄ±ÅŸma dizisi iÃ§in `context.directory` kullanÄ±n.
+Git Ã§alÄ±ÅŸma aÄŸacÄ± kÃ¶kÃ¼ iÃ§in `context.worktree` kullanÄ±n.
+
+---
+
+## Ã–rnekler
+
+### Python ile araÃ§ yazma
+
+AraÃ§larÄ±nÄ±zÄ± dilediÄŸiniz dilde yazabilirsiniz. Ä°ÅŸte Python kullanarak iki sayÄ±yÄ± toplayan bir Ã¶rnek.
+
+Ã–ncelikle aracÄ± bir Python betiÄŸi olarak oluÅŸturun:
+
+```python title=".Clisis Coder/tools/add.py"
+import sys
+
+a = int(sys.argv[1])
+b = int(sys.argv[2])
+print(a + b)
+```
+
+ArdÄ±ndan onu Ã§aÄŸÄ±ran araÃ§ tanÄ±mÄ±nÄ± oluÅŸturun:
+
+```ts title=".Clisis Coder/tools/python-add.ts" {10}
+import { tool } from "@demotic/clisis-plugin"
+import path from "path"
+
+export default tool({
+  description: "Add two numbers using Python",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args, context) {
+    const script = path.join(context.worktree, ".Clisis Coder/tools/add.py")
+    const result = await Bun.$`python3 ${script} ${args.a} ${args.b}`.text()
+    return result.trim()
+  },
+})
+```
+
+Burada Python betiÄŸini Ã§alÄ±ÅŸtÄ±rmak iÃ§in [`Bun.$`](https://bun.com/docs/runtime/shell) yardÄ±mcÄ± programÄ±nÄ± kullanÄ±yoruz.

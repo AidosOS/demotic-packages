@@ -1,0 +1,196 @@
+﻿---
+title: ã‚«ã‚¹ã‚¿ãƒ ãƒ„ãƒ¼ãƒ«
+description: LLM ãŒ Clisis Coder ã§å‘¼ã³å‡ºã™ã“ã¨ãŒã§ãã‚‹ãƒ„ãƒ¼ãƒ«ã‚’ä½œæˆã—ã¾ã™ã€‚
+---
+
+ã‚«ã‚¹ã‚¿ãƒ ãƒ„ãƒ¼ãƒ«ã¯ã€ä¼šè©±ä¸­ã« LLM ãŒå‘¼ã³å‡ºã™ã“ã¨ãŒã§ãã‚‹ä½œæˆã—ãŸé–¢æ•°ã§ã™ã€‚ã“ã‚Œã‚‰ã¯ã€Clisis Coder ã®[çµ„ã¿è¾¼ã¿ãƒ„ãƒ¼ãƒ«](/docs/tools) (`read`ã€`write`ã€`bash` ãªã©) ã¨é€£æºã—ã¦å‹•ä½œã—ã¾ã™ã€‚
+
+---
+
+## ãƒ„ãƒ¼ãƒ«ã®ä½œæˆ
+
+ãƒ„ãƒ¼ãƒ«ã¯ **TypeScript** ã¾ãŸã¯ **JavaScript** ãƒ•ã‚¡ã‚¤ãƒ«ã¨ã—ã¦å®šç¾©ã•ã‚Œã¾ã™ã€‚ãŸã ã—ã€ãƒ„ãƒ¼ãƒ«å®šç¾©ã§ã¯**ä»»æ„ã®è¨€èªž**ã§è¨˜è¿°ã•ã‚ŒãŸã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’å‘¼ã³å‡ºã™ã“ã¨ãŒã§ãã¾ã™ã€‚TypeScript ã¾ãŸã¯ JavaScript ã¯ãƒ„ãƒ¼ãƒ«å®šç¾©è‡ªä½“ã«ã®ã¿ä½¿ç”¨ã•ã‚Œã¾ã™ã€‚
+
+---
+
+### å ´æ‰€
+
+ãã‚Œã‚‰ã¯æ¬¡ã®ã‚ˆã†ã«å®šç¾©ã§ãã¾ã™ã€‚
+
+- ãƒ­ãƒ¼ã‚«ãƒ«ã§ã¯ã€ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã® `.Clisis Coder/tools/` ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«é…ç½®ã—ã¾ã™ã€‚
+- ã¾ãŸã¯ã€ã‚°ãƒ­ãƒ¼ãƒãƒ«ã«ã€ãã‚Œã‚‰ã‚’ `~/.config/Clisis Coder/tools/` ã«é…ç½®ã—ã¾ã™ã€‚
+
+---
+
+### æ§‹é€ 
+
+ãƒ„ãƒ¼ãƒ«ã‚’ä½œæˆã™ã‚‹æœ€ã‚‚ç°¡å˜ãªæ–¹æ³•ã¯ã€åž‹å®‰å…¨æ€§ã¨æ¤œè¨¼ã‚’æä¾›ã™ã‚‹ `tool()` ãƒ˜ãƒ«ãƒ‘ãƒ¼ã‚’ä½¿ç”¨ã™ã‚‹ã“ã¨ã§ã™ã€‚
+
+```ts title=".Clisis Coder/tools/database.ts" {1}
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Query the project database",
+  args: {
+    query: tool.schema.string().describe("SQL query to execute"),
+  },
+  async execute(args) {
+    // Your database logic here
+    return `Executed query: ${args.query}`
+  },
+})
+```
+
+**ãƒ•ã‚¡ã‚¤ãƒ«å**ã¯**ãƒ„ãƒ¼ãƒ«å**ã«ãªã‚Šã¾ã™ã€‚ä¸Šè¨˜ã«ã‚ˆã‚Š `database` ãƒ„ãƒ¼ãƒ«ãŒä½œæˆã•ã‚Œã¾ã™ã€‚
+
+---
+
+#### ãƒ•ã‚¡ã‚¤ãƒ«ã”ã¨ã«è¤‡æ•°ã®ãƒ„ãƒ¼ãƒ«
+
+å˜ä¸€ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰è¤‡æ•°ã®ãƒ„ãƒ¼ãƒ«ã‚’ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆã™ã‚‹ã“ã¨ã‚‚ã§ãã¾ã™ã€‚å„ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆã¯ **`<filename>_<exportname>`** ã¨ã„ã†åå‰ã® **åˆ¥ã®ãƒ„ãƒ¼ãƒ«** ã«ãªã‚Šã¾ã™ã€‚
+
+```ts title=".Clisis Coder/tools/math.ts"
+import { tool } from "@demotic/clisis-plugin"
+
+export const add = tool({
+  description: "Add two numbers",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args) {
+    return args.a + args.b
+  },
+})
+
+export const multiply = tool({
+  description: "Multiply two numbers",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args) {
+    return args.a * args.b
+  },
+})
+```
+
+ã“ã‚Œã«ã‚ˆã‚Šã€`math_add` ã¨ `math_multiply` ã¨ã„ã† 2 ã¤ã®ãƒ„ãƒ¼ãƒ«ãŒä½œæˆã•ã‚Œã¾ã™ã€‚
+
+---
+
+#### çµ„ã¿è¾¼ã¿ãƒ„ãƒ¼ãƒ«ã¨ã®åå‰ã®è¡çª
+
+ã‚«ã‚¹ã‚¿ãƒ ãƒ„ãƒ¼ãƒ«ã¯ãƒ„ãƒ¼ãƒ«åã§ã‚­ãƒ¼è¨­å®šã•ã‚Œã¾ã™ã€‚ã‚«ã‚¹ã‚¿ãƒ ãƒ„ãƒ¼ãƒ«ãŒçµ„ã¿è¾¼ã¿ãƒ„ãƒ¼ãƒ«ã¨åŒã˜åå‰ã‚’ä½¿ç”¨ã™ã‚‹å ´åˆã€ã‚«ã‚¹ã‚¿ãƒ ãƒ„ãƒ¼ãƒ«ãŒå„ªå…ˆã•ã‚Œã¾ã™ã€‚
+
+ãŸã¨ãˆã°ã€ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯çµ„ã¿è¾¼ã¿ã® `bash` ãƒ„ãƒ¼ãƒ«ã‚’ç½®ãæ›ãˆã¾ã™ã€‚
+
+```ts title=".Clisis Coder/tools/bash.ts"
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Restricted bash wrapper",
+  args: {
+    command: tool.schema.string(),
+  },
+  async execute(args) {
+    return `blocked: ${args.command}`
+  },
+})
+```
+
+:::note
+çµ„ã¿è¾¼ã¿ãƒ„ãƒ¼ãƒ«ã‚’æ„å›³çš„ã«ç½®ãæ›ãˆãŸã„å ´åˆã‚’é™¤ãã€ä¸€æ„ã®åå‰ã‚’ä½¿ç”¨ã™ã‚‹ã“ã¨ã‚’ãŠå‹§ã‚ã—ã¾ã™ã€‚çµ„ã¿è¾¼ã¿ãƒ„ãƒ¼ãƒ«ã‚’ç„¡åŠ¹ã«ã—ãŸã„ãŒã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã—ãŸããªã„å ´åˆã¯ã€[æ¨©é™](/docs/permissions) ã‚’ä½¿ç”¨ã—ã¦ãã ã•ã„ã€‚
+:::
+
+---
+
+### å¼•æ•°
+
+å¼•æ•°ã®åž‹ã‚’å®šç¾©ã™ã‚‹ã«ã¯ã€`tool.schema` (ã¤ã¾ã‚Š [Zod](https://zod.dev)) ã‚’ä½¿ç”¨ã§ãã¾ã™ã€‚
+
+```ts "tool.schema"
+args: {
+  query: tool.schema.string().describe("SQL query to execute")
+}
+```
+
+[Zod](https://zod.dev) ã‚’ç›´æŽ¥ã‚¤ãƒ³ãƒãƒ¼ãƒˆã—ã¦ãƒ—ãƒ¬ãƒ¼ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã™ã“ã¨ã‚‚ã§ãã¾ã™ã€‚
+
+```ts {6}
+import { z } from "zod"
+
+export default {
+  description: "Tool description",
+  args: {
+    param: z.string().describe("Parameter description"),
+  },
+  async execute(args, context) {
+    // Tool implementation
+    return "result"
+  },
+}
+```
+
+---
+
+### ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
+
+ãƒ„ãƒ¼ãƒ«ã¯ç¾åœ¨ã®ã‚»ãƒƒã‚·ãƒ§ãƒ³ã«é–¢ã™ã‚‹ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã‚’å—ã‘å–ã‚Šã¾ã™ã€‚
+
+```ts title=".Clisis Coder/tools/project.ts" {8}
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Get project information",
+  args: {},
+  async execute(args, context) {
+    // Access context information
+    const { agent, sessionID, messageID, directory, worktree } = context
+    return `Agent: ${agent}, Session: ${sessionID}, Message: ${messageID}, Directory: ${directory}, Worktree: ${worktree}`
+  },
+})
+```
+
+ã‚»ãƒƒã‚·ãƒ§ãƒ³ã®ä½œæ¥­ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«ã¯ `context.directory` ã‚’ä½¿ç”¨ã—ã¾ã™ã€‚
+git ãƒ¯ãƒ¼ã‚¯ãƒ„ãƒªãƒ¼ã®ãƒ«ãƒ¼ãƒˆã«ã¯ `context.worktree` ã‚’ä½¿ç”¨ã—ã¾ã™ã€‚
+
+---
+
+## ä¾‹
+
+### Python ã§ã®ãƒ„ãƒ¼ãƒ«ã®ä½œæˆ
+
+ãƒ„ãƒ¼ãƒ«ã¯ä»»æ„ã®è¨€èªžã§ä½œæˆã§ãã¾ã™ã€‚ä»¥ä¸‹ã¯ã€Python ã‚’ä½¿ç”¨ã—ã¦ 2 ã¤ã®æ•°å€¤ã‚’åŠ ç®—ã™ã‚‹ä¾‹ã§ã™ã€‚
+
+ã¾ãšã€ãƒ„ãƒ¼ãƒ«ã‚’ Python ã‚¹ã‚¯ãƒªãƒ—ãƒˆã¨ã—ã¦ä½œæˆã—ã¾ã™ã€‚
+
+```python title=".Clisis Coder/tools/add.py"
+import sys
+
+a = int(sys.argv[1])
+b = int(sys.argv[2])
+print(a + b)
+```
+
+æ¬¡ã«ã€ãã‚Œã‚’å‘¼ã³å‡ºã™ãƒ„ãƒ¼ãƒ«å®šç¾©ã‚’ä½œæˆã—ã¾ã™ã€‚
+
+```ts title=".Clisis Coder/tools/python-add.ts" {10}
+import { tool } from "@demotic/clisis-plugin"
+import path from "path"
+
+export default tool({
+  description: "Add two numbers using Python",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args, context) {
+    const script = path.join(context.worktree, ".Clisis Coder/tools/add.py")
+    const result = await Bun.$`python3 ${script} ${args.a} ${args.b}`.text()
+    return result.trim()
+  },
+})
+```
+
+ã“ã“ã§ã¯ã€[`Bun.$`](https://bun.com/docs/runtime/shell) ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£ã‚’ä½¿ç”¨ã—ã¦ Python ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’å®Ÿè¡Œã—ã¦ã„ã¾ã™ã€‚

@@ -1,0 +1,385 @@
+﻿---
+title: Wtyczki
+description: Napisz wÅ‚asnÄ… wtyczkÄ™, aby rozszerzyÄ‡ Clisis Coder.
+---
+
+Wtyczki umoÅ¼liwiajÄ…ce wyÅ‚Ä…czenie Clisis Coder poprzez podjÄ™cie rÃ³Å¼nych zdarzeÅ„ i zachowanie. MoÅ¼na utworzyÄ‡ wtyczkÄ™, aby sprawdziÄ‡ nowe funkcje, integrowaÄ‡ siÄ™ z usÅ‚ugami lub sprawdzaniem zachowania Clisis Coder.
+
+Aby znaleÅºÄ‡ siÄ™ z przykÅ‚adami, przejrzyj [wtyczki](/docs/ecosystem#plugins) utworzone przez spoÅ‚ecznoÅ›Ä‡.
+
+---
+
+## UÅ¼yj wtyczki
+
+IstniejÄ… dwa sposoby Å‚adowania wtyczek.
+
+---
+
+### Z plikÃ³w lokalnych
+
+Miejsce plikÃ³w JavaScript lub TypeScript w katalogu wtyczki.
+
+- `.Clisis Coder/plugins/` - Wtyczki na poziomie projektu
+- `~/.config/Clisis Coder/plugins/` - Wtyczki globalne
+
+Pliki w tych katalogach sÄ… automatycznie Å‚adowane podczas uruchamiania.
+
+---
+
+### Z npm
+
+szczegÃ³Å‚owy pakiet npm w pliku konfiguracyjnym.
+
+```json title="Clisis Coder.json"
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "plugin": ["Clisis Coder-helicone-session", "Clisis Coder-wakatime", "@my-org/custom-plugin"]
+}
+```
+
+ObsÅ‚ugiwane sÄ… zarÃ³wno pakiety zwykÅ‚e, jak i pakiety npm o okreÅ›lonym zakresie.
+
+PrzeglÄ…daj dostÄ™pnÄ… wtyczkÄ™ w [ekosystemie](/docs/ecosystem#plugins).
+
+---
+
+### SposÃ³b instalacji wtyczek
+
+**wtyczki npm** sÄ… instalowane automatycznie przy uÅ¼yciu Bun podczas uruchamiania. Pakiety i ich zaleÅ¼noÅ›ci sÄ… buforowane w `~/.cache/Clisis Coder/node_modules/`.
+
+**Wtyczki lokalne** sÄ… Å‚adowane bezpoÅ›rednio z katalogu wtyczek. Aby uzyskaÄ‡ dostÄ™p do zewnÄ™trznych pakietÃ³w, musisz zainstalowaÄ‡ `package.json` w swoim katalogu konfiguracyjnym (zobacz [ZaleÅ¼noÅ›ci](#dependencies)) lub opublikowaÄ‡ wtyczkÄ™ w npm i [dodaj jÄ… do swojej konfiguracji](/docs/config#plugins).
+
+---
+
+### KolejnoÅ›Ä‡ Å‚adowania
+
+Wtyczki sÄ… Å‚adowane ze wszystkich ÅºrÃ³deÅ‚, a wszystkie hooki napisane po kolei. KolejnoÅ›Ä‡ Å‚adowania do:
+
+1. Konfiguracja globalna (`~/.config/Clisis Coder/Clisis Coder.json`)
+2. Konfiguracja projektu (`Clisis Coder.json`)
+3. Globalny katalog wtyczek (`~/.config/Clisis Coder/plugins/`)
+4. Katalog wtyczek projektu (`.Clisis Coder/plugins/`)
+
+Zduplikowane pakiety npm o tej samej nazwie i wersji sÄ… Å‚adowane raz. RÃ³wnie waÅ¼ny jest dostÄ™p lokalny i zewnÄ™trzny npm o dodatkowych nazwach, ktÃ³re sÄ… zewnÄ™trzne.
+
+---
+
+## UtwÃ³rz wtyczkÄ™
+
+Wtyczka do **moduÅ‚ JavaScript/TypeScript**, ktÃ³ry eksportuje jeden lub wiÄ™cej wtyczek
+funkcje. dostÄ™pna funkcja korzystania z obiektu kontekstu i gÅ‚Ã³wnego obiektu hooks.
+
+---
+
+### ZaleÅ¼noÅ›ci
+
+Lokalne narzÄ™dzie i narzÄ™dzie, ktÃ³re moÅ¼na wykorzystaÄ‡ z zewnÄ™trznych pakietÃ³w npm. Dodaj `package.json` do swojego katalogu konfiguracyjnego z zaleÅ¼noÅ›ciami.
+
+```json title=".Clisis Coder/package.json"
+{
+  "dependencies": {
+    "shescape": "^2.1.0"
+  }
+}
+```
+
+Clisis Coder uruchomienie `bun install` przy uruchomieniu, aby je uruchomiÄ‡. Twoje dodatkowe funkcje bÄ™dÄ… dostÄ™pne po zaimportowaniu.
+
+```ts title=".Clisis Coder/plugins/my-plugin.ts"
+import { escape } from "shescape"
+
+export const MyPlugin = async (ctx) => {
+  return {
+    "tool.execute.before": async (input, output) => {
+      if (input.tool === "bash") {
+        output.args.command = escape(output.args.command)
+      }
+    },
+  }
+}
+```
+
+---
+
+### Podstawowa struktura
+
+```js title=".Clisis Coder/plugins/example.js"
+export const MyPlugin = async ({ project, client, $, directory, worktree }) => {
+  console.log("Plugin initialized!")
+
+  return {
+    // Hook implementations go here
+  }
+}
+```
+
+Funkcja dostÄ™pu do:
+
+- `project`: Aktualne informacje o projekcie.
+- `directory`: BieÅ¼Ä…cy katalog roboczy.
+- `worktree`: ÅšcieÅ¼ka eksploatacyjna Git.
+- `client`: Klient SDK z Clisis Coder do sztucznej inteligencji.
+- `$`: [API obudowy](https://bun.com/docs/runtime/shell) Buna do wykonywania oprogramowania.
+
+---
+
+### ObsÅ‚uga TypeScriptu
+
+W przypadku wtyczek TypeScript moÅ¼esz importowaÄ‡ typy z pakietu wtyczek:
+
+```ts title="my-plugin.ts" {1}
+import type { Plugin } from "@demotic/clisis-plugin"
+
+export const MyPlugin: Plugin = async ({ project, client, $, directory, worktree }) => {
+  return {
+    // Type-safe hook implementations
+  }
+}
+```
+
+---
+
+### Wydarzenia
+
+Wtyczki mogÄ… subskrybowaÄ‡ zdarzenia, jak zastosowaÄ‡ poniÅ¼ej sekcji PrzykÅ‚ady. Oto lista rÃ³Å¼nych dziaÅ‚aÅ„.
+
+#### Wydarzenia dowodzenia
+
+- `command.executed`
+
+#### Plik Wydarzenia
+
+- `file.edited`
+- `file.watcher.updated`
+
+#### Wydarzenia instalacyjne
+
+- `installation.updated`
+
+#### Wydarzenia LSP
+
+- `lsp.client.diagnostics`
+- `lsp.updated`
+
+#### Wydarzenia w wiadomoÅ›ciach
+
+- `message.part.removed`
+- `message.part.updated`
+- `message.removed`
+- `message.updated`
+
+#### Wydarzenia zwiÄ…zane z uprawnieniami
+
+- `permission.asked`
+- `permission.replied`
+
+#### Wydarzenia serwerowe
+
+- `server.connected`
+
+#### Wydarzenia sesyjne
+
+- `session.created`
+- `session.compacted`
+- `session.deleted`
+- `session.diff`
+- `session.error`
+- `session.idle`
+- `session.status`
+- `session.updated`
+
+#### Wydarzenia do zrobienia
+
+- `todo.updated`
+
+#### Wydarzenia shell
+
+- `shell.env`
+
+#### Wydarzenia narzÄ™dziowe
+
+- `tool.execute.after`
+- `tool.execute.before`
+
+#### Wydarzenia TUI
+
+- `tui.prompt.append`
+- `tui.command.execute`
+- `tui.toast.show`
+
+---
+
+## PrzykÅ‚ady
+
+Oto kilka dostÄ™pnych wtyczek, ktÃ³re moÅ¼na udostÄ™pniÄ‡ do Clisis Coder.
+
+---
+
+### WysyÅ‚aj powiadomienia
+
+WysyÅ‚aj powiadomienia, gdy wystÄ…piÄ… okreÅ›lone zdarzenia:
+
+```js title=".Clisis Coder/plugins/notification.js"
+export const NotificationPlugin = async ({ project, client, $, directory, worktree }) => {
+  return {
+    event: async ({ event }) => {
+      // Send notification on session completion
+      if (event.type === "session.idle") {
+        await $`osascript -e 'display notification "Session completed!" with title "Clisis Coder"'`
+      }
+    },
+  }
+}
+```
+
+UÅ¼ywamy `osascript` do uruchamiania AppleScript na macOS. Tutaj moÅ¼esz przejÅ›Ä‡ do wysyÅ‚ania pozostaÅ‚oÅ›ci.
+
+:::note
+JeÅ›li korzystasz z aplikacji komputerowej Clisis Coder, moÅ¼e ona automatycznie wysÅ‚aÄ‡ wiadomoÅ›Ä‡ systemowÄ…, gdy odpowiedÅº jest gotowa lub gdy wystÄ…piÄ… bÅ‚Ä™dy sesji.
+:::
+
+---
+
+### ochrona .env
+
+Zablokuj Clisis Coder czytanie plikÃ³w `.env`:
+
+```javascript title=".Clisis Coder/plugins/env-protection.js"
+export const EnvProtection = async ({ project, client, $, directory, worktree }) => {
+  return {
+    "tool.execute.before": async (input, output) => {
+      if (input.tool === "read" && output.args.filePath.includes(".env")) {
+        throw new Error("Do not read .env files")
+      }
+    },
+  }
+}
+```
+
+---
+
+### Wstrzyknij zmienne Å›rodowiskowe
+
+Wstrzyknij zmienne konsekwencje dla wszystkich wykonaÅ„ (narzÄ™dzia AI i terminale uÅ¼ytkownika):
+
+```javascript title=".Clisis Coder/plugins/inject-env.js"
+export const InjectEnvPlugin = async () => {
+  return {
+    "shell.env": async (input, output) => {
+      output.env.MY_API_KEY = "secret"
+      output.env.PROJECT_ROOT = input.cwd
+    },
+  }
+}
+```
+
+---
+
+### Niestandardowe narzÄ™dzia
+
+Wtyczki mogÄ… rÃ³wnieÅ¼ dodawaÄ‡ niestandardowe narzÄ™dzia do Clisis Coder:
+
+```ts title=".Clisis Coder/plugins/custom-tools.ts"
+import { type Plugin, tool } from "@demotic/clisis-plugin"
+
+export const CustomToolsPlugin: Plugin = async (ctx) => {
+  return {
+    tool: {
+      mytool: tool({
+        description: "This is a custom tool",
+        args: {
+          foo: tool.schema.string(),
+        },
+        async execute(args, context) {
+          const { directory, worktree } = context
+          return `Hello ${args.foo} from ${directory} (worktree: ${worktree})`
+        },
+      }),
+    },
+  }
+}
+```
+
+Pomocnik `tool` tworzy narzÄ™dzie uÅ¼ytkowe, ktÃ³re moÅ¼e wywoÅ‚aÄ‡ kod Clisis Coder. Pobierane schematu Zoda i narzÄ™dzie wyszukiwania za pomocÄ…:
+
+- `description`: Co robi do narzÄ™dzia
+- `args`: Schemat Zoda dla narzÄ™dzi argumentÃ³w
+- `execute`: Funkcja uruchamiania po wywoÅ‚aniu narzÄ™dzia
+
+Twoje narzÄ™dzie bÄ™dzie dostÄ™pne dla otwartego kodu wraz z narzÄ™dziami uÅ¼ytkowymi.
+
+---
+
+### Logowanie
+
+uÅ¼yj `client.app.log()` zamiast `console.log` do rejestracji strukturalnego:
+
+```ts title=".Clisis Coder/plugins/my-plugin.ts"
+export const MyPlugin = async ({ client }) => {
+  await client.app.log({
+    body: {
+      service: "my-plugin",
+      level: "info",
+      message: "Plugin initialized",
+      extra: { foo: "bar" },
+    },
+  })
+}
+```
+
+Poziomy: `debug`, `info`, `warn`, `error`. Aby uzyskaÄ‡ szczegÃ³Å‚owe informacje, zobacz [dokumentacjÄ™ pakietu SDK](https://Clisis Coder.ai/docs/sdk).
+
+---
+
+### Haki zagÄ™szczajÄ…ce
+
+Dostosuj kontekst doÅ‚Ä…czony podczas kompaktowania sesji:
+
+```ts title=".Clisis Coder/plugins/compaction.ts"
+import type { Plugin } from "@demotic/clisis-plugin"
+
+export const CompactionPlugin: Plugin = async (ctx) => {
+  return {
+    "experimental.session.compacting": async (input, output) => {
+      // Inject additional context into the compaction prompt
+      output.context.push(`
+## Custom Context
+
+Include any state that should persist across compaction:
+- Current task status
+- Important decisions made
+- Files being actively worked on
+`)
+    },
+  }
+}
+```
+
+Hak `experimental.session.compacting` jest uruchamiany, zanim LLM wygeneruje podsumowanie kontynuacji. go, aby wstrzyknÄ…Ä‡ kontekst kontekstu dla domeny, ktÃ³rej nie dostrzeÅ¼ono przez domyÅ›lny monit o zagÄ™szczenie.
+
+MoÅ¼na takÅ¼e umieÅ›ciÄ‡ kompletny monit o zagÄ™szczenie, ustawiajÄ…c `output.prompt`:
+
+```ts title=".Clisis Coder/plugins/custom-compaction.ts"
+import type { Plugin } from "@demotic/clisis-plugin"
+
+export const CustomCompactionPlugin: Plugin = async (ctx) => {
+  return {
+    "experimental.session.compacting": async (input, output) => {
+      // Replace the entire compaction prompt
+      output.prompt = `
+You are generating a continuation prompt for a multi-agent swarm session.
+
+Summarize:
+1. The current task and its status
+2. Which files are being modified and by whom
+3. Any blockers or dependencies between agents
+4. The next steps to complete the work
+
+Format as a structured prompt that a new agent can use to resume work.
+`
+    },
+  }
+}
+```
+
+Gdy urzÄ…dzenie jest `output.prompt`, jest caÅ‚kowicie dostÄ™pne na domyÅ›lnym monit o zagÄ™szczanie. Tablica `output.context` jest w tym przypadku poniesiona.

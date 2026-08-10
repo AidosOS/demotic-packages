@@ -1,0 +1,15 @@
+## External Agent Configuration
+
+Available external agents:
+- **clisis** — Deno system operator. Capabilities: system, security, coding. File operations, Docker sandbox, pentest, hardware control.
+- **hermes** — Python self-improving agent. Capabilities: reasoning, research, coding. Complex reasoning, skill extraction, web research.
+- **openclaw** — Node multi-channel gateway. Capabilities: messaging, orchestrate, coding. Multi-platform messaging, plugin orchestration, file parsing.
+
+$ARGUMENTS
+
+Active external agent: $1
+
+When the user sets an active external agent, prefer using its tool (clisis, hermes, or openclaw) for tasks that match its capabilities. If no agent is explicitly set, select the best agent based on the task:
+- **clisis** for system operations, file management, Docker, shell commands, network scanning, pentest
+- **hermes** for complex reasoning, web research, creative tasks, skill extraction, analysis
+- **openclaw** for multi-channel communication, message sending, platform bridging, file parsing

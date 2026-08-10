@@ -1,0 +1,9 @@
+[
+  { "src": "email", "name": "owl-email", "pkg": "@demotic/owl-email" },
+  { "src": "handsfree", "name": "owl-handsfree", "pkg": "@demotic/owl-handsfree" },
+  { "src": "install-config", "name": "owl-install-config", "pkg": "@demotic/owl-install-config" },
+  { "src": "openwork-bootstrap", "name": "owl-bootstrap", "pkg": "@demotic/owl-bootstrap" },
+  { "src": "openwork-ui-mcp", "name": "owl-ui-mcp", "pkg": "@demotic/owl-ui-mcp" },
+  { "src": "types", "name": "owl-types", "pkg": "@demotic/owl-types" },
+  { "src": "ui", "name": "owl-ui", "pkg": "@demotic/owl-ui" }
+]

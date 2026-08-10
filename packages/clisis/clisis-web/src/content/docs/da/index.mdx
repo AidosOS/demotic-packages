@@ -1,0 +1,360 @@
+﻿---
+title: Introduktion
+description: Kom godt i gang med Clisis Coder.
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components"
+import config from "../../../../config.mjs"
+export const console = config.console
+
+[**Clisis Coder**](/) er en open source AI-kodningsagent. Den er tilgÃ¦ngelig som en terminalbaseret grÃ¦nseflade, desktop-app eller IDE-udvidelse.
+
+![Clisis Coder TUI med Clisis Coder-temaet](../../../assets/lander/screenshot.png)
+
+Lad os komme i gang.
+
+---
+
+#### ForudsÃ¦tninger
+
+For at bruge Clisis Coder i din terminal skal du bruge:
+
+1. En moderne terminalemulator som:
+   - [WezTerm](https://wezterm.org), pÃ¥ tvÃ¦rs af platforme
+   - [Alacritty](https://alacritty.org), pÃ¥ tvÃ¦rs af platforme
+   - [Ghostty](https://ghostty.org), Linux og macOS
+   - [Kitty](https://sw.kovidgoyal.net/kitty/), Linux og macOS
+
+2. API-nÃ¸gler til de LLM udbydere, du vil bruge.
+
+---
+
+## Installation
+
+Den nemmeste mÃ¥de at installere Clisis Coder pÃ¥ er gennem installationsscriptet.
+
+```bash
+curl -fsSL https://Clisis Coder.ai/install | bash
+```
+
+Du kan ogsÃ¥ installere det med fÃ¸lgende kommandoer:
+
+- **Bruger Node.js**
+
+        <Tabs>
+
+      <TabItem label="npm">
+      ```bash
+      npm install -g Clisis Coder-ai
+      ```
+
+          </TabItem>
+
+        <TabItem label="Bun">
+        ```bash
+        bun install -g Clisis Coder-ai
+        ```
+
+          </TabItem>
+
+        <TabItem label="pnpm">
+        ```bash
+        pnpm install -g Clisis Coder-ai
+        ```
+
+          </TabItem>
+
+        <TabItem label="Yarn">
+        ```bash
+        yarn global add Clisis Coder-ai
+        ```
+
+      </TabItem>
+
+  </Tabs>
+
+- **Brug af Homebrew pÃ¥ macOS og Linux**
+
+  ```bash
+  brew install AidosOS/tap/clisis-coder
+  ```
+
+  > Vi anbefaler at bruge Clisis Coder-tap for at fÃ¥ de mest opdaterede udgivelser. Den officielle `brew install Clisis Coder`-formel vedligeholdes af Homebrew-teamet og opdateret sjÃ¦ldnere.
+
+- **Brug af Paru pÃ¥ Arch Linux**
+
+  ```bash
+  sudo pacman -S Clisis Coder           # Arch Linux (Stable)
+  paru -S Clisis Coder-bin              # Arch Linux (Latest from AUR)
+  ```
+
+#### Windows
+
+:::tip[Anbefalet: Brug WSL]
+For at fÃ¥ den bedste oplevelse pÃ¥ Windows anbefaler vi at bruge [Windows Subsystem for Linux (WSL)](/docs/windows-wsl). Det giver bedre ydeevne og fuld kompatibilitet med clisis-coders funktioner.
+:::
+
+- **Brug af Chocolatey**
+
+  ```bash
+  choco install Clisis Coder
+  ```
+
+- **Brug af Scoop**
+
+  ```bash
+  scoop install Clisis Coder
+  ```
+
+- **Bruger NPM**
+
+  ```bash
+  npm install -g Clisis Coder-ai
+  ```
+
+- **Brug af Mise**
+
+  ```bash
+  mise use -g github:AidosOS/demotic-clisis-coder
+  ```
+
+- **Brug af Docker**
+
+  ```bash
+  docker run -it --rm ghcr.io/aidosos/clisis-coder
+  ```
+
+Support til installation af Clisis Coder pÃ¥ Windows ved hjÃ¦lp af Bun er i gang.
+
+Du kan ogsÃ¥ fÃ¥ fat i binÃ¦ren fra [Releases](https://github.com/AidosOS/demotic-clisis-coder/releases).
+
+---
+
+## Konfiguration
+
+Med Clisis Coder kan du bruge enhver LLM udbyder ved at konfigurere deres API-nÃ¸gler.
+
+Hvis du er ny til at bruge LLM-udbydere, anbefaler vi at bruge [Clisis Coder Zen](/docs/zen).
+Det er en udvalgt liste over modeller, der er blevet testet og verificeret af Clisis Coder
+holde.
+
+1. KÃ¸r kommandoen `/connect` i TUI, vÃ¦lg Clisis Coder, og gÃ¥ til [Clisis Coder.ai/auth](https://Clisis Coder.ai/auth).
+
+   ```txt
+   /connect
+   ```
+
+2. Log ind, tilfÃ¸j dine faktureringsoplysninger, og kopier din API-nÃ¸gle.
+
+3. IndsÃ¦t din API-nÃ¸gle.
+
+   ```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+   ```
+
+Alternativt kan du vÃ¦lge en af â€‹â€‹de andre udbydere. [LÃ¦s mere](/docs/providers#directory).
+
+---
+
+## Initialisering
+
+Nu hvor du har konfigureret en udbyder, kan du navigere til et projekt, der
+du vil arbejde pÃ¥.
+
+```bash
+cd /path/to/project
+```
+
+Og kÃ¸r Clisis Coder.
+
+```bash
+Clisis Coder
+```
+
+Derefter initialiseres Clisis Coder for projektet ved at kÃ¸re fÃ¸lgende kommando.
+
+```bash frame="none"
+/init
+```
+
+Dette fÃ¥r Clisis Coder til at analysere dit projekt og oprette en `AGENTS.md` fil i
+projektets rod.
+
+:::tip
+Du bÃ¸r overgive dit projekter `AGENTS.md` fil til Git.
+:::
+
+Dette hjÃ¦lper Clisis Coder med at forstÃ¥ projektstrukturen og kodningsmÃ¸nstrene
+brugt.
+
+---
+
+## Brug
+
+Du er nu klar til at bruge Clisis Coder til at arbejde pÃ¥ dit projekt. SpÃ¸rg det gerne
+noget!
+
+Hvis du er ny til at bruge en AI-kodningsagent, er her nogle eksempler, der evt
+hjÃ¦lp.
+
+---
+
+### Stil spÃ¸rgsmÃ¥l
+
+Du kan bede Clisis Coder om at forklare kodebasen for dig.
+
+:::tip
+Brug `@`-tasten til at sÃ¸ge efter filer i projektet.
+:::
+
+```txt frame="none" "@packages/functions/src/api/index.ts"
+How is authentication handled in @packages/functions/src/api/index.ts
+```
+
+Dette er nyttigt, hvis der er en del af kodebasen, som du ikke har arbejdet pÃ¥.
+
+---
+
+### TilfÃ¸j funktioner
+
+Du kan bede Clisis Coder om at tilfÃ¸je nye funktioner til dit projekt. Selvom vi fÃ¸rst anbefaler, at du beder den om at lave en plan.
+
+1. **Opret en plan**
+
+   Clisis Coder har en _Plan mode_, der deaktiverer dens evne til at foretage Ã¦ndringer og
+   foreslÃ¥ i stedet _hvordan_ det vil implementere funktionen.
+
+   Skift til det ved hjÃ¦lp af **Tab**-tasten. Du vil se en indikator for dette i nederste hÃ¸jre hjÃ¸rne.
+
+   ```bash frame="none" title="Skift til Plan-tilstand"
+   <TAB>
+   ```
+
+   Lad os nu beskrive, hvad vi vil have den til at gÃ¸re.
+
+   ```txt frame="none"
+   When a user deletes a note, we'd like to flag it as deleted in the database.
+   Then create a screen that shows all the recently deleted notes.
+   From this screen, the user can undelete a note or permanently delete it.
+   ```
+
+   Du vil give Clisis Coder nok detaljer til at forstÃ¥, hvad du Ã¸nsker. Det hjÃ¦lper
+   at tale med det, som om du taler med en juniorudvikler pÃ¥ dit team.
+
+:::tip
+Giv Clisis Coder masser af kontekst og eksempler for at hjÃ¦lpe den med at forstÃ¥, hvad du
+Ã¸nsker.
+:::
+
+2. **Gentag om planen**
+
+   NÃ¥r det giver dig en plan, kan du give den feedback eller tilfÃ¸je flere detaljer.
+
+   ```txt frame="none"
+   We'd like to design this new screen using a design I've used before.
+   [Image #1] Take a look at this image and use it as a reference.
+   ```
+
+:::tip
+TrÃ¦k og slip billeder i terminalen for at tilfÃ¸je dem til prompten.
+:::
+
+Clisis Coder kan scanne alle billeder, du giver dem og tilfÃ¸je dem til prompten. Det kan du
+gÃ¸r dette ved at trÃ¦kke og slippe et billede ind i terminalen.
+
+3. **Byg funktionen**
+
+   NÃ¥r du fÃ¸ler dig godt tilpas med planen, skal du skifte tilbage til _Byggetilstand_ ved
+   trykke pÃ¥ **Tab**-tasten igen.
+
+   ```bash frame="none"
+   <TAB>
+   ```
+
+   Og beder den om at foretage Ã¦ndringerne.
+
+   ```bash frame="none"
+   Sounds good! Go ahead and make the changes.
+   ```
+
+---
+
+### Foretag Ã¦ndringer
+
+For mere ligetil Ã¦ndringer kan du bede Clisis Coder om at bygge den direkte
+uden at skulle gennemgÃ¥ planen fÃ¸rst.
+
+```txt frame="none" "@packages/functions/src/settings.ts" "@packages/functions/src/notes.ts"
+We need to add authentication to the /settings route. Take a look at how this is
+handled in the /notes route in @packages/functions/src/notes.ts and implement
+the same logic in @packages/functions/src/settings.ts
+```
+
+Du vil sikre dig, at du giver en god mÃ¦ngde detaljer, sÃ¥ Clisis Coder gÃ¸r det rigtige
+Ã¦ndringer.
+
+---
+
+### Fortryd Ã¦ndringer
+
+Lad os sige, at du beder Clisis Coder om at foretage nogle Ã¦ndringer.
+
+```txt frame="none" "@packages/functions/src/api/index.ts"
+Can you refactor the function in @packages/functions/src/api/index.ts?
+```
+
+Men du indser, at det ikke er, hvad du Ã¸nskede. Du **kan fortryde** Ã¦ndringerne
+ved hjÃ¦lp af kommandoen `/undo`.
+
+```bash frame="none"
+/undo
+```
+
+Clisis Coder vil nu vende tilbage til Ã¦ndringerne, du har foretaget, og vise din oprindelige besked
+igen.
+
+```txt frame="none" "@packages/functions/src/api/index.ts"
+Can you refactor the function in @packages/functions/src/api/index.ts?
+```
+
+Herfra kan du justere prompten og bede Clisis Coder om at prÃ¸ve igen.
+
+:::tip
+Du kan kÃ¸re `/undo` flere gange for at fortryde flere Ã¦ndringer.
+:::
+
+Eller du **kan gentage** Ã¦ndringerne ved hjÃ¦lp af kommandoen `/redo`.
+
+```bash frame="none"
+/redo
+```
+
+---
+
+## Deling
+
+De samtaler, du har med Clisis Coder, kan [deles med din
+team](/docs/share).
+
+```bash frame="none"
+/share
+```
+
+Dette vil oprette et link til den aktuelle samtale og kopiere det til denne udklipsholder.
+
+:::note
+Samtaler dele ikke som standard.
+:::
+
+Her er en [eksempelsamtale](https://Clisis Coder.ai/s/4XP1fce5) med Clisis Coder.
+
+---
+
+## Tilpasning
+
+Og det er det! Du er nu en professionel i at bruge Clisis Coder.
+
+For at gÃ¸re det til dit eget, anbefaler vi [at vÃ¦lge et tema](/docs/themes), [tilpasse genvejstaster](/docs/keybinds), [konfigurere kodeformater](/docs/formatters), [oprette brugerdefinerede kommandoer](/docs/commands) eller at lege med [Clisis Coder-konfiguration](/docs/config).

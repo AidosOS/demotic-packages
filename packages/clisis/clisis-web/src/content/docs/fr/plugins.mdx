@@ -1,0 +1,384 @@
+﻿---
+title: Plugins
+description: Ã‰crivez vos propres plugins pour Ã©tendre Clisis Coder.
+---
+
+Les plugins vous permettent d'Ã©tendre Clisis Coder en vous connectant Ã  divers Ã©vÃ©nements et en personnalisant le comportement. Vous pouvez crÃ©er des plugins pour ajouter de nouvelles fonctionnalitÃ©s, intÃ©grer des services externes ou modifier le comportement par dÃ©faut de Clisis Coder.
+
+Pour des exemples, consultez les [plugins](/docs/ecosystem#plugins) crÃ©Ã©s par la communautÃ©.
+
+---
+
+## Utiliser un plugin
+
+Il existe deux maniÃ¨res de charger des plugins.
+
+---
+
+### Ã€ partir de fichiers locaux
+
+Placez les fichiers JavaScript ou TypeScript dans le rÃ©pertoire du plugin.
+
+- `.Clisis Coder/plugins/` - Plugins au niveau du projet
+- `~/.config/Clisis Coder/plugins/` - Plugins globaux
+
+Les fichiers de ces rÃ©pertoires sont automatiquement chargÃ©s au dÃ©marrage.
+
+---
+
+### Depuis npm
+
+SpÃ©cifiez les packages npm dans votre fichier de configuration.
+
+```json title="Clisis Coder.json"
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "plugin": ["Clisis Coder-helicone-session", "Clisis Coder-wakatime", "@my-org/custom-plugin"]
+}
+```
+
+Les packages npm scopÃ©s et standards sont pris en charge.
+
+Parcourez les plugins disponibles dans le [ecosystem](/docs/ecosystem#plugins).
+
+---
+
+### Comment les plugins sont installÃ©s
+
+Les **plugins npm** sont installÃ©s automatiquement Ã  l'aide de Bun au dÃ©marrage. Les packages et leurs dÃ©pendances sont mis en cache dans `~/.cache/Clisis Coder/node_modules/`.
+
+Les **plugins locaux** sont chargÃ©s directement depuis le rÃ©pertoire des plugins. Pour utiliser des packages externes, vous devez crÃ©er un `package.json` dans votre rÃ©pertoire de configuration (voir [DÃ©pendances](#dependencies)), ou publier le plugin sur npm et [l'ajouter Ã  votre config](/docs/config#plugins).
+
+---
+
+### Ordre de chargement
+
+Les plugins sont chargÃ©s Ã  partir de toutes les sources et tous les hooks s'exÃ©cutent dans l'ordre. L'ordre de chargement est le suivant :
+
+1. Configuration globale (`~/.config/Clisis Coder/Clisis Coder.json`)
+2. Configuration du projet (`Clisis Coder.json`)
+3. RÃ©pertoire global des plugins (`~/.config/Clisis Coder/plugins/`)
+4. RÃ©pertoire des plugins du projet (`.Clisis Coder/plugins/`)
+
+Les packages npm en double avec le mÃªme nom et la mÃªme version sont chargÃ©s une fois. Cependant, un plugin local et un plugin npm portant des noms similaires sont tous deux chargÃ©s sÃ©parÃ©ment.
+
+---
+
+## CrÃ©er un plugin
+
+Un plugin est un **module JavaScript/TypeScript** qui exporte une ou plusieurs fonctions de plugin. Chaque fonction reÃ§oit un objet contextuel et renvoie un objet hooks.
+
+---
+
+### DÃ©pendances
+
+Les plugins locaux et les outils personnalisÃ©s peuvent utiliser des packages npm externes. Ajoutez un `package.json` Ã  votre rÃ©pertoire de configuration avec les dÃ©pendances dont vous avez besoin.
+
+```json title=".Clisis Coder/package.json"
+{
+  "dependencies": {
+    "shescape": "^2.1.0"
+  }
+}
+```
+
+Clisis Coder exÃ©cute `bun install` au dÃ©marrage pour les installer. Vos plugins et outils peuvent ensuite les importer.
+
+```ts title=".Clisis Coder/plugins/my-plugin.ts"
+import { escape } from "shescape"
+
+export const MyPlugin = async (ctx) => {
+  return {
+    "tool.execute.before": async (input, output) => {
+      if (input.tool === "bash") {
+        output.args.command = escape(output.args.command)
+      }
+    },
+  }
+}
+```
+
+---
+
+### Structure de base
+
+```js title=".Clisis Coder/plugins/example.js"
+export const MyPlugin = async ({ project, client, $, directory, worktree }) => {
+  console.log("Plugin initialized!")
+
+  return {
+    // Hook implementations go here
+  }
+}
+```
+
+La fonction plugin reÃ§oit :
+
+- `project` : informations sur le projet actuel.
+- `directory` : le rÃ©pertoire de travail actuel.
+- `worktree` : le chemin de l'arbre de travail git.
+- `client` : un client SDK Clisis Coder pour interagir avec l'IA.
+- `$` : [shell API](https://bun.com/docs/runtime/shell) de Bun pour l'exÃ©cution de commandes.
+
+---
+
+### Prise en charge de TypeScript
+
+Pour les plugins TypeScript, vous pouvez importer des types Ã  partir du package du plugin :
+
+```ts title="my-plugin.ts" {1}
+import type { Plugin } from "@demotic/clisis-plugin"
+
+export const MyPlugin: Plugin = async ({ project, client, $, directory, worktree }) => {
+  return {
+    // Type-safe hook implementations
+  }
+}
+```
+
+---
+
+### Ã‰vÃ©nements
+
+Les plugins peuvent s'abonner Ã  des Ã©vÃ©nements comme indiquÃ© ci-dessous dans la section Exemples. Voici une liste des diffÃ©rents Ã©vÃ©nements disponibles.
+
+#### Ã‰vÃ©nements de commande
+
+- `command.executed`
+
+#### Ã‰vÃ©nements de fichier
+
+- `file.edited`
+- `file.watcher.updated`
+
+#### Ã‰vÃ©nements d'installation
+
+- `installation.updated`
+
+#### LSP Ã‰vÃ©nements
+
+- `lsp.client.diagnostics`
+- `lsp.updated`
+
+#### Ã‰vÃ©nements de messages
+
+- `message.part.removed`
+- `message.part.updated`
+- `message.removed`
+- `message.updated`
+
+#### Ã‰vÃ©nements d'autorisation
+
+- `permission.asked`
+- `permission.replied`
+
+#### Ã‰vÃ©nements du serveur
+
+- `server.connected`
+
+#### Ã‰vÃ©nements de session
+
+- `session.created`
+- `session.compacted`
+- `session.deleted`
+- `session.diff`
+- `session.error`
+- `session.idle`
+- `session.status`
+- `session.updated`
+
+#### Ã‰vÃ©nements Ã  faire
+
+- `todo.updated`
+
+#### Ã‰vÃ©nements Shell
+
+- `shell.env`
+
+#### Ã‰vÃ©nements d'outils
+
+- `tool.execute.after`
+- `tool.execute.before`
+
+#### TUI Ã‰vÃ©nements
+
+- `tui.prompt.append`
+- `tui.command.execute`
+- `tui.toast.show`
+
+---
+
+## Exemples
+
+Voici quelques exemples de plugins que vous pouvez utiliser pour Ã©tendre Clisis Coder.
+
+---
+
+### Envoyer des notifications
+
+Envoyez des notifications lorsque certains Ã©vÃ©nements se produisent :
+
+```js title=".Clisis Coder/plugins/notification.js"
+export const NotificationPlugin = async ({ project, client, $, directory, worktree }) => {
+  return {
+    event: async ({ event }) => {
+      // Send notification on session completion
+      if (event.type === "session.idle") {
+        await $`osascript -e 'display notification "Session completed!" with title "Clisis Coder"'`
+      }
+    },
+  }
+}
+```
+
+Nous utilisons `osascript` pour exÃ©cuter AppleScript sur macOS. Ici, nous l'utilisons pour envoyer des notifications.
+
+:::note
+Si vous utilisez l'application de bureau Clisis Coder, elle peut envoyer automatiquement des notifications systÃ¨me lorsqu'une rÃ©ponse est prÃªte ou en cas d'erreur de session.
+:::
+
+---
+
+### Protection .env
+
+EmpÃªchez Clisis Coder de lire les fichiers `.env` :
+
+```javascript title=".Clisis Coder/plugins/env-protection.js"
+export const EnvProtection = async ({ project, client, $, directory, worktree }) => {
+  return {
+    "tool.execute.before": async (input, output) => {
+      if (input.tool === "read" && output.args.filePath.includes(".env")) {
+        throw new Error("Do not read .env files")
+      }
+    },
+  }
+}
+```
+
+---
+
+### Injecter des variables d'environnement
+
+Injectez des variables d'environnement dans toutes les exÃ©cutions du shell (outils d'IA et terminal utilisateur) :
+
+```javascript title=".Clisis Coder/plugins/inject-env.js"
+export const InjectEnvPlugin = async () => {
+  return {
+    "shell.env": async (input, output) => {
+      output.env.MY_API_KEY = "secret"
+      output.env.PROJECT_ROOT = input.cwd
+    },
+  }
+}
+```
+
+---
+
+### Outils personnalisÃ©s
+
+Les plugins peuvent Ã©galement ajouter des outils personnalisÃ©s Ã  Clisis Coder :
+
+```ts title=".Clisis Coder/plugins/custom-tools.ts"
+import { type Plugin, tool } from "@demotic/clisis-plugin"
+
+export const CustomToolsPlugin: Plugin = async (ctx) => {
+  return {
+    tool: {
+      mytool: tool({
+        description: "This is a custom tool",
+        args: {
+          foo: tool.schema.string(),
+        },
+        async execute(args, context) {
+          const { directory, worktree } = context
+          return `Hello ${args.foo} from ${directory} (worktree: ${worktree})`
+        },
+      }),
+    },
+  }
+}
+```
+
+L'assistant `tool` crÃ©e un outil personnalisÃ© que Clisis Coder peut appeler. Il prend une fonction de schÃ©ma Zod et renvoie une dÃ©finition d'outil avec :
+
+- `description` : ce que fait l'outil
+- `args` : schÃ©ma Zod pour les arguments de l'outil
+- `execute` : Fonction qui s'exÃ©cute lorsque l'outil est appelÃ©
+
+Vos outils personnalisÃ©s seront disponibles pour Clisis Coder aux cÃ´tÃ©s des outils intÃ©grÃ©s.
+
+---
+
+### Journalisation
+
+Utilisez `client.app.log()` au lieu de `console.log` pour la journalisation structurÃ©e :
+
+```ts title=".Clisis Coder/plugins/my-plugin.ts"
+export const MyPlugin = async ({ client }) => {
+  await client.app.log({
+    body: {
+      service: "my-plugin",
+      level: "info",
+      message: "Plugin initialized",
+      extra: { foo: "bar" },
+    },
+  })
+}
+```
+
+Niveaux : `debug`, `info`, `warn`, `error`. Voir la [documentation du SDK](https://Clisis Coder.ai/docs/sdk) pour plus de dÃ©tails.
+
+---
+
+### Hooks de compactage
+
+Personnalisez le contexte inclus lorsqu'une session est compactÃ©e :
+
+```ts title=".Clisis Coder/plugins/compaction.ts"
+import type { Plugin } from "@demotic/clisis-plugin"
+
+export const CompactionPlugin: Plugin = async (ctx) => {
+  return {
+    "experimental.session.compacting": async (input, output) => {
+      // Inject additional context into the compaction prompt
+      output.context.push(`
+## Custom Context
+
+Include any state that should persist across compaction:
+- Current task status
+- Important decisions made
+- Files being actively worked on
+`)
+    },
+  }
+}
+```
+
+Le hook `experimental.session.compacting` se dÃ©clenche avant que le LLM ne gÃ©nÃ¨re un rÃ©sumÃ© de continuation. Utilisez-le pour injecter un contexte spÃ©cifique au domaine que le prompt de compactage par dÃ©faut manquerait.
+
+Vous pouvez Ã©galement remplacer entiÃ¨rement le prompt de compactage en dÃ©finissant `output.prompt` :
+
+```ts title=".Clisis Coder/plugins/custom-compaction.ts"
+import type { Plugin } from "@demotic/clisis-plugin"
+
+export const CustomCompactionPlugin: Plugin = async (ctx) => {
+  return {
+    "experimental.session.compacting": async (input, output) => {
+      // Replace the entire compaction prompt
+      output.prompt = `
+You are generating a continuation prompt for a multi-agent swarm session.
+
+Summarize:
+1. The current task and its status
+2. Which files are being modified and by whom
+3. Any blockers or dependencies between agents
+4. The next steps to complete the work
+
+Format as a structured prompt that a new agent can use to resume work.
+`
+    },
+  }
+}
+```
+
+Lorsque `output.prompt` est dÃ©fini, il remplace complÃ¨tement le prompt de compactage par dÃ©faut. Le tableau `output.context` est ignorÃ© dans ce cas.

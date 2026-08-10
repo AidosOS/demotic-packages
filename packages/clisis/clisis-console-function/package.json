@@ -1,0 +1,40 @@
+{
+  "name": "@demotic/clisis-console-function",
+  "version": "1.16.2",
+  "$schema": "https://json.schemastore.org/package.json",
+  "private": false,
+  "type": "module",
+  "license": "BSL-1.1",
+  "scripts": {
+    "typecheck": "tsgo --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "4.20251008.0",
+    "@tsconfig/node22": "22.0.2",
+    "@types/node": "24.12.2",
+    "openai": "5.11.0",
+    "typescript": "5.8.2",
+    "@typescript/native-preview": "7.0.0-dev.20251207.1"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "3.0.64",
+    "@ai-sdk/openai": "3.0.48",
+    "@ai-sdk/openai-compatible": "2.0.37",
+    "@demotic/clisis-console-core": "workspace:*",
+    "@demotic/clisis-console-resource": "workspace:*",
+    "@openauthjs/openauth": "0.0.0-20250322224806",
+    "ai": "6.0.168",
+    "zod": "4.1.8"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AidosOS/demotic-packages.git",
+    "directory": "clisis-console-function"
+  },
+  "homepage": "https://github.com/AidosOS/demotic-packages",
+  "author": "Demotic Suite Contributors"
+}

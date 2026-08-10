@@ -1,0 +1,56 @@
+{
+  "name": "@demotic/clisis-web",
+  "type": "module",
+  "license": "BSL-1.1",
+  "version": "1.16.2",
+  "scripts": {
+    "dev": "astro dev",
+    "dev:remote": "VITE_API_URL=https://api.clisis-coder.ai astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "12.6.3",
+    "@astrojs/markdown-remark": "6.3.1",
+    "@astrojs/solid-js": "5.1.0",
+    "@astrojs/starlight": "0.34.3",
+    "@fontsource/ibm-plex-mono": "5.2.5",
+    "@shikijs/transformers": "3.20.0",
+    "@solid-primitives/resize-observer": "2.1.5",
+    "@types/luxon": "3.7.1",
+    "ai": "6.0.168",
+    "astro": "5.7.13",
+    "diff": "8.0.2",
+    "js-base64": "3.7.7",
+    "lang-map": "0.4.0",
+    "luxon": "3.6.1",
+    "marked": "17.0.1",
+    "marked-shiki": "1.2.1",
+    "rehype-autolink-headings": "7.1.0",
+    "remeda": "2.26.0",
+    "shiki": "3.20.0",
+    "solid-js": "1.9.10",
+    "toolbeam-docs-theme": "0.4.8",
+    "vscode-languageserver-types": "3.17.5"
+  },
+  "devDependencies": {
+    "@demotic/clisis-coder": "workspace:*",
+    "@types/node": "24.12.2",
+    "@astrojs/check": "0.9.6",
+    "typescript": "5.8.2"
+  },
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AidosOS/demotic-packages.git",
+    "directory": "clisis-web"
+  },
+  "homepage": "https://github.com/AidosOS/demotic-packages",
+  "author": "Demotic Suite Contributors"
+}

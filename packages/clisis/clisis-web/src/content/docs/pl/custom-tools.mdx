@@ -1,0 +1,196 @@
+﻿---
+title: NarzÄ™dzia specjalistyczne
+description: TwÃ³rz narzÄ™dzi, ktÃ³re LLM mogÄ… byÄ‡ uruchamiane w otwartym kodzie.
+---
+
+NarzÄ™dzia specjalistyczne to funkcje, ktÃ³re tworzysz i ktÃ³re LLM moÅ¼e wywoÅ‚ywaÄ‡ podczas rozmÃ³w. WspÃ³Å‚pracujÄ… one z [wbudowanymi narzÄ™dziami](/docs/tools) Clisis Coder, takimi jak `read`, `write` i `bash`.
+
+---
+
+## Tworzenie narzÄ™dzia
+
+NarzÄ™dzia tworzÄ… pliki **TypeScript** lub **JavaScript**. Definicja narzÄ™dzia moÅ¼e byÄ‡ odwoÅ‚ywana do skryptÃ³w napisanych w **dowolnym jÄ™zyku** â€” TypeScript lub JavaScript sÄ… uÅ¼ywane tylko w tym samym narzÄ™dziu.
+
+---
+
+### Lokalizacja
+
+MoÅ¼na je uruchomiÄ‡:
+
+- Lokalnie, umieszczajÄ…c je w katalogu `.Clisis Coder/tools/` swojego projektu.
+- Lub globalnie, umieszczajÄ…c je w `~/.config/Clisis Coder/tools/`.
+
+---
+
+### Struktura
+
+NajÅ‚atwiejszym sposobem tworzenia narzÄ™dzia jest pomocnika `tool()`, ktÃ³ry zapewnia bezpieczeÅ„stwo i sprawdzanie poprawnoÅ›ci.
+
+```ts title=".Clisis Coder/tools/database.ts" {1}
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Query the project database",
+  args: {
+    query: tool.schema.string().describe("SQL query to execute"),
+  },
+  async execute(args) {
+    // Your database logic here
+    return `Executed query: ${args.query}`
+  },
+})
+```
+
+**Nazwa pliku** staje siÄ™ **nazwÄ… narzÄ™dzia**. Pierwotne narzÄ™dzie `database`.
+
+---
+
+#### Wiele narzÄ™dzi na plik
+
+MoÅ¼na takÅ¼e eksportowaÄ‡ wiele narzÄ™dzi z jednego pliku. KaÅ¼dy eksport staje siÄ™ **oddzielnym jÄ™zykiem** o nazwie **`<filename>_<exportname>`**:
+
+```ts title=".Clisis Coder/tools/math.ts"
+import { tool } from "@demotic/clisis-plugin"
+
+export const add = tool({
+  description: "Add two numbers",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args) {
+    return args.a + args.b
+  },
+})
+
+export const multiply = tool({
+  description: "Multiply two numbers",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args) {
+    return args.a * args.b
+  },
+})
+```
+
+Tworzy to dwa narzÄ™dzia: `math_add` i `math_multiply`.
+
+---
+
+#### Kolizje nazw z wbudowanymi narzÄ™dziami
+
+Niestandardowe narzÄ™dzia sÄ… identyfikowane wedÅ‚ug nazwy narzÄ™dzia. JeÅ›li niestandardowe narzÄ™dzie uÅ¼ywa tej samej nazwy co wbudowane narzÄ™dzie, niestandardowe narzÄ™dzie ma pierwszeÅ„stwo.
+
+Na przykÅ‚ad ten plik zastÄ™puje wbudowane narzÄ™dzie `bash`:
+
+```ts title=".Clisis Coder/tools/bash.ts"
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Restricted bash wrapper",
+  args: {
+    command: tool.schema.string(),
+  },
+  async execute(args) {
+    return `blocked: ${args.command}`
+  },
+})
+```
+
+:::note
+Preferuj unikalne nazwy, chyba Å¼e celowo chcesz zastÄ…piÄ‡ wbudowane narzÄ™dzie. JeÅ›li chcesz wyÅ‚Ä…czyÄ‡ wbudowane narzÄ™dzie, ale go nie nadpisywaÄ‡, uÅ¼yj [uprawnieÅ„](/docs/permissions).
+:::
+
+---
+
+### Argumenty
+
+Do zdefiniowania argumentÃ³w moÅ¼na zastosowaÄ‡ `tool.schema`, czyli po prostu [Zod](https://zod.dev).
+
+```ts "tool.schema"
+args: {
+  query: tool.schema.string().describe("SQL query to execute")
+}
+```
+
+MoÅ¼na takÅ¼e bezpoÅ›rednio zaimportowaÄ‡ [Zod](https://zod.dev) i zwyczajowo zwykÅ‚y obiekt:
+
+```ts {6}
+import { z } from "zod"
+
+export default {
+  description: "Tool description",
+  args: {
+    param: z.string().describe("Parameter description"),
+  },
+  async execute(args, context) {
+    // Tool implementation
+    return "result"
+  },
+}
+```
+
+---
+
+### Kontekst
+
+NarzÄ™dzia kontekstowe charakterystycznej sesji:
+
+```ts title=".Clisis Coder/tools/project.ts" {8}
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Get project information",
+  args: {},
+  async execute(args, context) {
+    // Access context information
+    const { agent, sessionID, messageID, directory, worktree } = context
+    return `Agent: ${agent}, Session: ${sessionID}, Message: ${messageID}, Directory: ${directory}, Worktree: ${worktree}`
+  },
+})
+```
+
+`context.directory` jako katalogowy pracodawczy.
+`context.worktree` dla katalogu gÅ‚Ã³wnego zwalczajÄ…cego git.
+
+---
+
+## PrzykÅ‚ad
+
+### Napisz narzÄ™dzie w Pythonie
+
+MoÅ¼esz pisaÄ‡ swoje narzÄ™dzia w dowolnym jÄ™zyku. Oto przykÅ‚ad dodania dwÃ³ch liczb przy uÅ¼yciu jÄ™zyka Python.
+
+Najpierw utwÃ³rz narzÄ™dzie jako skrypt w jÄ™zyku Python:
+
+```python title=".Clisis Coder/tools/add.py"
+import sys
+
+a = int(sys.argv[1])
+b = int(sys.argv[2])
+print(a + b)
+```
+
+NastÄ™pnie utwÃ³rz definicjÄ™ narzÄ™dzia, ktÃ³ra go wywoÅ‚uje:
+
+```ts title=".Clisis Coder/tools/python-add.ts" {10}
+import { tool } from "@demotic/clisis-plugin"
+import path from "path"
+
+export default tool({
+  description: "Add two numbers using Python",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args, context) {
+    const script = path.join(context.worktree, ".Clisis Coder/tools/add.py")
+    const result = await Bun.$`python3 ${script} ${args.a} ${args.b}`.text()
+    return result.trim()
+  },
+})
+```
+
+Tutaj uÅ¼ywamy narzÄ™dzia [`Bun.$`](https://bun.com/docs/runtime/shell) do uruchomienia skryptu w jÄ™zyku Python.

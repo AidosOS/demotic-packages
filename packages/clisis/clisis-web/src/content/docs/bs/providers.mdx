@@ -1,0 +1,1993 @@
+﻿---
+title: Provajderi
+description: KoriÅ¡tenje bilo kojeg LLM provajdera u Clisis Coder.
+---
+
+import config from "../../../../config.mjs"
+export const console = config.console
+
+Clisis Coder koristi [AI SDK](https://ai-sdk.dev/) i [Models.dev](https://models.dev) za podrÅ¡ku **75+ LLM provajdera** i podrÅ¾ava pokretanje lokalnih modela.
+
+Za dodavanje provajdera potrebno je:
+
+1. Dodajte API kljuÄeve za provajdera koristeÄ‡i naredbu `/connect`.
+2. Konfigurirajte dobavljaÄa u vaÅ¡oj Clisis Coder konfiguraciji.
+
+---
+
+### Vjerodajnice
+
+Kada dodate API kljuÄeve dobavljaÄa sa naredbom `/connect`, oni se pohranjuju
+u `~/.local/share/Clisis Coder/auth.json`.
+
+---
+
+### Konfiguracija
+
+MoÅ¾ete prilagoditi dobavljaÄe putem odjeljka `provider` u vaÅ¡em Clisis Coder
+config.
+
+---
+
+#### Osnovni URL
+
+MoÅ¾ete prilagoditi osnovni URL za bilo kojeg provajdera postavljanjem opcije `baseURL`. Ovo je korisno kada koristite proxy usluge ili prilagoÄ‘ene krajnje taÄke.
+
+```json title="Clisis Coder.json" {6}
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "provider": {
+    "anthropic": {
+      "options": {
+        "baseURL": "https://api.anthropic.com/v1"
+      }
+    }
+  }
+}
+```
+
+---
+
+## Clisis Coder Zen
+
+Clisis Coder Zen je lista modela koje je obezbedio Clisis Coder tim koji su bili
+testirano i potvrÄ‘eno da dobro radi sa Clisis Coder. [Saznajte viÅ¡e](/docs/zen).
+
+:::tip
+Ako ste novi, preporuÄujemo da poÄnete sa Clisis Coder Zen.
+:::
+
+1. Pokrenite naredbu `/connect` u TUI-u, odaberite Clisis Coder i idite na [Clisis Coder.ai/auth](https://Clisis Coder.ai/auth).
+
+```txt
+   /connect
+```
+
+2. Prijavite se, dodajte svoje detalje naplate i kopirajte svoj API kljuÄ.
+
+3. Zalijepite svoj API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite `/models` u TUI da vidite listu modela koje preporuÄujemo.
+
+```txt
+   /models
+```
+
+Radi kao i svaki drugi provajder u Clisis Coder i potpuno je opcionalan za koriÅ¡tenje.
+
+---
+
+## Clisis Coder Go
+
+Clisis Coder Go je jeftin plan pretplate koji pruÅ¾a pouzdan pristup popularnim modelima otvorenog kodiranja koje pruÅ¾a Clisis Coder tim i koji su testirani i verificirani da dobro rade s Clisis Coder-om.
+
+1. Pokrenite naredbu `/connect` u TUI-u, odaberite `Clisis Coder Go` i idite na [Clisis Coder.ai/auth](https://Clisis Coder.ai/zen).
+
+   ```txt
+   /connect
+   ```
+
+2. Prijavite se, dodajte svoje detalje naplate i kopirajte svoj API kljuÄ.
+
+3. Zalijepite svoj API kljuÄ.
+
+   ```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+   ```
+
+4. Pokrenite naredbu `/models` u TUI da vidite listu modela koje preporuÄujemo.
+
+   ```txt
+   /models
+   ```
+
+Radi kao i svaki drugi provajder u Clisis Coder i potpuno je opcionalan za koriÅ¡tenje.
+
+---
+
+## Direktorij
+
+Pogledajmo neke od provajdera detaljno. Ako Å¾elite dodati provajdera na
+listu, slobodno otvori PR.
+
+:::note
+Ne vidite provajdera ovdje? PoÅ¡aljite PR.
+:::
+
+---
+
+### 302.AI
+
+1. Idite na [302.AI konzolu](https://302.ai/), kreirajte raÄun i generirajte API kljuÄ.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **302.AI**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj 302.AI API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model.
+
+```txt
+   /models
+```
+
+---
+
+### Amazon Bedrock
+
+Da biste koristili Amazon Bedrock s Clisis Coder:
+
+1. Idite na **Katalog modela** na Amazon Bedrock konzoli i zatraÅ¾ite
+   pristup modelima koje Å¾elite.
+
+   :::tip
+   Morate imati pristup modelu koji Å¾elite u Amazon Bedrock.
+   :::
+
+2. **Konfigurirajte autentifikaciju** koristeÄ‡i jedan od sljedeÄ‡ih metoda:
+
+   #### Varijable okruÅ¾enja (Brzi poÄetak)
+
+   Postavite jednu od ovih varijabli okruÅ¾enja dok pokreÄ‡ete Clisis Coder:
+
+```bash
+   # Option 1: Using AWS access keys
+   AWS_ACCESS_KEY_ID=XXX AWS_SECRET_ACCESS_KEY=YYY Clisis Coder
+
+   # Option 2: Using named AWS profile
+   AWS_PROFILE=my-profile Clisis Coder
+
+   # Option 3: Using Bedrock bearer token
+   AWS_BEARER_TOKEN_BEDROCK=XXX Clisis Coder
+```
+
+Ili ih dodajte na svoj bash profil:
+
+```bash title="~/.bash_profile"
+   export AWS_PROFILE=my-dev-profile
+   export AWS_REGION=us-east-1
+```
+
+#### Konfiguracijski fajl (PreporuÄeno)
+
+Za konfiguraciju specifiÄnu za projekat ili trajnu konfiguraciju, koristite `Clisis Coder.json`:
+
+```json title="Clisis Coder.json"
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "provider": {
+    "amazon-bedrock": {
+      "options": {
+        "region": "us-east-1",
+        "profile": "my-aws-profile"
+      }
+    }
+  }
+}
+```
+
+**Dostupne opcije:**
+
+- `region` - â€‹â€‹AWS regija (npr. `us-east-1`, `eu-west-1`)
+- `profile` - â€‹â€‹AWS je imenovao profil od `~/.aws/credentials`
+- `endpoint` - â€‹â€‹URL prilagoÄ‘ene krajnje taÄke za VPC krajnje taÄke (pseudonim za generiÄku opciju `baseURL`)
+
+:::tip
+Opcije konfiguracijske datoteke imaju prednost nad varijablama okruÅ¾enja.
+:::
+
+#### Napredno: VPC krajnje taÄke
+
+Ako koristite VPC krajnje taÄke za Bedrock:
+
+```json title="Clisis Coder.json"
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "provider": {
+    "amazon-bedrock": {
+      "options": {
+        "region": "us-east-1",
+        "profile": "production",
+        "endpoint": "https://bedrock-runtime.us-east-1.vpce-xxxxx.amazonaws.com"
+      }
+    }
+  }
+}
+```
+
+:::note
+Opcija `endpoint` je pseudonim za generiÄku opciju `baseURL`, koristeÄ‡i terminologiju specifiÄnu za AWS. Ako su specificirani i `endpoint` i `baseURL`, `endpoint` ima prednost.
+:::
+
+#### Metode provjere autentiÄnosti
+
+- **`AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY`**: Kreirajte IAM korisnika i generirajte pristupne kljuÄeve u AWS konzoli
+- **`AWS_PROFILE`**: Koristite imenovane profile od `~/.aws/credentials`. Prvo konfigurirajte sa `aws configure --profile my-profile` ili `aws sso login`
+- **`AWS_BEARER_TOKEN_BEDROCK`**: Generirajte dugoroÄne API kljuÄeve sa Amazon Bedrock konzole
+- **`AWS_WEB_IDENTITY_TOKEN_FILE` / `AWS_ROLE_ARN`**: Za EKS IRSA (IAM uloge za servisne naloge) ili druga Kubernetes okruÅ¾enja sa OIDC federacijom. Kubernetes automatski ubacuje ove varijable okruÅ¾enja kada se koriste napomene naloga usluge.
+
+#### Prioritet autentifikacije
+
+Amazon Bedrock koristi sljedeÄ‡i prioritet autentifikacije:
+
+1.  **Token nosioca** - `AWS_BEARER_TOKEN_BEDROCK` varijabla okruÅ¾enja ili token iz naredbe `/connect`
+2.  **AWS lanac vjerodajnica** - profil, pristupni kljuÄevi, dijeljeni vjerodajnici, IAM uloge, tokeni web identiteta (EKS IRSA), metapodaci instance
+
+:::note
+Kada se postavi token nosioca (putem `/connect` ili `AWS_BEARER_TOKEN_BEDROCK`), on ima prednost nad svim AWS metodama akreditiva ukljuÄujuÄ‡i konfigurirane profile.
+:::
+
+3. Pokrenite naredbu `/models` da odaberete model koji Å¾elite.
+
+```txt
+   /models
+```
+
+:::note
+Za prilagoÄ‘ene profile zakljuÄivanja, koristite ime modela i dobavljaÄa u kljuÄu i postavite svojstvo `id` na arn. Ovo osigurava ispravno keÅ¡iranje:
+
+```json title="Clisis Coder.json"
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "provider": {
+    "amazon-bedrock": {
+      // ...
+      "models": {
+        "anthropic-claude-sonnet-4.5": {
+          "id": "arn:aws:bedrock:us-east-1:xxx:application-inference-profile/yyy"
+        }
+      }
+    }
+  }
+}
+```
+
+:::
+
+---
+
+### Anthropic
+
+1. Nakon Å¡to ste se prijavili, pokrenite naredbu `/connect` i odaberite Anthropic.
+
+```txt
+   /connect
+```
+
+2. Ovdje moÅ¾ete odabrati opciju **Claude Pro/Max** i ona Ä‡e otvoriti vaÅ¡ pretraÅ¾ivaÄ
+   i traÅ¾i od vas da se autentifikujete.
+
+```txt
+   â”Œ Select auth method
+   â”‚
+   â”‚ Claude Pro/Max
+   â”‚ Create an API Key
+   â”‚ Manually enter API Key
+   â””
+```
+
+3. Sada bi svi Anthropic modeli trebali biti dostupni kada koristite naredbu `/models`.
+
+```txt
+   /models
+```
+
+:::info
+[Anthropic] (https://anthropic.com) sluÅ¾beno ne podrÅ¾ava koriÅ¡tenje vaÅ¡e Claude Pro/Max pretplate u Clisis Coder.
+:::
+
+##### KoriÅ¡tenje API kljuÄeva
+
+TakoÄ‘er moÅ¾ete odabrati **Kreiraj API kljuÄ** ako nemate Pro/Max pretplatu. TakoÄ‘er Ä‡e otvoriti vaÅ¡ pretraÅ¾ivaÄ i zatraÅ¾iti od vas da se prijavite na Anthropic i dati vam kod koji moÅ¾ete zalijepiti u svoj terminal.
+
+Ili ako veÄ‡ imate API kljuÄ, moÅ¾ete odabrati **RuÄno unesite API kljuÄ** i zalijepite ga u svoj terminal.
+
+---
+
+### Atomic Chat
+
+MoÅ¾ete konfigurirati Clisis Coder za koriÅ¡tenje lokalnih modela preko [Atomic Chata](https://atomic.chat) â€” desktop aplikacije koja pokreÄ‡e lokalne LLM-ove iza OpenAI-kompatibilnog API servera (zadana krajnja taÄka `http://127.0.0.1:1337/v1`).
+
+```json title="Clisis Coder.json" "atomic-chat" {5, 6, 8, 10-14}
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "provider": {
+    "atomic-chat": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Atomic Chat (local)",
+      "options": {
+        "baseURL": "http://127.0.0.1:1337/v1"
+      },
+      "models": {
+        "<your-model-id>": {
+          "name": "<your-model-name>"
+        }
+      }
+    }
+  }
+}
+```
+
+U ovom primjeru:
+
+- `atomic-chat` je prilagoÄ‘eni ID provajdera. MoÅ¾e biti bilo koji niz.
+- `npm` specificira paket koji se koristi za ovog provajdera. Ovdje se koristi `@ai-sdk/openai-compatible` za svaki OpenAI-kompatibilni API.
+- `name` je prikazano ime provajdera u interfejsu.
+- `options.baseURL` je krajnja taÄka lokalnog servera. Promijenite host i port da odgovaraju vaÅ¡oj Atomic Chat konfiguraciji.
+- `models` je mapa ID-ova modela u njihova prikazana imena. Svaki ID mora odgovarati `id` vrijednosti koju vraÄ‡a `GET /v1/models` â€” pokrenite `curl http://127.0.0.1:1337/v1/models` da vidite ID-ove trenutno uÄitane u Atomic Chat.
+
+:::tip
+Ako pozivi alata ne rade dobro, odaberite uÄitani model sa jakom podrÅ¡kom za tool calling (na primjer, Qwen-Coder ili DeepSeek-Coder varijantu).
+:::
+
+---
+
+### Azure OpenAI
+
+:::note
+Ako naiÄ‘ete na greÅ¡ke "Å½ao mi je, ali ne mogu pomoÄ‡i s tim zahtjevom", pokuÅ¡ajte promijeniti filter sadrÅ¾aja iz **DefaultV2** u **Default** u vaÅ¡em Azure resursu.
+:::
+
+1. Idite na [Azure portal](https://portal.azure.com/) i kreirajte **Azure OpenAI** resurs. trebat Ä‡e vam:
+   - **Naziv resursa**: Ovo postaje dio vaÅ¡e krajnje taÄke API-ja (`https://RESOURCE_NAME.openai.azure.com/`)
+   - **API kljuÄ**: Ili `KEY 1` ili `KEY 2` sa vaÅ¡eg izvora
+
+2. Idite na [Azure AI Foundry](https://ai.azure.com/) i implementirajte model.
+
+   :::note
+   Ime implementacije mora odgovarati imenu modela da bi Clisis Coder ispravno radio.
+   :::
+
+3. Pokrenite naredbu `/connect` i potraÅ¾ite **Azure**.
+
+```txt
+   /connect
+```
+
+4. Unesite svoj API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+5. Postavite ime vaÅ¡eg resursa kao varijablu okruÅ¾enja:
+
+```bash
+   AZURE_RESOURCE_NAME=XXX Clisis Coder
+```
+
+Ili ga dodajte na svoj bash profil:
+
+```bash title="~/.bash_profile"
+   export AZURE_RESOURCE_NAME=XXX
+```
+
+6. Pokrenite naredbu `/models` da odaberete svoj rasporeÄ‘eni model.
+
+```txt
+   /models
+```
+
+---
+
+### Azure Cognitive Services
+
+1. Idite na [Azure portal](https://portal.azure.com/) i kreirajte **Azure OpenAI** resurs. trebat Ä‡e vam:
+   - **Naziv resursa**: Ovo postaje dio vaÅ¡e krajnje taÄke API-ja (`https://AZURE_COGNITIVE_SERVICES_RESOURCE_NAME.cognitiveservices.azure.com/`)
+   - **API kljuÄ**: Ili `KEY 1` ili `KEY 2` sa vaÅ¡eg izvora
+
+2. Idite na [Azure AI Foundry](https://ai.azure.com/) i implementirajte model.
+
+   :::note
+   Ime implementacije mora odgovarati imenu modela da bi Clisis Coder ispravno radio.
+   :::
+
+3. Pokrenite naredbu `/connect` i potraÅ¾ite **Azure kognitivne usluge**.
+
+```txt
+   /connect
+```
+
+4. Unesite svoj API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+5. Postavite ime vaÅ¡eg resursa kao varijablu okruÅ¾enja:
+
+```bash
+   AZURE_COGNITIVE_SERVICES_RESOURCE_NAME=XXX Clisis Coder
+```
+
+Ili ga dodajte na svoj bash profil:
+
+```bash title="~/.bash_profile"
+   export AZURE_COGNITIVE_SERVICES_RESOURCE_NAME=XXX
+```
+
+6. Pokrenite naredbu `/models` da odaberete svoj rasporeÄ‘eni model.
+
+```txt
+   /models
+```
+
+---
+
+### Baseten
+
+1. Idite na [Baseten](https://app.baseten.co/), kreirajte raÄun i generirajte API kljuÄ.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **Baseten**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj Baseten API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model.
+
+```txt
+   /models
+```
+
+---
+
+### Cerebras
+
+1. Idite na [Cerebras konzolu](https://inference.cerebras.ai/), kreirajte raÄun i generirajte API kljuÄ.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **Cerebras**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj Cerebras API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model kao Å¡to je _Qwen 3 Coder 480B_.
+
+```txt
+   /models
+```
+
+---
+
+### Cloudflare AI Gateway
+
+Cloudflare AI Gateway vam omoguÄ‡ava da pristupite modelima iz OpenAI, Anthropic, Workers AI i viÅ¡e preko objedinjene krajnje taÄke. Sa [Unified Billing](https://developers.cloudflare.com/ai-gateway/features/unified-billing/) nisu vam potrebni posebni API kljuÄevi za svakog provajdera.
+
+1. Idite na [Cloudflare kontrolnu tablu](https://dash.cloudflare.com/), idite na **AI** > **AI Gateway** i kreirajte novi pristupnik.
+
+2. Postavite svoj ID naloga i ID pristupnika kao varijable okruÅ¾enja.
+
+```bash title="~/.bash_profile"
+   export CLOUDFLARE_ACCOUNT_ID=your-32-character-account-id
+   export CLOUDFLARE_GATEWAY_ID=your-gateway-id
+```
+
+3. Pokrenite naredbu `/connect` i potraÅ¾ite **Cloudflare AI Gateway**.
+
+```txt
+   /connect
+```
+
+4. Unesite svoj Cloudflare API token.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+Ili ga postavite kao varijablu okruÅ¾enja.
+
+```bash title="~/.bash_profile"
+   export CLOUDFLARE_API_TOKEN=your-api-token
+```
+
+5. Pokrenite naredbu `/models` da odaberete model.
+
+```txt
+   /models
+```
+
+TakoÄ‘er moÅ¾ete dodati modele kroz svoju Clisis Coder konfiguraciju.
+
+```json title="Clisis Coder.json"
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "provider": {
+    "cloudflare-ai-gateway": {
+      "models": {
+        "openai/gpt-4o": {},
+        "anthropic/claude-sonnet-4": {}
+      }
+    }
+  }
+}
+```
+
+---
+
+### Cortecs
+
+1. Idite na [Cortecs konzolu](https://cortecs.ai/), kreirajte raÄun i generirajte API kljuÄ.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **Cortecs**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj Cortecs API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model kao Å¡to je _Kimi K2 Instruct_.
+
+```txt
+   /models
+```
+
+---
+
+### DeepSeek
+
+1. Idite na [DeepSeek konzolu](https://platform.deepseek.com/), kreirajte nalog i kliknite na **Kreiraj novi API kljuÄ**.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **DeepSeek**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj DeepSeek API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete DeepSeek model kao Å¡to je _DeepSeek V4 Pro_.
+
+```txt
+   /models
+```
+
+---
+
+### Deep Infra
+
+1. Idite na [Deep Infra kontrolnu tablu](https://deepinfra.com/dash), kreirajte nalog i generiÅ¡ite API kljuÄ.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **Deep Infra**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj Deep Infra API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model.
+
+```txt
+   /models
+```
+
+---
+
+### FrogBot
+
+1. Idite na [kontrolnu tablu firmvera](https://app.frogbot.ai/signup), kreirajte nalog i generiÅ¡ite API kljuÄ.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **FrogBot**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj FrogBot API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model.
+
+```txt
+   /models
+```
+
+---
+
+### Fireworks AI
+
+1. Idite na [Fireworks AI konzolu](https://app.fireworks.ai/), kreirajte raÄun i kliknite na **Kreiraj API kljuÄ**.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **Fireworks AI**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj Fireworks AI API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model kao Å¡to je _Kimi K2 Instruct_.
+
+```txt
+   /models
+```
+
+---
+
+### GitLab Duo
+
+GitLab Duo pruÅ¾a agentsko Ä‡askanje sa AI-om sa izvornim moguÄ‡nostima pozivanja alata preko GitLab-ovog Anthropic proxyja.
+
+1. Pokrenite naredbu `/connect` i odaberite GitLab.
+
+```txt
+   /connect
+```
+
+2. Odaberite svoj naÄin autentifikacije:
+
+```txt
+   â”Œ Select auth method
+   â”‚
+   â”‚ OAuth (Recommended)
+   â”‚ Personal Access Token
+   â””
+```
+
+#### KoriÅ¡tenje OAuth-a (preporuÄeno)
+
+Odaberite **OAuth** i vaÅ¡ pretraÅ¾ivaÄ Ä‡e se otvoriti za autorizaciju.
+
+#### KoriÅ¡tenje tokena liÄnog pristupa
+
+1.  Idite na [GitLab korisniÄke postavke > Pristupni tokeni](https://gitlab.com/-/user_settings/personal_access_tokens)
+2.  Kliknite **Dodaj novi token**
+3.  Naziv: `Clisis Coder`, opseg: `api`
+4.  Kopirajte token (poÄinje sa `glpat-`)
+5.  Unesite ga u terminal
+
+6.  Pokrenite naredbu `/models` da vidite dostupne modele.
+
+```txt
+   /models
+```
+
+Dostupna su tri modela bazirana na Claudeu:
+
+- **duo-chat-haiku-4-5** (zadano) - Brzi odgovori za brze zadatke
+- **duo-chat-sonnet-4-5** - UravnoteÅ¾ene performanse za veÄ‡inu tokova posla
+- **duo-chat-opus-4-5** - Najsposobniji za kompleksnu analizu
+
+:::note
+TakoÄ‘er moÅ¾ete odrediti 'GITLAB_TOKEN' varijablu okruÅ¾enja ako ne Å¾elite
+da pohrani token u Clisis Coder auth memoriju.
+:::
+
+##### Samostalni GitLab
+
+:::note[Napomena o usklaÄ‘enosti]
+Clisis Coder koristi mali model za neke AI zadatke kao Å¡to je generiranje naslova sesije.
+Podrazumevano je konfigurisan da koristi gpt-5-nano, a hostuje ga Zen. Da zakljuÄate Clisis Coder
+da biste koristili samo svoju vlastitu instancu koju hostuje GitLab, dodajte sljedeÄ‡e u svoju
+`Clisis Coder.json` fajl. TakoÄ‘er se preporuÄuje da onemoguÄ‡ite dijeljenje sesije.
+
+```json
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "small_model": "gitlab/duo-chat-haiku-4-5",
+  "share": "disabled"
+}
+```
+
+:::
+
+Za GitLab instance koje hostuju sami:
+
+```bash
+export GITLAB_INSTANCE_URL=https://gitlab.company.com
+export GITLAB_TOKEN=glpat-...
+```
+
+Ako vaÅ¡a instanca pokreÄ‡e prilagoÄ‘eni AI Gateway:
+
+```bash
+GITLAB_AI_GATEWAY_URL=https://ai-gateway.company.com
+```
+
+Ili dodajte na svoj bash profil:
+
+```bash title="~/.bash_profile"
+export GITLAB_INSTANCE_URL=https://gitlab.company.com
+export GITLAB_AI_GATEWAY_URL=https://ai-gateway.company.com
+export GITLAB_TOKEN=glpat-...
+```
+
+:::note
+VaÅ¡ GitLab administrator mora omoguÄ‡iti sljedeÄ‡e:
+
+1. [Duo Agent Platforma](https://docs.gitlab.com/user/duo_agent_platform/turn_on_off/) za korisnika, grupu ili instancu
+2. Zastavice funkcija (preko Rails konzole):
+   - `agent_platform_claude_code`
+   - `third_party_agents_enabled`
+     :::
+
+##### OAuth za self-hosted instance
+
+Da bi Oauth radio za vaÅ¡u instancu koju sami hostujete, morate kreirati
+novu aplikaciju (PodeÅ¡avanja â†’ Aplikacije) sa
+URL povratnog poziva `http://127.0.0.1:8080/callback` i sljedeÄ‡i opseg:
+
+- api (pristupite API-ju u svoje ime)
+- read_user (ProÄitajte svoje liÄne podatke)
+- read_repository (omoguÄ‡ava pristup spremiÅ¡tu samo za Äitanje)
+
+Zatim izloÅ¾ite ID aplikacije kao varijablu okruÅ¾enja:
+
+```bash
+export GITLAB_OAUTH_CLIENT_ID=your_application_id_here
+```
+
+ViÅ¡e dokumentacije na poÄetnoj stranici [Clisis Coder-gitlab-auth](https://www.npmjs.com/package/Clisis Coder-gitlab-auth).
+
+##### Konfiguracija
+
+Prilagodite putem `Clisis Coder.json`:
+
+```json title="Clisis Coder.json"
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "provider": {
+    "gitlab": {
+      "options": {
+        "instanceUrl": "https://gitlab.com"
+      }
+    }
+  }
+}
+```
+
+##### GitLab API alati (opciono, ali se preporuÄuje)
+
+Za pristup GitLab alatima (zahtjevi za spajanje, problemi, cjevovodi, CI/CD, itd.):
+
+```json title="Clisis Coder.json"
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "plugin": ["Clisis Coder-gitlab-plugin"]
+}
+```
+
+Ovaj dodatak pruÅ¾a sveobuhvatne moguÄ‡nosti upravljanja GitLab repozitorijumom, ukljuÄujuÄ‡i MR preglede, praÄ‡enje problema, praÄ‡enje procesa i joÅ¡ mnogo toga.
+
+---
+
+### GitHub Copilot
+
+Da biste koristili svoju GitHub Copilot pretplatu s Clisis Coder:
+
+:::note
+Neki modeli Ä‡e moÅ¾da trebati [Pro+
+pretplata](https://github.com/features/copilot/plans) za koriÅ¡tenje.
+
+Neki modeli moraju biti ruÄno omoguÄ‡eni u vaÅ¡im [postavkama GitHub Copilot](https://docs.github.com/en/copilot/how-tos/use-ai-models/configure-access-to-ai-models#setup-for-individual-use).
+:::
+
+1. Pokrenite naredbu `/connect` i potraÅ¾ite GitHub Copilot.
+
+```txt
+   /connect
+```
+
+2. Idite na [github.com/login/device](https://github.com/login/device) i unesite kod.
+
+```txt
+   â”Œ Login with GitHub Copilot
+   â”‚
+   â”‚ https://github.com/login/device
+   â”‚
+   â”‚ Enter code: 8F43-6FCF
+   â”‚
+   â”” Waiting for authorization...
+```
+
+3. Sada pokrenite naredbu `/models` da odaberete model koji Å¾elite.
+
+```txt
+   /models
+```
+
+---
+
+### Google Vertex AI
+
+Za koriÅ¡tenje Google Vertex AI s Clisis Coder:
+
+1. Idite do **Model Garden** u Google Cloud Console i provjerite
+   modeli dostupni u vaÅ¡oj regiji.
+
+   :::note
+   Morate imati Google Cloud projekat sa omoguÄ‡enim Vertex AI API.
+   :::
+
+2. Postavite potrebne varijable okruÅ¾enja:
+   - `GOOGLE_CLOUD_PROJECT`: ID vaÅ¡eg Google Cloud projekta
+   - `VERTEX_LOCATION` (opciono): Region za Vertex AI (podrazumevano na `global`)
+   - Autentifikacija (odaberite jednu):
+     - `GOOGLE_APPLICATION_CREDENTIALS`: Put do JSON kljuÄnog fajla vaÅ¡eg naloga usluge
+     - Autentifikacija koristeÄ‡i gcloud CLI: `gcloud auth application-default login`
+
+   Postavite ih dok se pokreÄ‡e Clisis Coder.
+
+```bash
+   GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json GOOGLE_CLOUD_PROJECT=your-project-id Clisis Coder
+```
+
+Ili ih dodajte svom bash profilu.
+
+```bash title="~/.bash_profile"
+   export GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json
+   export GOOGLE_CLOUD_PROJECT=your-project-id
+   export VERTEX_LOCATION=global
+```
+
+:::tip
+Regija `global` poboljÅ¡ava dostupnost i smanjuje greÅ¡ke bez dodatnih troÅ¡kova. Koristite regionalne krajnje taÄke (npr. `us-central1`) za zahtjeve rezidentnosti podataka. [Saznajte viÅ¡e](https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/use-partner-models#regional_and_global_endpoints)
+:::
+
+3. Pokrenite naredbu `/models` da odaberete model koji Å¾elite.
+
+```txt
+   /models
+```
+
+---
+
+### Groq
+
+1. Idite na [Groq konzolu](https://console.groq.com/), kliknite **Kreiraj API kljuÄ** i kopirajte kljuÄ.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite Groq.
+
+```txt
+   /connect
+```
+
+3. Unesite API kljuÄ za provajdera.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete onu koju Å¾elite.
+
+```txt
+   /models
+```
+
+---
+
+### Hugging Face
+
+[Hugging Face Inference Providers](https://huggingface.co/docs/inference-providers) omoguÄ‡ava pristup otvorenim modelima koje podrÅ¾ava 17+ provajdera.
+
+1. Idite na [Postavke zagrljaja](https://huggingface.co/settings/tokens/new?ownUserPermissions=inference.serverless.write&tokenType=fineGrained) da kreirate token s dozvolom za upuÄ‡ivanje poziva dobavljaÄima inference.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **Hugging Face**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj token Hugging Face.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model kao Å¡to je _Kimi-K2-Instruct_ ili _GLM-4.6_.
+
+```txt
+   /models
+```
+
+---
+
+### Helicone
+
+[Helicone](https://helicone.ai) je platforma za praÄ‡enje LLM koja pruÅ¾a evidenciju, praÄ‡enje i analitiku za vaÅ¡e AI aplikacije. Helicone AI Gateway automatski usmjerava vaÅ¡e zahtjeve do odgovarajuÄ‡eg provajdera na osnovu modela.
+
+1. Idite na [Helicone](https://helicone.ai), kreirajte raÄun i generirajte API kljuÄ sa svoje kontrolne table.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **Helicone**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj Helicone API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model.
+
+```txt
+   /models
+```
+
+Za viÅ¡e provajdera i napredne funkcije kao Å¡to su keÅ¡iranje i ograniÄavanje brzine, provjerite [Helicone dokumentaciju](https://docs.helicone.ai).
+
+#### Opcione konfiguracije
+
+U sluÄaju da vidite funkciju ili model iz Helicone-a koji nije automatski konfiguriran putem clisis-codera, uvijek ga moÅ¾ete sami konfigurirati.
+
+Evo [Heliconeov katalog modela](https://helicone.ai/models), ovo Ä‡e vam trebati da preuzmete ID-ove modela koje Å¾elite dodati.
+
+```jsonc title="~/.config/Clisis Coder/Clisis Coder.jsonc"
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "provider": {
+    "helicone": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Helicone",
+      "options": {
+        "baseURL": "https://ai-gateway.helicone.ai",
+      },
+      "models": {
+        "gpt-4o": {
+          // Model ID (from Helicone's model directory page)
+          "name": "GPT-4o", // Your own custom name for the model
+        },
+        "claude-sonnet-4-20250514": {
+          "name": "Claude Sonnet 4",
+        },
+      },
+    },
+  },
+}
+```
+
+#### PrilagoÄ‘ena zaglavlja
+
+Helicone podrÅ¾ava prilagoÄ‘ena zaglavlja za funkcije kao Å¡to su keÅ¡iranje, praÄ‡enje korisnika i upravljanje sesijom. Dodajte ih u konfiguraciju svog provajdera koristeÄ‡i `options.headers`:
+
+```jsonc title="~/.config/Clisis Coder/Clisis Coder.jsonc"
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "provider": {
+    "helicone": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Helicone",
+      "options": {
+        "baseURL": "https://ai-gateway.helicone.ai",
+        "headers": {
+          "Helicone-Cache-Enabled": "true",
+          "Helicone-User-Id": "Clisis Coder",
+        },
+      },
+    },
+  },
+}
+```
+
+##### PraÄ‡enje sesije
+
+Heliconeova funkcija [Sessions](https://docs.helicone.ai/features/sessions) vam omoguÄ‡ava da grupiÅ¡ete povezane LLM zahtjeve zajedno. Koristite dodatak [Clisis Coder-helicone-session](https://github.com/H2Shami/Clisis Coder-helicone-session) da automatski prijavite svaki Clisis Coder razgovor kao sesiju u Helicone-u.
+
+```bash
+npm install -g Clisis Coder-helicone-session
+```
+
+Dodajte ga u svoju konfiguraciju.
+
+```json title="Clisis Coder.json"
+{
+  "plugin": ["Clisis Coder-helicone-session"]
+}
+```
+
+Dodatak ubacuje zaglavlja `Helicone-Session-Id` i `Helicone-Session-Name` u vaÅ¡e zahtjeve. Na stranici Helicone Sessions, vidjet Ä‡ete svaki Clisis Coder razgovor naveden kao zasebna sesija.
+
+##### UobiÄajena Helicone zaglavlja
+
+| Header                     | Opis                                                                |
+| -------------------------- | ------------------------------------------------------------------- |
+| `Helicone-Cache-Enabled`   | OmoguÄ‡i keÅ¡iranje odgovora (`true`/`false`)                         |
+| `Helicone-User-Id`         | Pratite metriku po korisniku                                        |
+| `Helicone-Property-[Name]` | Dodajte prilagoÄ‘ena svojstva (npr. `Helicone-Property-Environment`) |
+| `Helicone-Prompt-Id`       | Povezivanje zahtjeva sa brzim verzijama                             |
+
+Pogledajte [Helicone Header Directory](https://docs.helicone.ai/helicone-headers/header-directory) za sva dostupna zaglavlja.
+
+---
+
+### llama.cpp
+
+MoÅ¾ete konfigurirati Clisis Coder za koriÅ¡tenje lokalnih modela putem [llama.cpp's](https://github.com/ggml-org/llama.cpp) usluÅ¾nog programa llama-server
+
+```json title="Clisis Coder.json" "llama.cpp" {5, 6, 8, 10-15}
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "provider": {
+    "llama.cpp": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "llama-server (local)",
+      "options": {
+        "baseURL": "http://127.0.0.1:8080/v1"
+      },
+      "models": {
+        "qwen3-coder:a3b": {
+          "name": "Qwen3-Coder: a3b-30b (local)",
+          "limit": {
+            "context": 128000,
+            "output": 65536
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+U ovom primjeru:
+
+- `llama.cpp` je ID prilagoÄ‘enog provajdera. Ovo moÅ¾e biti bilo koji niz koji Å¾elite.
+- `npm` specificira paket koji Ä‡e se koristiti za ovog provajdera. Ovdje se `@ai-sdk/openai-compatible` koristi za bilo koji OpenAI kompatibilan API.
+- `name` je ime za prikaz za provajdera u korisniÄkom suÄelju.
+- `options.baseURL` je krajnja taÄka za lokalni server.
+- `models` je mapa ID-ova modela prema njihovim konfiguracijama. Naziv modela Ä‡e biti prikazan na listi za odabir modela.
+
+---
+
+### IO.NET
+
+IO.NET nudi 17 modela optimiziranih za razliÄite sluÄajeve upotrebe:
+
+1. Idite na [IO.NET konzolu](https://ai.io.net/), kreirajte raÄun i generirajte API kljuÄ.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **IO.NET**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj IO.NET API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model.
+
+```txt
+   /models
+```
+
+---
+
+### LM Studio
+
+MoÅ¾ete konfigurirati Clisis Coder za koriÅ¡tenje lokalnih modela preko LM Studio.
+
+```json title="Clisis Coder.json" "lmstudio" {5, 6, 8, 10-14}
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "provider": {
+    "lmstudio": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "LM Studio (local)",
+      "options": {
+        "baseURL": "http://127.0.0.1:1234/v1"
+      },
+      "models": {
+        "google/gemma-3n-e4b": {
+          "name": "Gemma 3n-e4b (local)"
+        }
+      }
+    }
+  }
+}
+```
+
+U ovom primjeru:
+
+- `lmstudio` je ID prilagoÄ‘enog provajdera. Ovo moÅ¾e biti bilo koji niz koji Å¾elite.
+- `npm` specificira paket koji Ä‡e se koristiti za ovog provajdera. Ovdje se `@ai-sdk/openai-compatible` koristi za bilo koji OpenAI kompatibilan API.
+- `name` je ime za prikaz za provajdera u korisniÄkom suÄelju.
+- `options.baseURL` je krajnja taÄka za lokalni server.
+- `models` je mapa ID-ova modela prema njihovim konfiguracijama. Naziv modela Ä‡e biti prikazan na listi za odabir modela.
+
+---
+
+### Moonshot AI
+
+Da biste koristili Kimi K2 iz Moonshot AI:
+
+1. Idite na [Moonshot AI konzolu](https://platform.moonshot.ai/console), kreirajte nalog i kliknite na **Kreiraj API kljuÄ**.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **Moonshot AI**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj Moonshot API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete _Kimi K2_.
+
+```txt
+   /models
+```
+
+---
+
+### MiniMax
+
+1. PrijeÄ‘ite na [MiniMax API konzolu](https://platform.minimax.io/login), kreirajte raÄun i generirajte API kljuÄ.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **MiniMax**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj MiniMax API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model kao Å¡to je _M2.1_.
+
+```txt
+   /models
+```
+
+---
+
+### Nebius Token Factory
+
+1. Idite na [Nebius Token Factory konzolu](https://tokenfactory.nebius.com/), kreirajte nalog i kliknite na **Dodaj kljuÄ**.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **Nebius Token Factory**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj Nebius Token Factory API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model kao Å¡to je _Kimi K2 Instruct_.
+
+```txt
+   /models
+```
+
+---
+
+### Ollama
+
+MoÅ¾ete konfigurirati Clisis Coder za koriÅ¡tenje lokalnih modela putem Ollame.
+
+:::tip
+Ollama se moÅ¾e automatski konfigurirati za Clisis Coder. Pogledajte [Ollama integracijske dokumente](https://docs.ollama.com/integrations/Clisis Coder) za detalje.
+:::
+
+```json title="Clisis Coder.json" "ollama" {5, 6, 8, 10-14}
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "llama2": {
+          "name": "Llama 2"
+        }
+      }
+    }
+  }
+}
+```
+
+U ovom primjeru:
+
+- `ollama` je ID prilagoÄ‘enog provajdera. Ovo moÅ¾e biti bilo koji niz koji Å¾elite.
+- `npm` specificira paket koji Ä‡e se koristiti za ovog provajdera. Ovdje se `@ai-sdk/openai-compatible` koristi za bilo koji OpenAI kompatibilan API.
+- `name` je ime za prikaz za provajdera u korisniÄkom suÄelju.
+- `options.baseURL` je krajnja taÄka za lokalni server.
+- `models` je mapa ID-ova modela prema njihovim konfiguracijama. Naziv modela Ä‡e biti prikazan na listi za odabir modela.
+
+:::tip
+Ako pozivi alata ne rade, pokuÅ¡ajte poveÄ‡ati `num_ctx` u Ollama. PoÄnite oko 16k - 32k.
+:::
+
+---
+
+### Ollama Cloud
+
+Da biste koristili Ollama Cloud s Clisis Coder:
+
+1. Idite na [https://ollama.com/](https://ollama.com/) i prijavite se ili kreirajte raÄun.
+
+2. Idite na **Postavke** > **KljuÄevi** i kliknite na **Dodaj API kljuÄ** da generiÅ¡ete novi API kljuÄ.
+
+3. Kopirajte API kljuÄ za koriÅ¡tenje u Clisis Coder.
+
+4. Pokrenite naredbu `/connect` i potraÅ¾ite **Ollama Cloud**.
+
+```txt
+   /connect
+```
+
+5. Unesite svoj Ollama Cloud API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+6. **VaÅ¾no**: Prije upotrebe modela oblaka u Clisis Coder, morate lokalno povuÄ‡i informacije o modelu:
+
+```bash
+   ollama pull gpt-oss:20b-cloud
+```
+
+7. Pokrenite naredbu `/models` da odaberete svoj model Ollama Cloud.
+
+```txt
+   /models
+```
+
+---
+
+### OpenAI
+
+PreporuÄujemo da se prijavite za [ChatGPT Plus ili Pro](https://chatgpt.com/pricing).
+
+1. Nakon Å¡to ste se prijavili, pokrenite naredbu `/connect` i odaberite OpenAI.
+
+```txt
+   /connect
+```
+
+2. Ovdje moÅ¾ete odabrati opciju **ChatGPT Plus/Pro** i ona Ä‡e otvoriti vaÅ¡ pretraÅ¾ivaÄ
+   i traÅ¾i od vas da se autentifikujete.
+
+```txt
+   â”Œ Select auth method
+   â”‚
+   â”‚ ChatGPT Plus/Pro
+   â”‚ Manually enter API Key
+   â””
+```
+
+3. Sada bi svi OpenAI modeli trebali biti dostupni kada koristite naredbu `/models`.
+
+```txt
+   /models
+```
+
+##### KoriÅ¡tenje API kljuÄeva
+
+Ako veÄ‡ imate API kljuÄ, moÅ¾ete odabrati **RuÄno unesite API kljuÄ** i zalijepite ga u svoj terminal.
+
+---
+
+### Clisis Coder Zen
+
+Clisis Coder Zen je lista testiranih i verifikovanih modela koju je obezbedio Clisis Coder tim. [Saznajte viÅ¡e](/docs/zen).
+
+1. Prijavite se na **<a href={console}>Clisis Coder Zen</a>** i kliknite na **Kreiraj API kljuÄ**.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **Clisis Coder Zen**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj Clisis Coder API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model kao Å¡to je _Qwen 3 Coder 480B_.
+
+```txt
+   /models
+```
+
+---
+
+### OpenRouter
+
+1. Idite na [OpenRouter nadzornu ploÄu](https://openrouter.ai/settings/keys), kliknite na **Kreiraj API kljuÄ** i kopirajte kljuÄ.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite OpenRouter.
+
+```txt
+   /connect
+```
+
+3. Unesite API kljuÄ za provajdera.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Mnogi OpenRouter modeli su unapred uÄitani po defaultu, pokrenite naredbu `/models` da odaberete onaj koji Å¾elite.
+
+```txt
+   /models
+```
+
+TakoÄ‘er moÅ¾ete dodati dodatne modele putem vaÅ¡e Clisis Coder konfiguracije.
+
+```json title="Clisis Coder.json" {6}
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "provider": {
+    "openrouter": {
+      "models": {
+        "somecoolnewmodel": {}
+      }
+    }
+  }
+}
+```
+
+5. TakoÄ‘er ih moÅ¾ete prilagoditi putem vaÅ¡e Clisis Coder konfiguracije. Evo primjera navoÄ‘enja provajdera
+
+```json title="Clisis Coder.json"
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "provider": {
+    "openrouter": {
+      "models": {
+        "moonshotai/kimi-k2": {
+          "options": {
+            "provider": {
+              "order": ["baseten"],
+              "allow_fallbacks": false
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+---
+
+### SAP AI Core
+
+SAP AI Core omoguÄ‡ava pristup preko 40+ modela iz OpenAI, Anthropic, Google, Amazon, Meta, Mistral i AI21 putem objedinjene platforme.
+
+1. Idite na vaÅ¡ [SAP BTP Cockpit](https://account.hana.ondemand.com/), idite na instancu usluge SAP AI Core i kreirajte servisni kljuÄ.
+
+   :::tip
+   Servisni kljuÄ je JSON objekat koji sadrÅ¾i `clientid`, `clientsecret`, `url` i `serviceurls.AI_API_URL`. Svoju AI Core instancu moÅ¾ete pronaÄ‡i pod **Usluge** > **Instance i pretplate** u BTP kokpitu.
+   :::
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **SAP AI Core**.
+
+```txt
+   /connect
+```
+
+3. Unesite JSON svoj servisni kljuÄ.
+
+```txt
+   â”Œ Service key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+Ili postavite varijablu okruÅ¾enja `AICORE_SERVICE_KEY`:
+
+```bash
+   AICORE_SERVICE_KEY='{"clientid":"...","clientsecret":"...","url":"...","serviceurls":{"AI_API_URL":"..."}}' Clisis Coder
+```
+
+Ili ga dodajte na svoj bash profil:
+
+```bash title="~/.bash_profile"
+   export AICORE_SERVICE_KEY='{"clientid":"...","clientsecret":"...","url":"...","serviceurls":{"AI_API_URL":"..."}}'
+```
+
+4. Opciono postavite ID implementacije i grupu resursa:
+
+```bash
+   AICORE_DEPLOYMENT_ID=your-deployment-id AICORE_RESOURCE_GROUP=your-resource-group Clisis Coder
+```
+
+:::note
+Ove postavke su opcione i treba ih konfigurirati u skladu s vaÅ¡im SAP AI Core postavkama.
+:::
+
+5. Pokrenite naredbu `/models` da odaberete izmeÄ‘u 40+ dostupnih modela.
+
+   ```txt
+   /models
+   ```
+
+---
+
+### STACKIT
+
+STACKIT AI Model Serving pruÅ¾a potpuno upravljano suvereno hosting okruÅ¾enje za AI modele, fokusirajuÄ‡i se na LLM-ove kao Å¡to su Llama, Mistral i Qwen, uz maksimalan suverenitet podataka na evropskoj infrastrukturi.
+
+1. Idite na [STACKIT Portal](https://portal.stackit.cloud), idite na **AI Model Serving** i kreirajte token za autentifikaciju za svoj projekat.
+
+   :::tip
+   Potreban vam je STACKIT korisniÄki raÄun, korisniÄki nalog i projekat prije kreiranja tokena za autentifikaciju.
+   :::
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **STACKIT**.
+
+   ```txt
+   /connect
+   ```
+
+3. Unesite svoj STACKIT AI Model Serving token za autentifikaciju.
+
+   ```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+   ```
+
+4. Pokrenite naredbu `/models` da odaberete dostupne modele kao Å¡to su _Qwen3-VL 235B_ ili _Llama 3.3 70B_.
+
+   ```txt
+   /models
+   ```
+
+---
+
+### OVHcloud AI krajnje taÄke
+
+1. Idite na [OVHcloud panel](https://ovh.com/manager). Idite do odjeljka `Public Cloud`, `AI & Machine Learning` > `AI Endpoints` i na kartici `API Keys` kliknite na **Kreiraj novi API kljuÄ**.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **OVHcloud AI krajnje toÄke**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj OVHcloud AI Endpoints API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model kao Å¡to je _gpt-oss-120b_.
+
+```txt
+   /models
+```
+
+---
+
+### Scaleway
+
+Da biste koristili [Scaleway Generative APIs](https://www.scaleway.com/en/docs/generative-apis/) sa clisis-coderom:
+
+1. PrijeÄ‘ite na [Scaleway Console IAM postavke](https://console.scaleway.com/iam/api-keys) da generiÅ¡ete novi API kljuÄ.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **Scaleway**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj Scaleway API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model kao Å¡to je _devstral-2-123b-instruct-2512_ ili _gpt-oss-120b_.
+
+```txt
+   /models
+```
+
+---
+
+### Together AI
+
+1. Idite na [Together AI console](https://api.together.ai), kreirajte nalog i kliknite na **Dodaj kljuÄ**.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **Together AI**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj Together AI API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model kao Å¡to je _Kimi K2 Instruct_.
+
+```txt
+   /models
+```
+
+---
+
+### Venice AI
+
+1. Idite na [Venice AI konzolu](https://venice.ai), kreirajte raÄun i generirajte API kljuÄ.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **Venice AI**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj Venice AI API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model kao Å¡to je _Llama 3.3 70B_.
+
+```txt
+   /models
+```
+
+---
+
+### Vercel AI Gateway
+
+Vercel AI Gateway vam omoguÄ‡ava da pristupite modelima iz OpenAI, Anthropic, Google, xAI i drugih putem objedinjene krajnje taÄke. Modeli se nude po kataloÅ¡kim cijenama bez maraka.
+
+1. Idite na [Vercel kontrolnu tablu](https://vercel.com/), idite na karticu **AI Gateway** i kliknite na **API kljuÄevi** da kreirate novi API kljuÄ.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **Vercel AI Gateway**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj Vercel AI Gateway API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model.
+
+```txt
+   /models
+```
+
+TakoÄ‘er moÅ¾ete prilagoditi modele kroz svoju Clisis Coder konfiguraciju. Evo primjera specificiranja redoslijeda usmjeravanja dobavljaÄa.
+
+```json title="Clisis Coder.json"
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "provider": {
+    "vercel": {
+      "models": {
+        "anthropic/claude-sonnet-4": {
+          "options": {
+            "order": ["anthropic", "vertex"]
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Neke korisne opcije rutiranja:
+
+| Opcija              | Opis                                                               |
+| ------------------- | ------------------------------------------------------------------ |
+| `order`             | Redoslijed dobavljaÄa za pokuÅ¡aj                                   |
+| `only`              | OgraniÄiti na odreÄ‘ene provajdere                                  |
+| `zeroDataRetention` | Koristite samo provajdere sa nultom politikom zadrÅ¾avanja podataka |
+
+---
+
+### xAI
+
+1. PrijeÄ‘ite na [xAI konzolu](https://console.x.ai/), kreirajte raÄun i generirajte API kljuÄ.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **xAI**.
+
+```txt
+   /connect
+```
+
+3. Unesite svoj xAI API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model kao Å¡to je _Grok Beta_.
+
+```txt
+   /models
+```
+
+---
+
+### Z.AI
+
+1. Idite na [Z.AI API konzolu](https://z.ai/manage-apikey/apikey-list), kreirajte nalog i kliknite na **Kreiraj novi API kljuÄ**.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite **Z.AI**.
+
+```txt
+   /connect
+```
+
+Ako ste pretplaÄ‡eni na **GLM plan kodiranja**, odaberite **Z.AI plan kodiranja**.
+
+3. Unesite svoj Z.AI API kljuÄ.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Pokrenite naredbu `/models` da odaberete model kao Å¡to je _GLM-4.7_.
+
+```txt
+   /models
+```
+
+---
+
+### ZenMux
+
+1. Idite na [ZenMux kontrolnu tablu](https://zenmux.ai/settings/keys), kliknite na **Kreiraj API kljuÄ** i kopirajte kljuÄ.
+
+2. Pokrenite naredbu `/connect` i potraÅ¾ite ZenMux.
+
+```txt
+   /connect
+```
+
+3. Unesite API kljuÄ za provajdera.
+
+```txt
+   â”Œ API key
+   â”‚
+   â”‚
+   â”” enter
+```
+
+4. Mnogi ZenMux modeli su unaprijed uÄitani po defaultu, pokrenite naredbu `/models` da odaberete onaj koji Å¾elite.
+
+```txt
+   /models
+```
+
+TakoÄ‘er moÅ¾ete dodati dodatne modele putem vaÅ¡e Clisis Coder konfiguracije.
+
+```json title="Clisis Coder.json" {6}
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "provider": {
+    "zenmux": {
+      "models": {
+        "somecoolnewmodel": {}
+      }
+    }
+  }
+}
+```
+
+---
+
+## PrilagoÄ‘eni provajder
+
+Da biste dodali bilo kojeg **OpenAI-kompatibilnog** provajdera koji nije naveden u naredbi `/connect`:
+
+:::tip
+MoÅ¾ete koristiti bilo kojeg OpenAI kompatibilnog provajdera s Clisis Coder-om. VeÄ‡ina modernih AI provajdera nudi API-je kompatibilne sa OpenAI.
+:::
+
+1. Pokrenite naredbu `/connect` i pomaknite se prema dolje do **Ostalo**.
+
+```bash
+   $ /connect
+
+   â”Œ  Add credential
+   â”‚
+   â—†  Select provider
+   â”‚  ...
+   â”‚  â— Other
+   â””
+```
+
+2. Unesite jedinstveni ID za provajdera.
+
+```bash
+   $ /connect
+
+   â”Œ  Add credential
+   â”‚
+   â—‡  Enter provider id
+   â”‚  myprovider
+   â””
+```
+
+:::note
+Odaberite ID koji se pamti, to Ä‡ete koristiti u svom konfiguracijskom fajlu.
+:::
+
+3. Unesite svoj API kljuÄ za provajdera.
+
+```bash
+   $ /connect
+
+   â”Œ  Add credential
+   â”‚
+   â–²  This only stores a credential for myprovider - you will need to configure it in Clisis Coder.json, check the docs for examples.
+   â”‚
+   â—‡  Enter your API key
+   â”‚  sk-...
+   â””
+```
+
+4. Kreirajte ili aÅ¾urirajte svoju `Clisis Coder.json` datoteku u direktoriju projekta:
+
+```json title="Clisis Coder.json" ""myprovider"" {5-15}
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "provider": {
+    "myprovider": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "My AI ProviderDisplay Name",
+      "options": {
+        "baseURL": "https://api.myprovider.com/v1"
+      },
+      "models": {
+        "my-model-name": {
+          "name": "My Model Display Name"
+        }
+      }
+    }
+  }
+}
+```
+
+Evo opcija konfiguracije:
+
+- **npm**: AI SDK paket za koriÅ¡tenje, `@ai-sdk/openai-compatible` za OpenAI-kompatibilne provajdere
+- **name**: Ime za prikaz u korisniÄkom suÄelju.
+- **modeli**: Dostupni modeli.
+- **options.baseURL**: URL krajnje taÄke API-ja.
+- **options.apiKey**: Opciono postavite API kljuÄ, ako ne koristite auth.
+- **options.headers**: Opciono postavite prilagoÄ‘ena zaglavlja.
+
+ViÅ¡e o naprednim opcijama u primjeru ispod.
+
+5. Pokrenite naredbu `/models` i vaÅ¡ prilagoÄ‘eni provajder i modeli Ä‡e se pojaviti na listi izbora.
+
+---
+
+##### Primjer
+
+Evo primjera postavljanja opcija `apiKey`, `headers` i modela `limit`.
+
+```json title="Clisis Coder.json" {9,11,17-20}
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "provider": {
+    "myprovider": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "My AI ProviderDisplay Name",
+      "options": {
+        "baseURL": "https://api.myprovider.com/v1",
+        "apiKey": "{env:ANTHROPIC_API_KEY}",
+        "headers": {
+          "Authorization": "Bearer custom-token"
+        }
+      },
+      "models": {
+        "my-model-name": {
+          "name": "My Model Display Name",
+          "limit": {
+            "context": 200000,
+            "output": 65536
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Detalji konfiguracije:
+
+- **apiKey**: Postavite pomoÄ‡u sintakse varijable `env`, [saznajte viÅ¡e](/docs/config#env-vars).
+- **zaglavlja**: PrilagoÄ‘ena zaglavlja se Å¡alju sa svakim zahtjevom.
+- **limit.context**: Maksimalni ulazni tokeni koje model prihvata.
+- **limit.output**: Maksimalni tokeni koje model moÅ¾e generirati.
+
+Polja `limit` omoguÄ‡avaju Clisis Coder da shvati koliko vam je konteksta ostalo. Standardni dobavljaÄi ih automatski preuzimaju sa models.dev.
+
+---
+
+## RjeÅ¡avanje problema
+
+Ako imate problema s konfiguracijom provajdera, provjerite sljedeÄ‡e:
+
+1. **Provjerite postavke autentifikacije**: Pokrenite `Clisis Coder auth list` da vidite da li su vjerodajnice
+   za provajdera se dodaju u vaÅ¡u konfiguraciju.
+
+   Ovo se ne odnosi na dobavljaÄe kao Å¡to je Amazon Bedrock, koji se oslanjaju na varijable okruÅ¾enja za svoju autentifikaciju.
+
+2. Za prilagoÄ‘ene provajdere, provjerite Clisis Coder konfiguraciju i:
+   - Uvjerite se da ID provajdera koriÅ¡ten u naredbi `/connect` odgovara ID-u u vaÅ¡oj Clisis Coder konfiguraciji.
+   - Za provajdera se koristi pravi npm paket. Na primjer, koristite `@ai-sdk/cerebras` za Cerebras. A za sve ostale OpenAI kompatibilne provajdere, koristite `@ai-sdk/openai-compatible`.
+   - Provjerite da li se ispravna krajnja taÄka API-ja koristi u polju `options.baseURL`.

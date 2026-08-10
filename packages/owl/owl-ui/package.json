@@ -1,0 +1,44 @@
+{
+  "name": "@demotic/owl-ui",
+  "license": "BSL-1.1",
+  "private": false,
+  "type": "module",
+  "exports": {
+    "./react": {
+      "types": "./src/react/index.ts",
+      "development": "./src/react/index.ts",
+      "default": "./src/react/index.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup --config tsup.config.react.ts"
+  },
+  "dependencies": {
+    "@paper-design/shaders": "0.0.72",
+    "@paper-design/shaders-react": "0.0.72"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "tsup": "^8.5.0",
+    "typescript": "^5.6.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AidosOS/demotic-packages.git",
+    "directory": "owl-ui"
+  },
+  "homepage": "https://github.com/AidosOS/demotic-packages",
+  "author": "Demotic Suite Contributors"
+}

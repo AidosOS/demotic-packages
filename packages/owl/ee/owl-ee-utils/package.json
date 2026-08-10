@@ -1,0 +1,47 @@
+{
+  "name": "@demotic/owl-ee-utils",
+  "private": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./src/index.ts",
+  "license": "BSL-1.1",
+  "source": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "development": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./typeid": {
+      "types": "./src/typeid.ts",
+      "development": "./src/typeid.ts",
+      "default": "./dist/typeid.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "dependencies": {
+    "luxon": "^3.6.1",
+    "typeid-js": "^1.2.0",
+    "uuid": "^11.1.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/luxon": "^3.6.2",
+    "@types/node": "^20.11.30",
+    "tsup": "^8.5.0",
+    "typescript": "^5.5.4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AidosOS/demotic-packages.git",
+    "directory": "owl-ee-utils"
+  },
+  "homepage": "https://github.com/AidosOS/demotic-packages",
+  "author": "Demotic Suite Contributors"
+}

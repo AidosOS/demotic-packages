@@ -1,0 +1,16 @@
+[
+  { "src": "agui-adapter", "name": "mona-agui-adapter", "pkg": "@demotic/mona-agui-adapter" },
+  { "src": "components", "name": "mona-components", "pkg": "@demotic/mona-components" },
+  { "src": "contracts", "name": "mona-contracts", "pkg": "@demotic/mona-contracts" },
+  { "src": "diagnostics", "name": "mona-diagnostics", "pkg": "@demotic/mona-diagnostics" },
+  { "src": "download", "name": "mona-download", "pkg": "@demotic/mona-download" },
+  { "src": "host", "name": "mona-host", "pkg": "@demotic/mona-host" },
+  { "src": "launcher-proto", "name": "mona-launcher-proto", "pkg": "@demotic/mona-launcher-proto" },
+  { "src": "metatool", "name": "mona-metatool", "pkg": "@demotic/mona-metatool" },
+  { "src": "platform", "name": "mona-platform", "pkg": "@demotic/mona-platform" },
+  { "src": "plugin-runtime", "name": "mona-plugin-runtime", "pkg": "@demotic/mona-plugin-runtime" },
+  { "src": "registry-protocol", "name": "mona-registry-protocol", "pkg": "@demotic/mona-registry-protocol" },
+  { "src": "release", "name": "mona-release", "pkg": "@demotic/mona-release" },
+  { "src": "sidecar", "name": "mona-sidecar", "pkg": "@demotic/mona-sidecar" },
+  { "src": "sidecar-proto", "name": "mona-sidecar-proto", "pkg": "@demotic/mona-sidecar-proto" }
+]

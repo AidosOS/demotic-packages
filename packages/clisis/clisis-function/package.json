@@ -1,0 +1,31 @@
+{
+  "name": "@demotic/clisis-function",
+  "version": "1.16.2",
+  "$schema": "https://json.schemastore.org/package.json",
+  "private": false,
+  "type": "module",
+  "license": "BSL-1.1",
+  "devDependencies": {
+    "@cloudflare/workers-types": "4.20251008.0",
+    "@tsconfig/node22": "22.0.2",
+    "@types/node": "24.12.2",
+    "typescript": "5.8.2"
+  },
+  "dependencies": {
+    "@octokit/auth-app": "8.0.1",
+    "@octokit/rest": "22.0.0",
+    "hono": "4.10.7",
+    "jose": "6.0.11"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AidosOS/demotic-packages.git",
+    "directory": "clisis-function"
+  },
+  "homepage": "https://github.com/AidosOS/demotic-packages",
+  "author": "Demotic Suite Contributors"
+}

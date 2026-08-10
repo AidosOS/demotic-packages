@@ -1,0 +1,388 @@
+﻿---
+title: å¤–æŽ›
+description: ç·¨å¯«è‡ªå·±çš„å¤–æŽ›ä¾†æ“´å±• Clisis Coderã€‚
+---
+
+å¤–æŽ›å…è¨±æ‚¨é€éŽæŽ›é‰¤å„ç¨®äº‹ä»¶å’Œè‡ªè¨‚è¡Œç‚ºä¾†æ“´å±• Clisis Coderã€‚æ‚¨å¯ä»¥å»ºç«‹å¤–æŽ›ä¾†æ–°å¢žæ–°åŠŸèƒ½ã€æ•´åˆå¤–éƒ¨æœå‹™ï¼Œæˆ–ä¿®æ”¹ Clisis Coder çš„é è¨­è¡Œç‚ºã€‚
+
+å¦‚éœ€äº†è§£ç¯„ä¾‹ï¼Œè«‹æŸ¥çœ‹ç¤¾ç¾¤å»ºç«‹çš„[å¤–æŽ›](/docs/ecosystem#plugins)ã€‚
+
+---
+
+## ä½¿ç”¨å¤–æŽ›
+
+æœ‰å…©ç¨®æ–¹å¼è¼‰å…¥å¤–æŽ›ã€‚
+
+---
+
+### å¾žæœ¬åœ°æª”æ¡ˆè¼‰å…¥
+
+å°‡ JavaScript æˆ– TypeScript æª”æ¡ˆæ”¾ç½®åœ¨å¤–æŽ›ç›®éŒ„ä¸­ã€‚
+
+- `.Clisis Coder/plugins/` - å°ˆæ¡ˆç´šå¤–æŽ›
+- `~/.config/Clisis Coder/plugins/` - å…¨åŸŸå¤–æŽ›
+
+é€™äº›ç›®éŒ„ä¸­çš„æª”æ¡ˆæœƒåœ¨å•Ÿå‹•æ™‚è‡ªå‹•è¼‰å…¥ã€‚
+
+---
+
+### å¾ž npm è¼‰å…¥
+
+åœ¨è¨­å®šæª”ä¸­æŒ‡å®š npm å¥—ä»¶ã€‚
+
+```json title="Clisis Coder.json"
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "plugin": ["Clisis Coder-helicone-session", "Clisis Coder-wakatime", "@my-org/custom-plugin"]
+}
+```
+
+æ”¯æ´å¸¸è¦å’Œå¸¶ä½œç”¨åŸŸçš„ npm å¥—ä»¶ã€‚
+
+ç€è¦½[ç”Ÿæ…‹ç³»çµ±](/docs/ecosystem#plugins)ä¸­çš„å¯ç”¨å¤–æŽ›ã€‚
+
+---
+
+### å¤–æŽ›çš„å®‰è£æ–¹å¼
+
+**npm å¤–æŽ›**åœ¨å•Ÿå‹•æ™‚ä½¿ç”¨ Bun è‡ªå‹•å®‰è£ã€‚å¥—ä»¶åŠå…¶ç›¸ä¾å¥—ä»¶æœƒå¿«å–åœ¨ `~/.cache/Clisis Coder/node_modules/` ä¸­ã€‚
+
+**æœ¬åœ°å¤–æŽ›**ç›´æŽ¥å¾žå¤–æŽ›ç›®éŒ„è¼‰å…¥ã€‚å¦‚æžœéœ€è¦ä½¿ç”¨å¤–éƒ¨å¥—ä»¶ï¼Œæ‚¨å¿…é ˆåœ¨è¨­å®šç›®éŒ„ä¸­å»ºç«‹ `package.json`ï¼ˆåƒè¦‹[ç›¸ä¾å¥—ä»¶](#dependencies)ï¼‰ï¼Œæˆ–è€…å°‡å¤–æŽ›ç™¼å¸ƒåˆ° npm ä¸¦[å°‡å…¶æ–°å¢žåˆ°è¨­å®šä¸­](/docs/config#plugins)ã€‚
+
+---
+
+### è¼‰å…¥é †åº
+
+å¤–æŽ›å¾žæ‰€æœ‰ä¾†æºè¼‰å…¥ï¼Œæ‰€æœ‰é‰¤å­æŒ‰é †åºåŸ·è¡Œã€‚è¼‰å…¥é †åºç‚ºï¼š
+
+1. å…¨åŸŸè¨­å®š (`~/.config/Clisis Coder/Clisis Coder.json`)
+2. å°ˆæ¡ˆè¨­å®š (`Clisis Coder.json`)
+3. å…¨åŸŸå¤–æŽ›ç›®éŒ„ (`~/.config/Clisis Coder/plugins/`)
+4. å°ˆæ¡ˆå¤–æŽ›ç›®éŒ„ (`.Clisis Coder/plugins/`)
+
+åç¨±å’Œç‰ˆæœ¬ç›¸åŒçš„é‡è¤‡ npm å¥—ä»¶åªæœƒè¼‰å…¥ä¸€æ¬¡ã€‚ä½†æœ¬åœ°å¤–æŽ›å’Œåç¨±ç›¸ä¼¼çš„ npm å¤–æŽ›æœƒåˆ†åˆ¥ç¨ç«‹è¼‰å…¥ã€‚
+
+---
+
+## å»ºç«‹å¤–æŽ›
+
+å¤–æŽ›æ˜¯ä¸€å€‹ **JavaScript/TypeScript æ¨¡çµ„**ï¼Œå®ƒåŒ¯å‡ºä¸€å€‹æˆ–å¤šå€‹å¤–æŽ›å‡½å¼ã€‚æ¯å€‹å‡½å¼æŽ¥æ”¶ä¸€å€‹ä¸Šä¸‹æ–‡ç‰©ä»¶ï¼Œä¸¦å›žå‚³ä¸€å€‹é‰¤å­ç‰©ä»¶ã€‚
+
+---
+
+### ç›¸ä¾å¥—ä»¶
+
+æœ¬åœ°å¤–æŽ›å’Œè‡ªè¨‚å·¥å…·å¯ä»¥ä½¿ç”¨å¤–éƒ¨ npm å¥—ä»¶ã€‚åœ¨è¨­å®šç›®éŒ„ä¸­æ–°å¢žä¸€å€‹ `package.json`ï¼Œåˆ—å‡ºæ‰€éœ€çš„ç›¸ä¾å¥—ä»¶ã€‚
+
+```json title=".Clisis Coder/package.json"
+{
+  "dependencies": {
+    "shescape": "^2.1.0"
+  }
+}
+```
+
+Clisis Coder æœƒåœ¨å•Ÿå‹•æ™‚åŸ·è¡Œ `bun install` ä¾†å®‰è£é€™äº›ç›¸ä¾å¥—ä»¶ã€‚ä¹‹å¾Œæ‚¨çš„å¤–æŽ›å’Œå·¥å…·å°±å¯ä»¥åŒ¯å…¥å®ƒå€‘äº†ã€‚
+
+```ts title=".Clisis Coder/plugins/my-plugin.ts"
+import { escape } from "shescape"
+
+export const MyPlugin = async (ctx) => {
+  return {
+    "tool.execute.before": async (input, output) => {
+      if (input.tool === "bash") {
+        output.args.command = escape(output.args.command)
+      }
+    },
+  }
+}
+```
+
+---
+
+### åŸºæœ¬çµæ§‹
+
+```js title=".Clisis Coder/plugins/example.js"
+export const MyPlugin = async ({ project, client, $, directory, worktree }) => {
+  console.log("Plugin initialized!")
+
+  return {
+    // Hook implementations go here
+  }
+}
+```
+
+å¤–æŽ›å‡½å¼æŽ¥æ”¶ä»¥ä¸‹åƒæ•¸ï¼š
+
+- `project`ï¼šç•¶å‰å°ˆæ¡ˆè³‡è¨Šã€‚
+- `directory`ï¼šç•¶å‰å·¥ä½œç›®éŒ„ã€‚
+- `worktree`ï¼šgit å·¥ä½œæ¨¹è·¯å¾‘ã€‚
+- `client`ï¼šç”¨æ–¼èˆ‡ AI äº’å‹•çš„ Clisis Coder SDK ç”¨æˆ¶ç«¯ã€‚
+- `$`ï¼šBun çš„ [Shell API](https://bun.com/docs/runtime/shell)ï¼Œç”¨æ–¼åŸ·è¡ŒæŒ‡ä»¤ã€‚
+
+---
+
+### TypeScript æ”¯æ´
+
+å°æ–¼ TypeScript å¤–æŽ›ï¼Œæ‚¨å¯ä»¥å¾žå¤–æŽ›å¥—ä»¶ä¸­åŒ¯å…¥é¡žåž‹ï¼š
+
+```ts title="my-plugin.ts" {1}
+import type { Plugin } from "@demotic/clisis-plugin"
+
+export const MyPlugin: Plugin = async ({ project, client, $, directory, worktree }) => {
+  return {
+    // Type-safe hook implementations
+  }
+}
+```
+
+---
+
+### äº‹ä»¶
+
+å¤–æŽ›å¯ä»¥è¨‚é–±äº‹ä»¶ï¼Œå¦‚ä¸‹æ–¹ç¯„ä¾‹éƒ¨åˆ†æ‰€ç¤ºã€‚ä»¥ä¸‹æ˜¯æ‰€æœ‰å¯ç”¨äº‹ä»¶çš„åˆ—è¡¨ã€‚
+
+#### æŒ‡ä»¤äº‹ä»¶
+
+- `command.executed`
+
+#### æª”æ¡ˆäº‹ä»¶
+
+- `file.edited`
+- `file.watcher.updated`
+
+#### å®‰è£äº‹ä»¶
+
+- `installation.updated`
+
+#### LSP äº‹ä»¶
+
+- `lsp.client.diagnostics`
+- `lsp.updated`
+
+#### è¨Šæ¯äº‹ä»¶
+
+- `message.part.removed`
+- `message.part.updated`
+- `message.removed`
+- `message.updated`
+
+#### æ¬Šé™äº‹ä»¶
+
+- `permission.asked`
+- `permission.replied`
+
+#### ä¼ºæœå™¨äº‹ä»¶
+
+- `server.connected`
+
+#### å·¥ä½œéšŽæ®µäº‹ä»¶
+
+- `session.created`
+- `session.compacted`
+- `session.deleted`
+- `session.diff`
+- `session.error`
+- `session.idle`
+- `session.status`
+- `session.updated`
+
+#### å¾…è¾¦äº‹é …äº‹ä»¶
+
+- `todo.updated`
+
+#### Shell äº‹ä»¶
+
+- `shell.env`
+
+#### å·¥å…·äº‹ä»¶
+
+- `tool.execute.after`
+- `tool.execute.before`
+
+#### TUI äº‹ä»¶
+
+- `tui.prompt.append`
+- `tui.command.execute`
+- `tui.toast.show`
+
+---
+
+## ç¯„ä¾‹
+
+ä»¥ä¸‹æ˜¯ä¸€äº›å¯ç”¨æ–¼æ“´å±• Clisis Coder çš„å¤–æŽ›ç¯„ä¾‹ã€‚
+
+---
+
+### å‚³é€é€šçŸ¥
+
+åœ¨ç‰¹å®šäº‹ä»¶ç™¼ç”Ÿæ™‚å‚³é€é€šçŸ¥ï¼š
+
+```js title=".Clisis Coder/plugins/notification.js"
+export const NotificationPlugin = async ({ project, client, $, directory, worktree }) => {
+  return {
+    event: async ({ event }) => {
+      // Send notification on session completion
+      if (event.type === "session.idle") {
+        await $`osascript -e 'display notification "Session completed!" with title "Clisis Coder"'`
+      }
+    },
+  }
+}
+```
+
+é€™è£¡ä½¿ç”¨ `osascript` åœ¨ macOS ä¸ŠåŸ·è¡Œ AppleScript ä¾†å‚³é€é€šçŸ¥ã€‚
+
+:::note
+å¦‚æžœæ‚¨ä½¿ç”¨ Clisis Coder æ¡Œé¢æ‡‰ç”¨ç¨‹å¼ï¼Œå®ƒå¯ä»¥åœ¨å›žæ‡‰å°±ç·’æˆ–å·¥ä½œéšŽæ®µå‡ºéŒ¯æ™‚è‡ªå‹•å‚³é€ç³»çµ±é€šçŸ¥ã€‚
+:::
+
+---
+
+### .env ä¿è­·
+
+é˜»æ­¢ Clisis Coder è®€å– `.env` æª”æ¡ˆï¼š
+
+```javascript title=".Clisis Coder/plugins/env-protection.js"
+export const EnvProtection = async ({ project, client, $, directory, worktree }) => {
+  return {
+    "tool.execute.before": async (input, output) => {
+      if (input.tool === "read" && output.args.filePath.includes(".env")) {
+        throw new Error("Do not read .env files")
+      }
+    },
+  }
+}
+```
+
+---
+
+### æ³¨å…¥ç’°å¢ƒè®Šæ•¸
+
+å°‡ç’°å¢ƒè®Šæ•¸æ³¨å…¥æ‰€æœ‰ Shell åŸ·è¡Œï¼ˆAI å·¥å…·å’Œä½¿ç”¨è€…çµ‚ç«¯æ©Ÿï¼‰ï¼š
+
+```javascript title=".Clisis Coder/plugins/inject-env.js"
+export const InjectEnvPlugin = async () => {
+  return {
+    "shell.env": async (input, output) => {
+      output.env.MY_API_KEY = "secret"
+      output.env.PROJECT_ROOT = input.cwd
+    },
+  }
+}
+```
+
+---
+
+### è‡ªè¨‚å·¥å…·
+
+å¤–æŽ›é‚„å¯ä»¥ç‚º Clisis Coder æ–°å¢žè‡ªè¨‚å·¥å…·ï¼š
+
+```ts title=".Clisis Coder/plugins/custom-tools.ts"
+import { type Plugin, tool } from "@demotic/clisis-plugin"
+
+export const CustomToolsPlugin: Plugin = async (ctx) => {
+  return {
+    tool: {
+      mytool: tool({
+        description: "This is a custom tool",
+        args: {
+          foo: tool.schema.string(),
+        },
+        async execute(args, context) {
+          const { directory, worktree } = context
+          return `Hello ${args.foo} from ${directory} (worktree: ${worktree})`
+        },
+      }),
+    },
+  }
+}
+```
+
+`tool` è¼”åŠ©å‡½å¼ç”¨æ–¼å»ºç«‹ Clisis Coder å¯å‘¼å«çš„è‡ªè¨‚å·¥å…·ã€‚å®ƒæŽ¥å—ä¸€å€‹ Zod schema å‡½å¼ï¼Œä¸¦å›žå‚³ä¸€å€‹å·¥å…·å®šç¾©ï¼ŒåŒ…å«ï¼š
+
+- `description`ï¼šå·¥å…·çš„åŠŸèƒ½æè¿°
+- `args`ï¼šå·¥å…·åƒæ•¸çš„ Zod schema
+- `execute`ï¼šå·¥å…·è¢«å‘¼å«æ™‚åŸ·è¡Œçš„å‡½å¼
+
+æ‚¨çš„è‡ªè¨‚å·¥å…·å°‡èˆ‡å…§å»ºå·¥å…·ä¸€èµ·åœ¨ Clisis Coder ä¸­å¯ç”¨ã€‚
+
+:::note
+å¦‚æžœå¤–æŽ›å·¥å…·ä½¿ç”¨èˆ‡å…§å»ºå·¥å…·ç›¸åŒçš„åç¨±ï¼Œå‰‡å¤–æŽ›å·¥å…·å…·æœ‰å„ªå…ˆæ¬Šã€‚
+:::
+
+---
+
+### æ—¥èªŒè¨˜éŒ„
+
+ä½¿ç”¨ `client.app.log()` ä»£æ›¿ `console.log` é€²è¡Œçµæ§‹åŒ–æ—¥èªŒè¨˜éŒ„ï¼š
+
+```ts title=".Clisis Coder/plugins/my-plugin.ts"
+export const MyPlugin = async ({ client }) => {
+  await client.app.log({
+    body: {
+      service: "my-plugin",
+      level: "info",
+      message: "Plugin initialized",
+      extra: { foo: "bar" },
+    },
+  })
+}
+```
+
+æ—¥èªŒå±¤ç´šï¼š`debug`ã€`info`ã€`warn`ã€`error`ã€‚è©³æƒ…è«‹åƒé–± [SDK æ–‡ä»¶](https://Clisis Coder.ai/docs/sdk)ã€‚
+
+---
+
+### å£“ç¸®é‰¤å­
+
+è‡ªè¨‚å·¥ä½œéšŽæ®µå£“ç¸®æ™‚åŒ…å«çš„ä¸Šä¸‹æ–‡ï¼š
+
+```ts title=".Clisis Coder/plugins/compaction.ts"
+import type { Plugin } from "@demotic/clisis-plugin"
+
+export const CompactionPlugin: Plugin = async (ctx) => {
+  return {
+    "experimental.session.compacting": async (input, output) => {
+      // Inject additional context into the compaction prompt
+      output.context.push(`
+## Custom Context
+
+Include any state that should persist across compaction:
+- Current task status
+- Important decisions made
+- Files being actively worked on
+`)
+    },
+  }
+}
+```
+
+`experimental.session.compacting` é‰¤å­åœ¨ LLM ç”ŸæˆçºŒæŽ¥æ‘˜è¦ä¹‹å‰è§¸ç™¼ã€‚ä½¿ç”¨å®ƒä¾†æ³¨å…¥é è¨­å£“ç¸®æç¤ºè©žå¯èƒ½éºæ¼çš„é ˜åŸŸç‰¹å®šä¸Šä¸‹æ–‡ã€‚
+
+æ‚¨é‚„å¯ä»¥é€éŽè¨­å®š `output.prompt` ä¾†å®Œå…¨æ›¿æ›å£“ç¸®æç¤ºè©žï¼š
+
+```ts title=".Clisis Coder/plugins/custom-compaction.ts"
+import type { Plugin } from "@demotic/clisis-plugin"
+
+export const CustomCompactionPlugin: Plugin = async (ctx) => {
+  return {
+    "experimental.session.compacting": async (input, output) => {
+      // Replace the entire compaction prompt
+      output.prompt = `
+You are generating a continuation prompt for a multi-agent swarm session.
+
+Summarize:
+1. The current task and its status
+2. Which files are being modified and by whom
+3. Any blockers or dependencies between agents
+4. The next steps to complete the work
+
+Format as a structured prompt that a new agent can use to resume work.
+`
+    },
+  }
+}
+```
+
+ç•¶è¨­å®šäº† `output.prompt` æ™‚ï¼Œå®ƒæœƒå®Œå…¨æ›¿æ›é è¨­çš„å£“ç¸®æç¤ºè©žã€‚åœ¨é€™ç¨®æƒ…æ³ä¸‹ï¼Œ`output.context` é™£åˆ—å°‡è¢«å¿½ç•¥ã€‚

@@ -1,0 +1,6 @@
+[
+  { "src": "studio", "name": "monkey-studio", "pkg": "@demotic/monkey-studio" },
+  { "src": "Open-AI-Design-Agent/packages/design-agent", "name": "monkey-design-agent", "pkg": "@demotic/monkey-design-agent" },
+  { "src": "Vibe-Workflow/packages/workflow-builder", "name": "monkey-workflow-builder", "pkg": "@demotic/monkey-workflow-builder" },
+  { "src": "Open-Poe-AI/packages/agents", "name": "monkey-ai-agent", "pkg": "@demotic/monkey-ai-agent" }
+]

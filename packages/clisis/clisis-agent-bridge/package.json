@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "version": "1.0.0-beta.1",
+  "name": "@demotic/clisis-agent-bridge",
+  "description": "Bridge connectors for external AI agents (Clisis, Hermes, OpenClaw)",
+  "type": "module",
+  "license": "BSL-1.1",
+  "private": false,
+  "scripts": {
+    "typecheck": "tsgo --noEmit"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "devDependencies": {
+    "@tsconfig/node22": "22.0.2",
+    "@types/bun": "1.3.13",
+    "@types/node": "24.12.2",
+    "typescript": "5.8.2"
+  },
+  "dependencies": {
+    "effect": "4.0.0-beta.74"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AidosOS/demotic-packages.git",
+    "directory": "clisis-agent-bridge"
+  },
+  "homepage": "https://github.com/AidosOS/demotic-packages",
+  "author": "Demotic Suite Contributors"
+}

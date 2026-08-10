@@ -1,0 +1,196 @@
+﻿---
+title: Egendefinerte verktÃ¸y
+description: Lag verktÃ¸y som LLM kan kalle inn Clisis Coder.
+---
+
+Egendefinerte verktÃ¸y er funksjoner du oppretter som LLM kan kalle under samtaler. De fungerer sammen med Clisis Coder sine [innebygde verktÃ¸y](/docs/tools) som `read`, `write` og `bash`.
+
+---
+
+## Opprette et verktÃ¸y
+
+VerktÃ¸y er definert som **TypeScript**- eller **JavaScript**-filer. VerktÃ¸ydefinisjonen kan imidlertid pÃ¥kalle skript skrevet pÃ¥ **alle sprÃ¥k** - TypeScript eller JavaScript brukes bare for selve verktÃ¸ydefinisjonen.
+
+---
+
+### Plassering
+
+De kan defineres:
+
+- Lokalt ved Ã¥ plassere dem i `.Clisis Coder/tools/`-katalogen til prosjektet ditt.
+- Eller globalt, ved Ã¥ plassere dem i `~/.config/Clisis Coder/tools/`.
+
+---
+
+### Struktur
+
+Den enkleste mÃ¥ten Ã¥ lage verktÃ¸y pÃ¥ er Ã¥ bruke `tool()`-hjelperen som gir typesikkerhet og validering.
+
+```ts title=".Clisis Coder/tools/database.ts" {1}
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Query the project database",
+  args: {
+    query: tool.schema.string().describe("SQL query to execute"),
+  },
+  async execute(args) {
+    // Your database logic here
+    return `Executed query: ${args.query}`
+  },
+})
+```
+
+**filnavnet** blir **verktÃ¸ynavnet**. Ovennevnte oppretter et `database`-verktÃ¸y.
+
+---
+
+#### Flere verktÃ¸y per fil
+
+Du kan ogsÃ¥ eksportere flere verktÃ¸y fra en enkelt fil. Hver eksport blir **et separat verktÃ¸y** med navnet **`<filename>_<exportname>`**:
+
+```ts title=".Clisis Coder/tools/math.ts"
+import { tool } from "@demotic/clisis-plugin"
+
+export const add = tool({
+  description: "Add two numbers",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args) {
+    return args.a + args.b
+  },
+})
+
+export const multiply = tool({
+  description: "Multiply two numbers",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args) {
+    return args.a * args.b
+  },
+})
+```
+
+Dette lager to verktÃ¸y: `math_add` og `math_multiply`.
+
+---
+
+#### Navnekollisjoner med innebygde verktÃ¸y
+
+Egendefinerte verktÃ¸y er nÃ¸klet etter verktÃ¸ynavn. Hvis et egendefinert verktÃ¸y bruker samme navn som et innebygd verktÃ¸y, vil det egendefinerte verktÃ¸yet ha forrang.
+
+For eksempel erstatter denne filen det innebygde `bash`-verktÃ¸yet:
+
+```ts title=".Clisis Coder/tools/bash.ts"
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Restricted bash wrapper",
+  args: {
+    command: tool.schema.string(),
+  },
+  async execute(args) {
+    return `blocked: ${args.command}`
+  },
+})
+```
+
+:::note
+Foretrekk unike navn med mindre du med vilje Ã¸nsker Ã¥ erstatte et innebygd verktÃ¸y. Hvis du vil deaktivere et innebygd verktÃ¸y, men ikke overstyre det, bruk [tillatelser](/docs/permissions).
+:::
+
+---
+
+### Argumenter
+
+Du kan bruke `tool.schema`, som bare er [Zod](https://zod.dev), for Ã¥ definere argumenttyper.
+
+```ts "tool.schema"
+args: {
+  query: tool.schema.string().describe("SQL query to execute")
+}
+```
+
+Du kan ogsÃ¥ importere [Zod](https://zod.dev) direkte og returnere et vanlig objekt:
+
+```ts {6}
+import { z } from "zod"
+
+export default {
+  description: "Tool description",
+  args: {
+    param: z.string().describe("Parameter description"),
+  },
+  async execute(args, context) {
+    // Tool implementation
+    return "result"
+  },
+}
+```
+
+---
+
+### Kontekst
+
+VerktÃ¸y mottar kontekst om gjeldende Ã¸kt:
+
+```ts title=".Clisis Coder/tools/project.ts" {8}
+import { tool } from "@demotic/clisis-plugin"
+
+export default tool({
+  description: "Get project information",
+  args: {},
+  async execute(args, context) {
+    // Access context information
+    const { agent, sessionID, messageID, directory, worktree } = context
+    return `Agent: ${agent}, Session: ${sessionID}, Message: ${messageID}, Directory: ${directory}, Worktree: ${worktree}`
+  },
+})
+```
+
+Bruk `context.directory` for Ã¸ktens arbeidskatalog.
+Bruk `context.worktree` for git-arbeidstreet.
+
+---
+
+## Eksempler
+
+### Skrive et verktÃ¸y i Python
+
+Du kan skrive verktÃ¸yene dine pÃ¥ hvilket som helst sprÃ¥k du vil. Her er et eksempel som legger til to tall ved hjelp av Python.
+
+FÃ¸rst lager du verktÃ¸yet som et Python-skript:
+
+```python title=".Clisis Coder/tools/add.py"
+import sys
+
+a = int(sys.argv[1])
+b = int(sys.argv[2])
+print(a + b)
+```
+
+Lag deretter verktÃ¸ydefinisjonen som pÃ¥kaller den:
+
+```ts title=".Clisis Coder/tools/python-add.ts" {10}
+import { tool } from "@demotic/clisis-plugin"
+import path from "path"
+
+export default tool({
+  description: "Add two numbers using Python",
+  args: {
+    a: tool.schema.number().describe("First number"),
+    b: tool.schema.number().describe("Second number"),
+  },
+  async execute(args, context) {
+    const script = path.join(context.worktree, ".Clisis Coder/tools/add.py")
+    const result = await Bun.$`python3 ${script} ${args.a} ${args.b}`.text()
+    return result.trim()
+  },
+})
+```
+
+Her bruker vi [`Bun.$`](https://bun.com/docs/runtime/shell)-verktÃ¸yet for Ã¥ kjÃ¸re Python-skriptet.

@@ -1,0 +1,113 @@
+﻿---
+title: Windows (WSL)
+description: KÃ¸r Clisis Coder pÃ¥ Windows med WSL for den bedste oplevelse.
+---
+
+import { Steps } from "@astrojs/starlight/components"
+
+Selvom Clisis Coder kan kÃ¸re direkte pÃ¥ Windows, anbefaler vi at bruge [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) for den bedste oplevelse. WSL giver et Linux-miljÃ¸, der fungerer problemfrit med clisis-coders funktioner.
+
+:::tip[Hvorfor WSL?]
+WSL giver bedre filsystemydelse, fuld terminalunderstÃ¸ttelse og kompatibilitet med de udviklingsvÃ¦rktÃ¸jer, som Clisis Coder er afhÃ¦ngig af.
+:::
+
+---
+
+## OpsÃ¦tning
+
+<Steps>
+
+1. **Installer WSL**
+
+   Hvis du ikke allerede har gjort det, sÃ¥ [installer WSL](https://learn.microsoft.com/en-us/windows/wsl/install) med Microsofts officielle vejledning.
+
+2. **Installer Clisis Coder i WSL**
+
+   NÃ¥r WSL er sat op, skal du Ã¥bne din WSL-terminal og installere Clisis Coder med en af [installationsmetoderne](/docs/).
+
+   ```bash
+   curl -fsSL https://Clisis Coder.ai/install | bash
+   ```
+
+3. **Brug Clisis Coder fra WSL**
+
+   GÃ¥ til din projektmappe (fÃ¥ adgang til Windows-filer via `/mnt/c/`, `/mnt/d/` osv.) og kÃ¸r Clisis Coder.
+
+   ```bash
+   cd /mnt/c/Users/YourName/project
+   Clisis Coder
+   ```
+
+</Steps>
+
+---
+
+## Desktop-app + WSL-server
+
+Hvis du foretrÃ¦kker Clisis Coder Desktop-appen, men vil kÃ¸re serveren i WSL:
+
+1. **Start serveren i WSL** med `--hostname 0.0.0.0` for at tillade eksterne forbindelser:
+
+   ```bash
+   Clisis Coder serve --hostname 0.0.0.0 --port 4096
+   ```
+
+2. **Forbind Desktop-appen** til `http://localhost:4096`
+
+:::note
+Hvis `localhost` ikke virker i din opsÃ¦tning, sÃ¥ forbind i stedet med WSL-IP-adressen (fra WSL: `hostname -I`) og brug `http://<wsl-ip>:4096`.
+:::
+
+:::caution
+NÃ¥r du bruger `--hostname 0.0.0.0`, skal du sÃ¦tte `Clisis Coder_SERVER_PASSWORD` for at sikre serveren.
+
+```bash
+Clisis Coder_SERVER_PASSWORD=your-password Clisis Coder serve --hostname 0.0.0.0
+```
+
+:::
+
+---
+
+## Webklient + WSL
+
+For den bedste weboplevelse pÃ¥ Windows:
+
+1. **KÃ¸r `Clisis Coder web` i WSL-terminalen** i stedet for PowerShell:
+
+   ```bash
+   Clisis Coder web --hostname 0.0.0.0
+   ```
+
+2. **Ã…bn fra din Windows-browser** pÃ¥ `http://localhost:<port>` (Clisis Coder udskriver URL'en)
+
+NÃ¥r du kÃ¸rer `Clisis Coder web` fra WSL, fÃ¥r du korrekt filsystemadgang og terminalintegration, samtidig med at det stadig er tilgÃ¦ngeligt fra din Windows-browser.
+
+---
+
+## Adgang til Windows-filer
+
+WSL kan fÃ¥ adgang til alle dine Windows-filer via `/mnt/`-mappen:
+
+- `C:`-drev â†’ `/mnt/c/`
+- `D:`-drev â†’ `/mnt/d/`
+- Og sÃ¥ videre...
+
+Eksempel:
+
+```bash
+cd /mnt/c/Users/YourName/Documents/project
+Clisis Coder
+```
+
+:::tip
+For den mest problemfri oplevelse kan du overveje at klone/kopiere dit repo ind i WSL-filsystemet (for eksempel under `~/code/`) og kÃ¸re Clisis Coder derfra.
+:::
+
+---
+
+## Tips
+
+- Lad Clisis Coder kÃ¸re i WSL for projekter, der ligger pÃ¥ Windows-drev - filadgangen er problemfri
+- Brug VS Codes [WSL-udvidelse](https://code.visualstudio.com/docs/remote/wsl) sammen med Clisis Coder for et integreret udviklingsworkflow
+- Din Clisis Coder-konfiguration og dine sessioner gemmes i WSL-miljÃ¸et i `~/.local/share/Clisis Coder/`

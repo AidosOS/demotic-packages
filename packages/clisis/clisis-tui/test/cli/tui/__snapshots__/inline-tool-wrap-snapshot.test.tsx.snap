@@ -1,0 +1,72 @@
+﻿// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
+
+exports[`TUI inline tool wrapping snapshots consecutive grep, glob, and read rows at a narrow width 1`] = `
+"   âœ± Grep "ClisisCoder.*DB|database|sqlite|drizzle|dev.*db|data.
+     *dir|xdg|APPDATA" in packages/clisis-coder/src (151 matches)
+   âœ± Glob "**/*db*" in packages/clisis-coder (6 matches)
+   â†’ Read packages/clisis-coder/src/storage/db.ts [offset=1, limit=130]
+   â†’ Read packages/clisis-coder/src/index.ts [offset=1, limit=100]
+   âœ± Grep "export const clisis-coder_DB|clisis-coder_DB|clisis-coder_DEV|Global\\.
+     Path\\.data|data =" in packages/clisis-coder/src (115 matches)"
+`;
+
+exports[`TUI inline tool wrapping snapshots expanded tool errors under the tool text 1`] = `
+"   âœ± Grep "ClisisCoder.*DB|database|sqlite|drizzle|dev.*db|data.
+     *dir|xdg|APPDATA" in packages/clisis-coder/src (151 matches)
+   âœ± Glob "**/*db*" in packages/clisis-coder (6 matches)
+   â†’ Read packages/clisis-coder/src/storage/db.ts [offset=1, limit=130]
+   â†’ Read packages/clisis-coder/src/index.ts [offset=1, limit=100]
+     No LSP server available for this file type.
+   âœ± Grep "export const clisis-coder_DB|clisis-coder_DB|clisis-coder_DEV|Global\\.
+     Path\\.data|data =" in packages/clisis-coder/src (115 matches)"
+`;
+
+exports[`TUI inline tool wrapping keeps separation after a shell output block 1`] = `
+"
+
+  # List files
+
+  $ ls
+
+  file.ts
+
+   âœ± Grep "ClisisCoder.*DB|database|sqlite|drizzle|dev.*db|data.
+     *dir|xdg|APPDATA" in packages/clisis-coder/src (151 matches)
+   âœ± Glob "**/*db*" in packages/clisis-coder (6 matches)
+   â†’ Read packages/clisis-coder/src/storage/db.ts [offset=1, limit=130]
+   â†’ Read packages/clisis-coder/src/index.ts [offset=1, limit=100]
+   âœ± Grep "export const clisis-coder_DB|clisis-coder_DB|clisis-coder_DEV|Global\\.
+     Path\\.data|data =" in packages/clisis-coder/src (115 matches)"
+`;
+
+exports[`TUI inline tool wrapping keeps separation after a padded user message 1`] = `
+"
+  Check whether the next tool remains separated.
+
+
+   âœ± Grep "ClisisCoder.*DB|database|sqlite|drizzle|dev.*db|data.
+     *dir|xdg|APPDATA" in packages/clisis-coder/src (151 matches)
+   âœ± Glob "**/*db*" in packages/clisis-coder (6 matches)
+   â†’ Read packages/clisis-coder/src/storage/db.ts [offset=1, limit=130]
+   â†’ Read packages/clisis-coder/src/index.ts [offset=1, limit=100]
+   âœ± Grep "export const clisis-coder_DB|clisis-coder_DB|clisis-coder_DEV|Global\\.
+     Path\\.data|data =" in packages/clisis-coder/src (115 matches)"
+`;
+
+exports[`TUI inline tool wrapping separates a contiguous subagent group from inline tools 1`] = `
+"   âœ± Grep "Task" (2 matches)
+
+   â ™ Explore Task â€” Inspect active task spacing
+   âœ“ General Task â€” Confirm completed task spacing
+     â†³ 1 toolcall Â· 501ms
+
+   â†’ Read src/cli/cmd/tui/routes/session/index.tsx"
+`;
+
+exports[`TUI inline tool wrapping separates a subagent group after an expanded read 1`] = `
+"   â†’ Read src/cli/cmd/tui/routes/session/index.tsx
+   â†³ Loaded src/cli/cmd/tui/routes/session/tools.tsx
+
+   âœ“ Explore Task â€” Inspect active task spacing
+     â†³ 1 toolcall Â· 501ms"
+`;

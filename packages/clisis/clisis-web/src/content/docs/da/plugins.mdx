@@ -1,0 +1,389 @@
+﻿---
+title: Plugins
+description: Skriv dine egne plugins for at udvide Clisis Coder.
+---
+
+Plugins giver dig mulighed for at udvide Clisis Coder ved at tilslutte sig forskellige begivenheder og tilpasse adfÃ¦rd. Du kan oprette plugins for at tilfÃ¸je nye funktioner, integrere med eksterne tjenester eller Ã¦ndre clisis-coders standardadfÃ¦rd.
+
+For eksempler, tjek [plugins](/docs/ecosystem#plugins) oprettet af fÃ¦llesskabet.
+
+---
+
+## Brug af plugin
+
+Der er to mÃ¥der at indlÃ¦se plugins pÃ¥.
+
+---
+
+### Fra lokale filer
+
+Placer JavaScript- eller TypeScript-filer i plugin-mappen.
+
+- `.Clisis Coder/plugins/` - Plugins pÃ¥ projektniveau
+- `~/.config/Clisis Coder/plugins/` - Globale plugins
+
+Filer i disse mapper indlÃ¦ses automatisk ved opstart.
+
+---
+
+### Fra npm
+
+Angiv npm-pakker i din konfigurationsfil.
+
+```json title="Clisis Coder.json"
+{
+  "$schema": "https://Clisis Coder.ai/config.json",
+  "plugin": ["Clisis Coder-helicone-session", "Clisis Coder-wakatime", "@my-org/custom-plugin"]
+}
+```
+
+BÃ¥de almindelige og omfangsrige npm-pakker understÃ¸ttes.
+
+Gennemse tilgÃ¦ngelige plugins i [ecosystem](/docs/ecosystem#plugins).
+
+---
+
+### Installation af plugins
+
+**npm plugins** installeres automatisk ved hjÃ¦lp af Bun ved opstart. Pakker og deres afhÃ¦ngigheder cachelagres i `~/.cache/Clisis Coder/node_modules/`.
+
+**Lokale plugins** indlÃ¦ses direkte fra plugin-biblioteket. For at bruge eksterne pakker skal du oprette en `package.json` i din konfigurationsmappe (se [Dependencies](#dependencies)), eller udgive pluginnet til npm og [add it to your config](/docs/config#plugins).
+
+---
+
+### IndlÃ¦sningsrÃ¦kkefÃ¸lge
+
+Plugins indlÃ¦ses fra alle kilder, og alle hooks kÃ¸rer i rÃ¦kkefÃ¸lge. IndlÃ¦sningsrÃ¦kkefÃ¸lgen er:
+
+1. Global konfiguration (`~/.config/Clisis Coder/Clisis Coder.json`)
+2. Projektkonfiguration (`Clisis Coder.json`)
+3. Global plugin-mappe (`~/.config/Clisis Coder/plugins/`)
+4. Projekt plugin bibliotek (`.Clisis Coder/plugins/`)
+
+Dublerede npm-pakker med samme navn og version indlÃ¦ses Ã©n gang. Et lokalt plugin og et npm plugin med lignende navne indlÃ¦ses dog hver for sig.
+
+---
+
+## Oprettelse af plugin
+
+Et plugin er et **JavaScript/TypeScript modul**, der eksporterer et eller flere plugin
+funktioner. Hver funktion modtager et kontekstobjekt og returnerer et hooks-objekt.
+
+---
+
+### AfhÃ¦ngigheder
+
+Lokale plugins og brugerdefinerede vÃ¦rktÃ¸jer kan bruge eksterne npm-pakker. TilfÃ¸j en `package.json` til din konfigurationsmappe med de afhÃ¦ngigheder, du har brug for.
+
+```json title=".Clisis Coder/package.json"
+{
+  "dependencies": {
+    "shescape": "^2.1.0"
+  }
+}
+```
+
+Clisis Coder kÃ¸rer `bun install` ved opstart for at installere disse. Dine plugins og vÃ¦rktÃ¸jer kan derefter importere dem.
+
+```ts title=".Clisis Coder/plugins/my-plugin.ts"
+import { escape } from "shescape"
+
+export const MyPlugin = async (ctx) => {
+  return {
+    "tool.execute.before": async (input, output) => {
+      if (input.tool === "bash") {
+        output.args.command = escape(output.args.command)
+      }
+    },
+  }
+}
+```
+
+---
+
+### GrundlÃ¦ggende struktur
+
+```js title=".Clisis Coder/plugins/example.js"
+export const MyPlugin = async ({ project, client, $, directory, worktree }) => {
+  console.log("Plugin initialized!")
+
+  return {
+    // Hook implementations go here
+  }
+}
+```
+
+Plugin-funktionen modtager:
+
+- `project`: Den aktuelle projektinformation.
+- `directory`: Den aktuelle arbejdsmappe.
+- `worktree`: Git worktree-stien.
+- `client`: En Clisis Coder SDK klient til interaktion med AI.
+- `$`: Buns [shell API](https://bun.com/docs/runtime/shell) til udfÃ¸relse af kommandoer.
+
+---
+
+### TypeScript-understÃ¸ttelse
+
+For TypeScript-plugins kan du importere typer fra plugin-pakken:
+
+```ts title="my-plugin.ts" {1}
+import type { Plugin } from "@demotic/clisis-plugin"
+
+export const MyPlugin: Plugin = async ({ project, client, $, directory, worktree }) => {
+  return {
+    // Type-safe hook implementations
+  }
+}
+```
+
+---
+
+### Begivenheder
+
+Plugins kan abonnere pÃ¥ begivenheder som vist nedenfor i afsnittet Eksempler. Her er en liste over de forskellige arrangementer.
+
+#### KommandohÃ¦ndelser
+
+- `command.executed`
+
+#### FilhÃ¦ndelser
+
+- `file.edited`
+- `file.watcher.updated`
+
+#### InstallationshÃ¦ndelser
+
+- `installation.updated`
+
+#### LSP-hÃ¦ndelser
+
+- `lsp.client.diagnostics`
+- `lsp.updated`
+
+#### BeskedhÃ¦ndelser
+
+- `message.part.removed`
+- `message.part.updated`
+- `message.removed`
+- `message.updated`
+
+#### TilladelseshÃ¦ndelser
+
+- `permission.asked`
+- `permission.replied`
+
+#### ServerhÃ¦ndelser
+
+- `server.connected`
+
+#### SessionshÃ¦ndelser
+
+- `session.created`
+- `session.compacted`
+- `session.deleted`
+- `session.diff`
+- `session.error`
+- `session.idle`
+- `session.status`
+- `session.updated`
+
+#### Todo-hÃ¦ndelser
+
+- `todo.updated`
+
+#### Shell-hÃ¦ndelser
+
+- `shell.env`
+
+#### VÃ¦rktÃ¸jshÃ¦ndelser
+
+- `tool.execute.after`
+- `tool.execute.before`
+
+#### TUI-hÃ¦ndelser
+
+- `tui.prompt.append`
+- `tui.command.execute`
+- `tui.toast.show`
+
+---
+
+## Eksempler
+
+Her er nogle eksempler pÃ¥ plugins, du kan bruge til at udvide Clisis Coder.
+
+---
+
+### Send meddelelser
+
+Send meddelelser, nÃ¥r visse hÃ¦ndelser indtrÃ¦ffer:
+
+```js title=".Clisis Coder/plugins/notification.js"
+export const NotificationPlugin = async ({ project, client, $, directory, worktree }) => {
+  return {
+    event: async ({ event }) => {
+      // Send notification on session completion
+      if (event.type === "session.idle") {
+        await $`osascript -e 'display notification "Session completed!" with title "Clisis Coder"'`
+      }
+    },
+  }
+}
+```
+
+Vi bruger `osascript` til at kÃ¸re AppleScript pÃ¥ macOS. Her bruger vi det til at sende notifikationer.
+
+:::note
+Hvis du bruger Clisis Coder desktop-appen, kan den sende systemmeddelelser automatisk, nÃ¥r et svar er klar, eller nÃ¥r en session fejler.
+:::
+
+---
+
+### .env-beskyttelse
+
+UndgÃ¥ Clisis Coder i at lÃ¦se `.env` filer:
+
+```javascript title=".Clisis Coder/plugins/env-protection.js"
+export const EnvProtection = async ({ project, client, $, directory, worktree }) => {
+  return {
+    "tool.execute.before": async (input, output) => {
+      if (input.tool === "read" && output.args.filePath.includes(".env")) {
+        throw new Error("Do not read .env files")
+      }
+    },
+  }
+}
+```
+
+---
+
+### Injicer miljÃ¸variabler
+
+Injicer miljÃ¸variabler i al shell-udfÃ¸relse (AI-vÃ¦rktÃ¸jer og brugerterminaler):
+
+```javascript title=".Clisis Coder/plugins/inject-env.js"
+export const InjectEnvPlugin = async () => {
+  return {
+    "shell.env": async (input, output) => {
+      output.env.MY_API_KEY = "secret"
+      output.env.PROJECT_ROOT = input.cwd
+    },
+  }
+}
+```
+
+---
+
+### Brugerdefinerede vÃ¦rktÃ¸jer
+
+Plugins kan ogsÃ¥ tilfÃ¸je brugerdefinerede vÃ¦rktÃ¸jer til Clisis Coder:
+
+```ts title=".Clisis Coder/plugins/custom-tools.ts"
+import { type Plugin, tool } from "@demotic/clisis-plugin"
+
+export const CustomToolsPlugin: Plugin = async (ctx) => {
+  return {
+    tool: {
+      mytool: tool({
+        description: "This is a custom tool",
+        args: {
+          foo: tool.schema.string(),
+        },
+        async execute(args, context) {
+          const { directory, worktree } = context
+          return `Hello ${args.foo} from ${directory} (worktree: ${worktree})`
+        },
+      }),
+    },
+  }
+}
+```
+
+`tool`-hjÃ¦lperen opretter et brugerdefineret vÃ¦rktÃ¸j, som Clisis Coder kan kalde. Det tager en Zod-skemafunktion og returnerer en vÃ¦rktÃ¸jsdefinition med:
+
+- `description`: Hvad vÃ¦rktÃ¸jet gÃ¸r
+- `args`: Zod-skema for vÃ¦rktÃ¸jets argumenter
+- `execute`: Funktion, der kÃ¸rer, nÃ¥r vÃ¦rktÃ¸jet kaldes
+
+Dine tilpassede vÃ¦rktÃ¸jer vil vÃ¦re tilgÃ¦ngelige for Clisis Coder sammen med indbyggede vÃ¦rktÃ¸jer.
+
+:::note
+Hvis et plugin-vÃ¦rktÃ¸j bruger samme navn som et indbygget vÃ¦rktÃ¸j, har plugin-vÃ¦rktÃ¸jet forrang.
+:::
+
+---
+
+### Logning
+
+Brug `client.app.log()` i stedet for `console.log` til struktureret logning:
+
+```ts title=".Clisis Coder/plugins/my-plugin.ts"
+export const MyPlugin = async ({ client }) => {
+  await client.app.log({
+    body: {
+      service: "my-plugin",
+      level: "info",
+      message: "Plugin initialized",
+      extra: { foo: "bar" },
+    },
+  })
+}
+```
+
+Niveauer: `debug`, `info`, `warn`, `error`. Se [SDK documentation](https://Clisis Coder.ai/docs/sdk) for detaljer.
+
+---
+
+### Komprimerings-hooks
+
+Tilpas konteksten inkluderet, nÃ¥r en session komprimeres:
+
+```ts title=".Clisis Coder/plugins/compaction.ts"
+import type { Plugin } from "@demotic/clisis-plugin"
+
+export const CompactionPlugin: Plugin = async (ctx) => {
+  return {
+    "experimental.session.compacting": async (input, output) => {
+      // Inject additional context into the compaction prompt
+      output.context.push(`
+## Custom Context
+
+Include any state that should persist across compaction:
+- Current task status
+- Important decisions made
+- Files being actively worked on
+`)
+    },
+  }
+}
+```
+
+`experimental.session.compacting` krogen affyres, fÃ¸r LLM genererer en fortsÃ¦ttelsesoversigt. Brug den til at injicere domÃ¦nespecifik kontekst, som standardkomprimeringsprompten ville gÃ¥ glip af.
+
+Du kan ogsÃ¥ erstatte komprimeringsprompten helt ved at indstille `output.prompt`:
+
+```ts title=".Clisis Coder/plugins/custom-compaction.ts"
+import type { Plugin } from "@demotic/clisis-plugin"
+
+export const CustomCompactionPlugin: Plugin = async (ctx) => {
+  return {
+    "experimental.session.compacting": async (input, output) => {
+      // Replace the entire compaction prompt
+      output.prompt = `
+You are generating a continuation prompt for a multi-agent swarm session.
+
+Summarize:
+1. The current task and its status
+2. Which files are being modified and by whom
+3. Any blockers or dependencies between agents
+4. The next steps to complete the work
+
+Format as a structured prompt that a new agent can use to resume work.
+`
+    },
+  }
+}
+```
+
+NÃ¥r `output.prompt` er indstillet, erstatter den standardkompressionsprompten fuldstÃ¦ndigt. `output.context`-arrayet ignoreres i dette tilfÃ¦lde.
