@@ -28,7 +28,7 @@ import {
   type ThemePreference,
 } from "../stats-shell"
 
-const statsLabFallbackUrl = "https://stats.clisis-coder.ai"
+const statsLabFallbackUrl = "https://stats.clisiscoder.demoticsuite.ai"
 const labHeaderLinks: readonly HeaderLink[] = [
   { href: "#overview", label: "Overview" },
   { href: "#usage", label: "Usage" },

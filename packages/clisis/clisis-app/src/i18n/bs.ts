@@ -137,7 +137,7 @@
   "provider.connect.clisisCoderZen.line2":
     "Sa jednim API kljuÄem dobijaÅ¡ pristup modelima kao Å¡to su Claude, GPT, Gemini, GLM i drugi.",
   "provider.connect.clisisCoderZen.visit.prefix": "Posjeti ",
-  "provider.connect.clisisCoderZen.visit.link": "clisis-coder.ai/zen",
+  "provider.connect.clisisCoderZen.visit.link": "clisiscoder.demoticsuite.ai/zen",
   "provider.connect.clisisCoderZen.visit.suffix": " da preuzmeÅ¡ svoj API kljuÄ.",
   "provider.connect.oauth.code.visit.prefix": "Posjeti ",
   "provider.connect.oauth.code.visit.link": "ovaj link",

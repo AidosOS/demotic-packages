@@ -29,7 +29,7 @@ import { ModelV2 } from "@demotic/clisis-core/model"
 
 const FIXTURES_DIR = path.join(import.meta.dir, "../fixtures/recordings")
 
-const zenURL = (connection: string) => `https://console.clisis-coder.ai/proxy/connections/${connection}/v1`
+const zenURL = (connection: string) => `https://console.clisiscoder.demoticsuite.ai/proxy/connections/${connection}/v1`
 
 const replayOpenAIOAuth = {
   type: "oauth",

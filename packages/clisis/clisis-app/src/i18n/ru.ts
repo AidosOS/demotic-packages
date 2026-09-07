@@ -137,7 +137,7 @@
   "provider.connect.clisisCoderZen.line2":
     "Ð¡ Ð¾Ð´Ð½Ð¸Ð¼ API ÐºÐ»ÑŽÑ‡Ð¾Ð¼ Ð²Ñ‹ Ð¿Ð¾Ð»ÑƒÑ‡Ð¸Ñ‚Ðµ Ð´Ð¾ÑÑ‚ÑƒÐ¿ Ðº Ñ‚Ð°ÐºÐ¸Ð¼ Ð¼Ð¾Ð´ÐµÐ»ÑÐ¼ ÐºÐ°Ðº Claude, GPT, Gemini, GLM Ð¸ Ð´Ñ€ÑƒÐ³Ð¸Ð¼.",
   "provider.connect.clisisCoderZen.visit.prefix": "ÐŸÐ¾ÑÐµÑ‚Ð¸Ñ‚Ðµ ",
-  "provider.connect.clisisCoderZen.visit.link": "clisis-coder.ai/zen",
+  "provider.connect.clisisCoderZen.visit.link": "clisiscoder.demoticsuite.ai/zen",
   "provider.connect.clisisCoderZen.visit.suffix": " Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð¿Ð¾Ð»ÑƒÑ‡Ð¸Ñ‚ÑŒ Ð²Ð°Ñˆ API ÐºÐ»ÑŽÑ‡.",
   "provider.connect.oauth.code.visit.prefix": "ÐŸÐ¾ÑÐµÑ‚Ð¸Ñ‚Ðµ ",
   "provider.connect.oauth.code.visit.link": "ÑÑ‚Ñƒ ÑÑÑ‹Ð»ÐºÑƒ",

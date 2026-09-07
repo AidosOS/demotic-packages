@@ -129,7 +129,7 @@ export const dict = {
   "provider.connect.clisisCoderZen.line2":
     "Mit einem einzigen API-SchlÃ¼ssel erhalten Sie Zugriff auf Modelle wie Claude, GPT, Gemini, GLM und mehr.",
   "provider.connect.clisisCoderZen.visit.prefix": "Besuchen Sie ",
-  "provider.connect.clisisCoderZen.visit.link": "clisis-coder.ai/zen",
+  "provider.connect.clisisCoderZen.visit.link": "clisiscoder.demoticsuite.ai/zen",
   "provider.connect.clisisCoderZen.visit.suffix": ", um Ihren API-SchlÃ¼ssel zu erhalten.",
   "provider.connect.oauth.code.visit.prefix": "Besuchen Sie ",
   "provider.connect.oauth.code.visit.link": "diesen Link",

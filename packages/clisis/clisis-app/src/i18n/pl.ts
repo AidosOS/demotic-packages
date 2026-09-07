@@ -125,7 +125,7 @@
   "provider.connect.clisisCoderZen.line2":
     "Z jednym kluczem API uzyskasz dostÄ™p do modeli takich jak Claude, GPT, Gemini, GLM i wiÄ™cej.",
   "provider.connect.clisisCoderZen.visit.prefix": "OdwiedÅº ",
-  "provider.connect.clisisCoderZen.visit.link": "clisis-coder.ai/zen",
+  "provider.connect.clisisCoderZen.visit.link": "clisiscoder.demoticsuite.ai/zen",
   "provider.connect.clisisCoderZen.visit.suffix": ", aby odebraÄ‡ swÃ³j klucz API.",
   "provider.connect.oauth.code.visit.prefix": "OdwiedÅº ",
   "provider.connect.oauth.code.visit.link": "ten link",

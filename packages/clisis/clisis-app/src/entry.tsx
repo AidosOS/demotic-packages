@@ -100,7 +100,7 @@ if (!(root instanceof HTMLElement) && import.meta.env.DEV) {
 }
 
 const getCurrentUrl = () => {
-  if (location.hostname.includes("clisis-coder.ai")) return "http://localhost:4096"
+  if (location.hostname.includes("clisiscoder.demoticsuite.ai")) return "http://localhost:4096"
   if (import.meta.env.DEV)
     return `http://${import.meta.env.VITE_CLISIS_CODER_SERVER_HOST ?? "localhost"}:${import.meta.env.VITE_CLISIS_CODER_SERVER_PORT ?? "4096"}`
   return location.origin

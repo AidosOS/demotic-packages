@@ -1934,7 +1934,7 @@ describe("ProviderTransform.message - strip openai metadata when store=false", (
       providerID: "clisisCoder",
       api: {
         id: "ClisisCoder-test",
-        url: "https://api.clisis-coder.ai",
+        url: "https://api.clisiscoder.demoticsuite.ai",
         npm: "@ai-sdk/openai-compatible",
       },
     }
@@ -1968,7 +1968,7 @@ describe("ProviderTransform.message - strip openai metadata when store=false", (
       providerID: "clisisCoder",
       api: {
         id: "ClisisCoder-test",
-        url: "https://api.clisis-coder.ai",
+        url: "https://api.clisiscoder.demoticsuite.ai",
         npm: "@ai-sdk/openai-compatible",
       },
     }

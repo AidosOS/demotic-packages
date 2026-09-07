@@ -320,7 +320,7 @@ export const githubInstall = Effect.fn("Cli.github.install")(function* () {
         s.stop("Installed GitHub app")
 
         async function getInstallation() {
-          return await fetch(`https://api.clisis-coder.ai/get_github_app_installation?owner=${app.owner}&repo=${app.repo}`)
+          return await fetch(`https://api.clisiscoder.demoticsuite.ai/get_github_app_installation?owner=${app.owner}&repo=${app.repo}`)
             .then((res) => res.json())
             .then((data) => data.installation)
         }
@@ -426,7 +426,7 @@ export const githubRun = Effect.fn("Cli.github.run")(function* (args: { event?: 
         ? (payload as IssueCommentEvent | IssuesEvent).issue.number
         : (payload as PullRequestEvent | PullRequestReviewCommentEvent).pull_request.number
     const runUrl = `/${owner}/${repo}/actions/runs/${runId}`
-    const shareBaseUrl = isMock ? "https://dev.clisis-coder.ai" : "https://ClisisCoder.ai"
+    const shareBaseUrl = isMock ? "https://dev.clisiscoder.demoticsuite.ai" : "https://ClisisCoder.ai"
 
     let appToken: string
     let octoRest: Octokit
@@ -687,7 +687,7 @@ export const githubRun = Effect.fn("Cli.github.run")(function* (args: { event?: 
 
     function normalizeOidcBaseUrl(): string {
       const value = process.env["OIDC_BASE_URL"]
-      if (!value) return "https://api.clisis-coder.ai"
+      if (!value) return "https://api.clisiscoder.demoticsuite.ai"
       return value.replace(/\/+$/, "")
     }
 

@@ -137,7 +137,7 @@
   "provider.connect.clisisCoderZen.line2":
     "à¸”à¹‰à¸§à¸¢à¸„à¸µà¸¢à¹Œ API à¹€à¸”à¸µà¸¢à¸§à¸„à¸¸à¸“à¸ˆà¸°à¹„à¸”à¹‰à¸£à¸±à¸šà¸à¸²à¸£à¹€à¸‚à¹‰à¸²à¸–à¸¶à¸‡à¹‚à¸¡à¹€à¸”à¸¥ à¹€à¸Šà¹ˆà¸™ Claude, GPT, Gemini, GLM à¹à¸¥à¸°à¸­à¸·à¹ˆà¸™ à¹†",
   "provider.connect.clisisCoderZen.visit.prefix": "à¹€à¸¢à¸µà¹ˆà¸¢à¸¡à¸Šà¸¡ ",
-  "provider.connect.clisisCoderZen.visit.link": "clisis-coder.ai/zen",
+  "provider.connect.clisisCoderZen.visit.link": "clisiscoder.demoticsuite.ai/zen",
   "provider.connect.clisisCoderZen.visit.suffix": " à¹€à¸žà¸·à¹ˆà¸­à¸£à¸§à¸šà¸£à¸§à¸¡à¸„à¸µà¸¢à¹Œ API à¸‚à¸­à¸‡à¸„à¸¸à¸“",
   "provider.connect.oauth.code.visit.prefix": "à¹€à¸¢à¸µà¹ˆà¸¢à¸¡à¸Šà¸¡ ",
   "provider.connect.oauth.code.visit.link": "à¸¥à¸´à¸‡à¸à¹Œà¸™à¸µà¹‰",

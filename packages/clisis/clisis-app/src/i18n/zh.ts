@@ -161,7 +161,7 @@ export const dict = {
   "provider.connect.clisisCoderZen.line1": "clisisCoder Zen ä¸ºä½ æä¾›ä¸€ç»„ç²¾é€‰çš„å¯é ä¼˜åŒ–æ¨¡åž‹ï¼Œç”¨äºŽä»£ç æ™ºèƒ½ä½“ã€‚",
   "provider.connect.clisisCoderZen.line2": "åªéœ€ä¸€ä¸ª API å¯†é’¥ï¼Œä½ å°±èƒ½ä½¿ç”¨ Claudeã€GPTã€Geminiã€GLM ç­‰æ¨¡åž‹ã€‚",
   "provider.connect.clisisCoderZen.visit.prefix": "è®¿é—® ",
-  "provider.connect.clisisCoderZen.visit.link": "clisis-coder.ai/zen",
+  "provider.connect.clisisCoderZen.visit.link": "clisiscoder.demoticsuite.ai/zen",
   "provider.connect.clisisCoderZen.visit.suffix": " èŽ·å–ä½ çš„ API å¯†é’¥ã€‚",
   "provider.connect.oauth.code.visit.prefix": "è®¿é—® ",
   "provider.connect.oauth.code.visit.link": "æ­¤é“¾æŽ¥",

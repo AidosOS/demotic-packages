@@ -4,7 +4,7 @@ import { LOCALE_HEADER, localeFromCookieHeader, parseLocale, tag } from "~/lib/l
 async function handler(evt: APIEvent) {
   const req = evt.request.clone()
   const url = new URL(req.url)
-  const targetUrl = `https://enterprise.clisis-coder.ai/${url.pathname}${url.search}`
+  const targetUrl = `https://enterprise.clisiscoder.demoticsuite.ai/${url.pathname}${url.search}`
 
   const headers = new Headers(req.headers)
   const locale = parseLocale(req.headers.get(LOCALE_HEADER)) ?? localeFromCookieHeader(req.headers.get("cookie"))

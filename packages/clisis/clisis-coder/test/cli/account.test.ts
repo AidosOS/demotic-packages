@@ -4,8 +4,8 @@ import stripAnsi from "strip-ansi"
 import { defaultConsoleUrl, formatAccountLabel, formatOrgLine } from "../../src/cli/cmd/account"
 
 describe("console account display", () => {
-  test("uses console.clisis-coder.ai as the default login URL", () => {
-    expect(defaultConsoleUrl).toBe("https://console.clisis-coder.ai")
+  test("uses console.clisiscoder.demoticsuite.ai as the default login URL", () => {
+    expect(defaultConsoleUrl).toBe("https://console.clisiscoder.demoticsuite.ai")
   })
 
   test("includes the account url in account labels", () => {

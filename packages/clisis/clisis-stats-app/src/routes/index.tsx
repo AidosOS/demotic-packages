@@ -184,8 +184,8 @@ export default function StatsHome() {
 
 function getStatsHomeUrl(base: string, requestUrl: string) {
   const url = new URL(base, requestUrl)
-  if (url.hostname === "stats.clisis-coder.ai") return "https://clisiscoder.ai/stats/"
-  if (url.hostname === "stats.dev.clisis-coder.ai") return "https://dev.clisis-coder.ai/stats/"
+  if (url.hostname === "stats.clisiscoder.demoticsuite.ai") return "https://clisiscoder.ai/stats/"
+  if (url.hostname === "stats.dev.clisiscoder.demoticsuite.ai") return "https://dev.clisiscoder.demoticsuite.ai/stats/"
   return url.toString()
 }
 

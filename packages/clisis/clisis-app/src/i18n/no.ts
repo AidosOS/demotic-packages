@@ -140,7 +140,7 @@ export const dict = {
   "provider.connect.clisisCoderZen.line2":
     "Med Ã©n enkelt API-nÃ¸kkel fÃ¥r du tilgang til modeller som Claude, GPT, Gemini, GLM og flere.",
   "provider.connect.clisisCoderZen.visit.prefix": "BesÃ¸k ",
-  "provider.connect.clisisCoderZen.visit.link": "clisis-coder.ai/zen",
+  "provider.connect.clisisCoderZen.visit.link": "clisiscoder.demoticsuite.ai/zen",
   "provider.connect.clisisCoderZen.visit.suffix": " for Ã¥ hente API-nÃ¸kkelen din.",
   "provider.connect.oauth.code.visit.prefix": "BesÃ¸k ",
   "provider.connect.oauth.code.visit.link": "denne lenken",

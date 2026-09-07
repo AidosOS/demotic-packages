@@ -141,7 +141,7 @@ export const dict = {
   "provider.connect.clisisCoderZen.line2":
     "Tek bir API anahtarÄ±yla Claude, GPT, Gemini, GLM ve daha fazlasÄ± gibi modellere eriÅŸebilirsiniz.",
   "provider.connect.clisisCoderZen.visit.prefix": "",
-  "provider.connect.clisisCoderZen.visit.link": "clisis-coder.ai/zen",
+  "provider.connect.clisisCoderZen.visit.link": "clisiscoder.demoticsuite.ai/zen",
   "provider.connect.clisisCoderZen.visit.suffix": " adresini ziyaret ederek API anahtarÄ±nÄ±zÄ± alÄ±n.",
   "provider.connect.oauth.code.visit.prefix":
     "HesabÄ±nÄ±zÄ± baÄŸlamak ve clisisCoder'da {{provider}} modellerini kullanmak iÃ§in ",

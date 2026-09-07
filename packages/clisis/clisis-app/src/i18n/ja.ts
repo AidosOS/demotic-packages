@@ -124,7 +124,7 @@
     "clisisCoder Zenã¯ã€ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆå‘ã‘ã«æœ€é©åŒ–ã•ã‚ŒãŸä¿¡é ¼æ€§ã®é«˜ã„ãƒ¢ãƒ‡ãƒ«ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ã‚’æä¾›ã—ã¾ã™ã€‚",
   "provider.connect.clisisCoderZen.line2": "1ã¤ã®APIã‚­ãƒ¼ã§ã€Claudeã€GPTã€Geminiã€GLMãªã©ã®ãƒ¢ãƒ‡ãƒ«ã«ã‚¢ã‚¯ã‚»ã‚¹ã§ãã¾ã™ã€‚",
   "provider.connect.clisisCoderZen.visit.prefix": " ",
-  "provider.connect.clisisCoderZen.visit.link": "clisis-coder.ai/zen",
+  "provider.connect.clisisCoderZen.visit.link": "clisiscoder.demoticsuite.ai/zen",
   "provider.connect.clisisCoderZen.visit.suffix": " ã«ã‚¢ã‚¯ã‚»ã‚¹ã—ã¦APIã‚­ãƒ¼ã‚’å–å¾—ã—ã¦ãã ã•ã„ã€‚",
   "provider.connect.oauth.code.visit.prefix": " ",
   "provider.connect.oauth.code.visit.link": "ã“ã®ãƒªãƒ³ã‚¯",

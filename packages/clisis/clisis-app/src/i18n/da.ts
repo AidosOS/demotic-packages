@@ -137,7 +137,7 @@
   "provider.connect.clisisCoderZen.line2":
     "Med en enkelt API-nÃ¸gle fÃ¥r du adgang til modeller som Claude, GPT, Gemini, GLM og flere.",
   "provider.connect.clisisCoderZen.visit.prefix": "BesÃ¸g ",
-  "provider.connect.clisisCoderZen.visit.link": "clisis-coder.ai/zen",
+  "provider.connect.clisisCoderZen.visit.link": "clisiscoder.demoticsuite.ai/zen",
   "provider.connect.clisisCoderZen.visit.suffix": " for at hente din API-nÃ¸gle.",
   "provider.connect.oauth.code.visit.prefix": "BesÃ¸g ",
   "provider.connect.oauth.code.visit.link": "dette link",

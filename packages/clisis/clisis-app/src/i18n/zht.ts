@@ -139,7 +139,7 @@ export const dict = {
   "provider.connect.clisisCoderZen.line1": "clisisCoder Zen ç‚ºä½ æä¾›ä¸€çµ„ç²¾é¸çš„å¯é æœ€ä½³åŒ–æ¨¡åž‹ï¼Œç”¨æ–¼ç¨‹å¼ç¢¼ä»£ç†ç¨‹å¼ã€‚",
   "provider.connect.clisisCoderZen.line2": "åªéœ€ä¸€å€‹ API é‡‘é‘°ï¼Œä½ å°±èƒ½ä½¿ç”¨ Claudeã€GPTã€Geminiã€GLM ç­‰æ¨¡åž‹ã€‚",
   "provider.connect.clisisCoderZen.visit.prefix": "é€ è¨ª ",
-  "provider.connect.clisisCoderZen.visit.link": "clisis-coder.ai/zen",
+  "provider.connect.clisisCoderZen.visit.link": "clisiscoder.demoticsuite.ai/zen",
   "provider.connect.clisisCoderZen.visit.suffix": " å–å¾—ä½ çš„ API é‡‘é‘°ã€‚",
   "provider.connect.oauth.code.visit.prefix": "é€ è¨ª ",
   "provider.connect.oauth.code.visit.link": "æ­¤é€£çµ",

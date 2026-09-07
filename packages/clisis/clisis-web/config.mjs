@@ -1,8 +1,8 @@
 ﻿const stage = process.env.SST_STAGE || "dev"
 
 export default {
-  url: stage === "production" ? "https://ClisisCoder.ai" : `https://${stage}.clisis-coder.ai`,
-  console: stage === "production" ? "https://ClisisCoder.ai/auth" : `https://${stage}.clisis-coder.ai/auth`,
+  url: stage === "production" ? "https://ClisisCoder.ai" : `https://${stage}.clisiscoder.demoticsuite.ai`,
+  console: stage === "production" ? "https://ClisisCoder.ai/auth" : `https://${stage}.clisiscoder.demoticsuite.ai/auth`,
   email: "contact@anoma.ly",
   socialCard: "https://social-cards.sst.dev",
   github: "https://github.com/AidosOS/demotic-clisis-coder",
