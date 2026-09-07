@@ -1,4 +1,4 @@
-﻿export * as Watcher from "./watcher"
+export * as Watcher from "./watcher"
 
 // @ts-ignore
 import { createWrapper } from "@parcel/watcher/wrapper"

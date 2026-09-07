@@ -1,4 +1,4 @@
-﻿# den-db
+# den-db
 
 `@demotic/owl-ee-den-db` owns the Den database schema and migration history.
 

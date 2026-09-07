@@ -1,4 +1,4 @@
-﻿import { sentryVitePlugin } from "@sentry/vite-plugin"
+import { sentryVitePlugin } from "@sentry/vite-plugin"
 import { defineConfig } from "electron-vite"
 import appPlugin from "@demotic/clisis-app/vite"
 import * as fs from "node:fs/promises"

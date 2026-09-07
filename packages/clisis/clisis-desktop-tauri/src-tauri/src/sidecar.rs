@@ -1,4 +1,4 @@
-﻿use serde::Serialize;
+use serde::Serialize;
 use std::sync::{Arc, Mutex};
 use tokio::process::{Child, Command};
 use tokio::sync::oneshot;

@@ -1,4 +1,4 @@
-﻿import { test, expect, describe, afterEach, beforeEach, spyOn } from "bun:test"
+import { test, expect, describe, afterEach, beforeEach, spyOn } from "bun:test"
 import { ConfigV1 } from "@demotic/clisis-core/v1/config/config"
 import { Effect, Exit, Layer, Option } from "effect"
 import { FetchHttpClient, HttpClient, HttpClientResponse } from "effect/unstable/http"

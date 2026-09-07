@@ -1,4 +1,4 @@
-﻿const stage = process.env.SST_STAGE || "dev"
+const stage = process.env.SST_STAGE || "dev"
 
 export default {
   url: stage === "production" ? "https://ClisisCoder.ai" : `https://${stage}.clisiscoder.demoticsuite.ai`,

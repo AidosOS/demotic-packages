@@ -1,4 +1,4 @@
-﻿# TUI Command Shim Removal
+# TUI Command Shim Removal
 
 Problem:
 

@@ -1,4 +1,4 @@
-﻿# Owl WorkMate Bootstrap CLI
+# Owl WorkMate Bootstrap CLI
 
 Script-installable `openwork-bootstrap` command for agent-first onboarding.
 

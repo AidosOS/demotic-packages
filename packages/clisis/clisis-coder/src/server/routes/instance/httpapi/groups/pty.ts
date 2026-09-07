@@ -1,4 +1,4 @@
-﻿import { Pty } from "@demotic/clisis-core/pty"
+import { Pty } from "@demotic/clisis-core/pty"
 import { PtyTicket } from "@demotic/clisis-core/pty/ticket"
 import { PtyID } from "@demotic/clisis-core/pty/schema"
 import { PTY_CONNECT_TICKET_QUERY } from "@/server/shared/pty-ticket"

@@ -1,4 +1,4 @@
-﻿export * as SessionExecution from "./execution"
+export * as SessionExecution from "./execution"
 
 import { Context, Effect, Layer } from "effect"
 import { SessionRunner } from "./runner/index"

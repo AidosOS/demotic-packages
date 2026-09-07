@@ -1,4 +1,4 @@
-﻿# Facade removal checklist
+# Facade removal checklist
 
 Concrete inventory of the remaining `makeRuntime(...)`-backed facades in `packages/ClisisCoder`.
 

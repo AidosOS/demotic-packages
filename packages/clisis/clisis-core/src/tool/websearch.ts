@@ -1,4 +1,4 @@
-﻿export * as WebSearchTool from "./websearch"
+export * as WebSearchTool from "./websearch"
 
 import { ToolFailure, toolText } from "@demotic/clisis-llm"
 import { Context, Duration, Effect, Layer, Schema } from "effect"

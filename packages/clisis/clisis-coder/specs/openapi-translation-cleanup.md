@@ -1,4 +1,4 @@
-﻿# OpenAPI Translation Cleanup Plan
+# OpenAPI Translation Cleanup Plan
 
 ## Goal
 

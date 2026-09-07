@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Shared wire contract for workspace records.
  *
  * Producers:

@@ -1,4 +1,4 @@
-﻿import path from "path"
+import path from "path"
 import fs from "fs/promises"
 import { xdgData, xdgCache, xdgConfig, xdgState } from "xdg-basedir"
 import os from "os"

@@ -1,4 +1,4 @@
-﻿export * as LocationMutation from "./location-mutation"
+export * as LocationMutation from "./location-mutation"
 
 import path from "path"
 import { Context, Effect, Layer, Schema } from "effect"

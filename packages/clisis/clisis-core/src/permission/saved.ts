@@ -1,4 +1,4 @@
-﻿export * as PermissionSaved from "./saved"
+export * as PermissionSaved from "./saved"
 
 import { eq } from "drizzle-orm"
 import { Context, Effect, Layer, Schema } from "effect"

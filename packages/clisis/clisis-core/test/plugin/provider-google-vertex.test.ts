@@ -1,4 +1,4 @@
-﻿import { describe, expect, mock } from "bun:test"
+import { describe, expect, mock } from "bun:test"
 import { Effect } from "effect"
 import { Catalog } from "@demotic/clisis-core/catalog"
 import { PluginV2 } from "@demotic/clisis-core/plugin"

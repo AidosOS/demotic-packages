@@ -1,4 +1,4 @@
-﻿import { app, dialog } from "electron"
+import { app, dialog } from "electron"
 import pkg from "electron-updater"
 import { UPDATER_ENABLED } from "./constants"
 import { createUpdaterController, type UpdaterReadyRecord } from "./updater-controller"

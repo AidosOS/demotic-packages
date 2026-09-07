@@ -1,4 +1,4 @@
-﻿import { Context, Effect, Layer } from "effect"
+import { Context, Effect, Layer } from "effect"
 import { serviceUse } from "@demotic/clisis-core/effect/service-use"
 import { InstanceState } from "@/effect/instance-state"
 

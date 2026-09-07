@@ -1,4 +1,4 @@
-﻿import { Effect, Layer, Context, Schema } from "effect"
+import { Effect, Layer, Context, Schema } from "effect"
 import { serviceUse } from "@demotic/clisis-core/effect/service-use"
 import { ChildProcess } from "effect/unstable/process"
 import { AppProcess } from "@demotic/clisis-core/process"

@@ -1,4 +1,4 @@
-﻿import { Context, Effect, Layer, Schema } from "effect"
+import { Context, Effect, Layer, Schema } from "effect"
 import { Project } from "./project"
 import { AbsolutePath } from "./schema"
 import { WorkspaceV2 } from "./workspace"

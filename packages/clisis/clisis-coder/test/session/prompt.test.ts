@@ -1,4 +1,4 @@
-﻿import { NodeFileSystem } from "@effect/platform-node"
+import { NodeFileSystem } from "@effect/platform-node"
 import { ConfigV1 } from "@demotic/clisis-core/v1/config/config"
 import { SessionV1 } from "@demotic/clisis-core/v1/session"
 import { Database } from "@demotic/clisis-core/database/database"

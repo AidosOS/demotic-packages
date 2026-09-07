@@ -1,4 +1,4 @@
-﻿export * as ProjectReference from "./project-reference"
+export * as ProjectReference from "./project-reference"
 
 import path from "path"
 import { Context, Effect, Layer } from "effect"

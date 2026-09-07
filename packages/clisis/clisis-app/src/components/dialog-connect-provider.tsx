@@ -1,4 +1,4 @@
-﻿import type { ProviderAuthAuthorization, ProviderAuthMethod } from "@demotic/clisis-sdk/v2/client"
+import type { ProviderAuthAuthorization, ProviderAuthMethod } from "@demotic/clisis-sdk/v2/client"
 import { Button } from "@demotic/clisis-ui/button"
 import { useDialog } from "@demotic/clisis-ui/context/dialog"
 import { Dialog } from "@demotic/clisis-ui/dialog"

@@ -1,4 +1,4 @@
-﻿import { Database } from "@demotic/clisis-core/database/database"
+import { Database } from "@demotic/clisis-core/database/database"
 import { inArray } from "drizzle-orm"
 import { EventSequenceTable } from "@demotic/clisis-core/event/sql"
 import { Workspace } from "@/control-plane/workspace"

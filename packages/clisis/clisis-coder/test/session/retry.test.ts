@@ -1,4 +1,4 @@
-﻿import { describe, expect, test } from "bun:test"
+import { describe, expect, test } from "bun:test"
 import { SessionV1 } from "@demotic/clisis-core/v1/session"
 import type { NamedError } from "@demotic/clisis-core/util/error"
 import { APICallError } from "ai"

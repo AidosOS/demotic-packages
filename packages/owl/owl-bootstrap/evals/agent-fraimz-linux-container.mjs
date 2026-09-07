@@ -1,4 +1,4 @@
-﻿// Linux e2e fraimz for Owl WorkMate bootstrap without shipping to production.
+// Linux e2e fraimz for Owl WorkMate bootstrap without shipping to production.
 //
 // This runs inside a real Linux container and proves:
 // - the bootstrap CLI installs on Linux,

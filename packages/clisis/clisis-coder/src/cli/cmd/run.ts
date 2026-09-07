@@ -1,4 +1,4 @@
-﻿import type { PermissionV1 } from "@demotic/clisis-core/v1/permission"
+import type { PermissionV1 } from "@demotic/clisis-core/v1/permission"
 // CLI entry point for `clisisCoder run`.
 //
 // Handles three modes:

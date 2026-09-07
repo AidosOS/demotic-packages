@@ -1,4 +1,4 @@
-﻿export const dict = {
+export const dict = {
   "nav.github": "GitHub",
   "nav.docs": "Docs",
   "nav.changelog": "Changelog",

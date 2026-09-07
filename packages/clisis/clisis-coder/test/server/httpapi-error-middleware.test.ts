@@ -1,4 +1,4 @@
-﻿import { NodeHttpServer, NodeServices } from "@effect/platform-node"
+import { NodeHttpServer, NodeServices } from "@effect/platform-node"
 import { NamedError } from "@demotic/clisis-core/util/error"
 import { describe, expect } from "bun:test"
 import { ConfigErrorV1 } from "@demotic/clisis-core/v1/config/error"

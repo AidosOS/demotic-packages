@@ -1,4 +1,4 @@
-﻿// Live local e2e fraimz for `Owl WorkMate install app` using a real macOS DMG.
+// Live local e2e fraimz for `Owl WorkMate install app` using a real macOS DMG.
 //
 // The flow creates a tiny openwork.app fixture, packages it as a .dmg, writes an
 // install manifest with a SHA-256 digest, installs the bootstrap CLI into a temp

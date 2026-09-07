@@ -1,4 +1,4 @@
-﻿export * as ConfigV1 from "./config"
+export * as ConfigV1 from "./config"
 
 import { Schema } from "effect"
 import { NonNegativeInt, PositiveInt, type DeepMutable } from "../../schema"

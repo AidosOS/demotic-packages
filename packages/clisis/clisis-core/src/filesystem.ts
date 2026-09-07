@@ -1,4 +1,4 @@
-﻿export * as FileSystem from "./filesystem"
+export * as FileSystem from "./filesystem"
 
 import path from "path"
 import { pathToFileURL } from "url"

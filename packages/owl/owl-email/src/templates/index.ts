@@ -1,4 +1,4 @@
-﻿import { createElement, type ReactElement } from "react"
+import { createElement, type ReactElement } from "react"
 import { DownloadLinkEmail, type DownloadLinkEmailProps } from "./download-link.js"
 import { FeedbackEmail, type FeedbackEmailProps } from "./feedback.js"
 import { OrganizationInviteEmail, type OrganizationInviteEmailProps } from "./organization-invite.js"

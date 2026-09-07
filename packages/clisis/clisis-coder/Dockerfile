@@ -1,4 +1,4 @@
-﻿FROM alpine AS base
+FROM alpine AS base
 
 # Disable the runtime transpiler cache by default inside Docker containers.
 # On ephemeral containers, the cache is not useful

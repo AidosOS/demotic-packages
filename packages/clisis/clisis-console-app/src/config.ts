@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Application-wide constants and configuration
  */
 export const config = {

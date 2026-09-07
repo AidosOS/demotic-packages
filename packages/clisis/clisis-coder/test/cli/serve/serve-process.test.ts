@@ -1,4 +1,4 @@
-﻿// Subprocess integration tests for `clisisCoder serve`. Spawns the real CLI in
+// Subprocess integration tests for `clisisCoder serve`. Spawns the real CLI in
 // headless mode and exercises it over HTTP â€” this is the only test tier that
 // catches bugs spanning argv â†’ server boot â†’ routing â†’ instance loading.
 //

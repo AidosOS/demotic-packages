@@ -1,4 +1,4 @@
-﻿import "./index.css"
+import "./index.css"
 import { Title } from "@solidjs/meta"
 import { onCleanup, onMount } from "solid-js"
 import logoLight from "../asset/logo-ornate-light.svg"

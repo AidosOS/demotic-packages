@@ -1,4 +1,4 @@
-﻿export * as Catalog from "./catalog"
+export * as Catalog from "./catalog"
 
 import { Context, Effect, Layer, Option, Order, pipe, Schema, Array, Scope, Stream } from "effect"
 import { castDraft, enableMapSet, type Draft } from "immer"

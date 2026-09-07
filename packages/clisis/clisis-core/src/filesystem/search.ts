@@ -1,4 +1,4 @@
-﻿import path from "path"
+import path from "path"
 import { Context, Deferred, Effect, Layer, Option, Stream } from "effect"
 import type { PlatformError } from "effect/PlatformError"
 import { FSUtil } from "../fs-util"

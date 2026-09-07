@@ -1,4 +1,4 @@
-﻿import type { Argv, InferredOptionTypes } from "yargs"
+import type { Argv, InferredOptionTypes } from "yargs"
 import { ConfigV1 } from "@demotic/clisis-core/v1/config/config"
 import type { Config } from "@/config/config"
 import { Effect } from "effect"

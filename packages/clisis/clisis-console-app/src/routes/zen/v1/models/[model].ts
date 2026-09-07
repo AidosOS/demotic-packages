@@ -1,4 +1,4 @@
-﻿import type { APIEvent } from "@solidjs/start/server"
+import type { APIEvent } from "@solidjs/start/server"
 import { handler } from "~/routes/zen/util/handler"
 import { parseGoogleVariant } from "~/routes/zen/util/variant"
 

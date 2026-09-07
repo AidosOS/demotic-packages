@@ -1,4 +1,4 @@
-﻿import { createClisisCoderClient } from "@demotic/clisis-sdk/v2"
+import { createClisisCoderClient } from "@demotic/clisis-sdk/v2"
 import { RGBA, type CliRenderer } from "@opentui/core"
 import type { HostPluginApi } from "@demotic/clisis-tui/plugin/slots"
 import { createTuiResolvedConfig } from "./tui-runtime"

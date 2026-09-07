@@ -1,4 +1,4 @@
-﻿export const LOCALES = [
+export const LOCALES = [
   "en",
   "zh",
   "zht",

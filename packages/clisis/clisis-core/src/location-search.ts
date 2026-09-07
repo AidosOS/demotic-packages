@@ -1,4 +1,4 @@
-﻿export * as LocationSearch from "./location-search"
+export * as LocationSearch from "./location-search"
 
 import path from "path"
 import { Context, Effect, Layer, Option, Schema } from "effect"

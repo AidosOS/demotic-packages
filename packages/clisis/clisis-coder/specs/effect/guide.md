@@ -1,4 +1,4 @@
-﻿# Effect Guide
+# Effect Guide
 
 How we write Effect code in `packages/ClisisCoder`. The companion roadmap is
 [`todo.md`](./todo.md).

@@ -1,4 +1,4 @@
-﻿/// <reference path="../markdown.d.ts" />
+/// <reference path="../markdown.d.ts" />
 
 export * as SkillPlugin from "./skill"
 

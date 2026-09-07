@@ -1,4 +1,4 @@
-﻿export * as ToolRegistry from "./registry"
+export * as ToolRegistry from "./registry"
 
 import { ToolOutput, type ToolCall, type ToolDefinition, type ToolSettlement } from "@demotic/clisis-llm"
 import { Context, Effect, Layer, Scope } from "effect"

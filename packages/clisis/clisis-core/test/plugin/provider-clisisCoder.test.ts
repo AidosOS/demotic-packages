@@ -1,4 +1,4 @@
-﻿import { describe, expect } from "bun:test"
+import { describe, expect } from "bun:test"
 import { DateTime, Effect, Layer, Option } from "effect"
 import { Catalog } from "@demotic/clisis-core/catalog"
 import { EventV2 } from "@demotic/clisis-core/event"

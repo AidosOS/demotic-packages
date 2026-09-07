@@ -1,4 +1,4 @@
-﻿// @ts-nocheck
+// @ts-nocheck
 
 import { clisisCoder } from "@demotic/clisis-core"
 import { ReadTool } from "@demotic/clisis-core/tools"

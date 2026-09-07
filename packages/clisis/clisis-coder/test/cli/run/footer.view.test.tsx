@@ -1,4 +1,4 @@
-﻿/** @jsxImportSource @opentui/solid */
+/** @jsxImportSource @opentui/solid */
 import { expect, test } from "bun:test"
 import { RGBA, type BoxRenderable } from "@opentui/core"
 import { testRender, useRenderer } from "@opentui/solid"

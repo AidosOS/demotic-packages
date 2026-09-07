@@ -1,4 +1,4 @@
-﻿import { MEMORY_CONTENT_FULLTEXT_INDEX } from "./schema/memory"
+import { MEMORY_CONTENT_FULLTEXT_INDEX } from "./schema/memory"
 
 /**
  * Minimal query surface satisfied by both the mysql2 and PlanetScale executors used

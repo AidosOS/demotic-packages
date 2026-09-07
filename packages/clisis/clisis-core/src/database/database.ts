@@ -1,4 +1,4 @@
-﻿export * as Database from "./database"
+export * as Database from "./database"
 
 import { EffectDrizzleSqlite } from "@demotic/clisis-effect-drizzle-sqlite"
 import { layer as sqliteLayer } from "#sqlite"

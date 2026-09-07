@@ -1,4 +1,4 @@
-﻿import { Button } from "@demotic/clisis-ui/button"
+import { Button } from "@demotic/clisis-ui/button"
 import { useDialog } from "@demotic/clisis-ui/context/dialog"
 import { Icon } from "@demotic/clisis-ui/icon"
 import { Switch } from "@demotic/clisis-ui/switch"

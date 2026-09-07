@@ -1,4 +1,4 @@
-﻿import { dynamicTool, type Tool, jsonSchema, type JSONSchema7 } from "ai"
+import { dynamicTool, type Tool, jsonSchema, type JSONSchema7 } from "ai"
 import { ConfigV1 } from "@demotic/clisis-core/v1/config/config"
 import { serviceUse } from "@demotic/clisis-core/effect/service-use"
 import { Client } from "@modelcontextprotocol/sdk/client/index.js"

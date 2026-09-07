@@ -1,4 +1,4 @@
-﻿import { app, ipcMain } from "electron"
+import { app, ipcMain } from "electron"
 import type { IpcMainInvokeEvent } from "electron"
 import type { WslServersController } from "./servers"
 import { requireWslIpcString } from "./policy"

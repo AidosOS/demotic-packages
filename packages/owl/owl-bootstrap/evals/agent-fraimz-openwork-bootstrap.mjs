@@ -1,4 +1,4 @@
-﻿// Live e2e fraimz for the script-installable Owl WorkMate bootstrap CLI.
+// Live e2e fraimz for the script-installable Owl WorkMate bootstrap CLI.
 //
 // This proof installs the CLI into a temp bin directory, runs doctor, then uses
 // the installed command to drive real Den API onboarding over HTTP: sign up,

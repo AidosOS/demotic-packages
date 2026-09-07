@@ -1,4 +1,4 @@
-﻿import { afterEach, describe, expect, test } from "bun:test"
+import { afterEach, describe, expect, test } from "bun:test"
 import net from "node:net"
 import { Flag } from "@demotic/clisis-core/flag/flag"
 import * as Log from "@demotic/clisis-core/util/log"

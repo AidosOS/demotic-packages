@@ -1,4 +1,4 @@
-﻿import { Global } from "@demotic/clisis-core/global"
+import { Global } from "@demotic/clisis-core/global"
 import { InstanceLayer } from "@/project/instance-layer"
 import { InstanceStore } from "@/project/instance-store"
 import { Project } from "@/project/project"

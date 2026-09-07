@@ -1,4 +1,4 @@
-﻿import {
+import {
   AthenaClient as AwsAthenaClient,
   GetQueryExecutionCommand,
   GetQueryResultsCommand,

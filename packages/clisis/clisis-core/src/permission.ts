@@ -1,4 +1,4 @@
-﻿export * as PermissionV2 from "./permission"
+export * as PermissionV2 from "./permission"
 
 import { Context, Deferred, Effect as EffectRuntime, Layer, Schema } from "effect"
 import { EventV2 } from "./event"

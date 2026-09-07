@@ -1,4 +1,4 @@
-﻿import { ConfigV1 } from "@demotic/clisis-core/v1/config/config"
+import { ConfigV1 } from "@demotic/clisis-core/v1/config/config"
 import { SessionV1 } from "@demotic/clisis-core/v1/session"
 import { FSUtil } from "@demotic/clisis-core/fs-util"
 import { ModelsDev } from "@demotic/clisis-core/models-dev"

@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env bun
+#!/usr/bin/env bun
 
 // This script runs a separate clisis-coder server to be used as a remote
 // workspace, simulating a remote environment but all local to make

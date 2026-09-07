@@ -1,4 +1,4 @@
-﻿export * as SessionRunCoordinator from "./run-coordinator"
+export * as SessionRunCoordinator from "./run-coordinator"
 
 import { Cause, Context, Deferred, Effect, Exit, Fiber, FiberSet, Layer, Scope } from "effect"
 import { SessionRunner } from "./runner"

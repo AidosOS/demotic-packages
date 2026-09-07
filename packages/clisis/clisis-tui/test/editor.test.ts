@@ -1,4 +1,4 @@
-﻿import { afterEach, expect, test } from "bun:test"
+import { afterEach, expect, test } from "bun:test"
 import { openEditor } from "../src/editor"
 
 const editor = process.env.EDITOR

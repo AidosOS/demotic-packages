@@ -1,4 +1,4 @@
-﻿import { withAlpha } from "@demotic/clisis-ui/theme/color"
+import { withAlpha } from "@demotic/clisis-ui/theme/color"
 import { useTheme } from "@demotic/clisis-ui/theme/context"
 import { resolveThemeVariant } from "@demotic/clisis-ui/theme/resolve"
 import type { HexColor } from "@demotic/clisis-ui/theme/types"

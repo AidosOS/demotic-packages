@@ -1,4 +1,4 @@
-﻿import { ServerAuth } from "../auth"
+import { ServerAuth } from "../auth"
 import { UnauthorizedError } from "../errors"
 import { Effect, Encoding, Layer, Redacted } from "effect"
 import { HttpEffect, HttpServerRequest, HttpServerResponse } from "effect/unstable/http"

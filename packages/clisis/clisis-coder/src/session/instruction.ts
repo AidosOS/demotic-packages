@@ -1,4 +1,4 @@
-﻿import path from "path"
+import path from "path"
 import { SessionV1 } from "@demotic/clisis-core/v1/session"
 import { Effect, Layer, Context } from "effect"
 import { FetchHttpClient, HttpClient, HttpClientRequest } from "effect/unstable/http"

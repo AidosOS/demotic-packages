@@ -1,4 +1,4 @@
-﻿# @demotic/owl-ui
+# @demotic/owl-ui
 
 Shared UI primitives for Owl WorkMate apps.
 

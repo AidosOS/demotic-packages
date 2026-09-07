@@ -1,4 +1,4 @@
-﻿import "./index.css"
+import "./index.css"
 import { Title, Meta } from "@solidjs/meta"
 import { Header } from "~/component/header"
 import { Footer } from "~/component/footer"

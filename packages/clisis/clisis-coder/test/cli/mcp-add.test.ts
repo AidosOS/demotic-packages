@@ -1,4 +1,4 @@
-﻿import { describe, expect } from "bun:test"
+import { describe, expect } from "bun:test"
 import { Effect } from "effect"
 import path from "path"
 import { cliIt } from "../lib/cli-process"

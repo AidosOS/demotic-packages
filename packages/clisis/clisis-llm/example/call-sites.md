@@ -1,4 +1,4 @@
-﻿# LLM Call Site Sketches
+# LLM Call Site Sketches
 
 Scratchpad for examples first, abstractions second. Current direction: routes
 execute, provider facades organize configured route sets, and models carry route

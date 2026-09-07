@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import { useEffect, useState, type ReactNode } from "react"
 import { detectPlatform, type DetectedArch, type DetectedOS, type DetectedPlatform } from "./platform-detect"

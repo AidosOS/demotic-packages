@@ -1,4 +1,4 @@
-﻿import { useDialog } from "@demotic/clisis-ui/context/dialog"
+import { useDialog } from "@demotic/clisis-ui/context/dialog"
 import { Tag } from "@demotic/clisis-ui/v2/badge-v2"
 import { ButtonV2 } from "@demotic/clisis-ui/v2/button-v2"
 import { Dialog } from "@demotic/clisis-ui/v2/dialog-v2"

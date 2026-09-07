@@ -1,4 +1,4 @@
-﻿export * as Pty from "./pty"
+export * as Pty from "./pty"
 
 import type { Disp, Proc } from "#pty"
 import { Context, Effect, Layer, Schema, Types } from "effect"

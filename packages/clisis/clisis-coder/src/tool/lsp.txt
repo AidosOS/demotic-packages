@@ -1,4 +1,4 @@
-﻿Interact with Language Server Protocol (LSP) servers to get code intelligence features.
+Interact with Language Server Protocol (LSP) servers to get code intelligence features.
 
 Supported operations:
 - goToDefinition: Find where a symbol is defined

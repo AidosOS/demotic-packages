@@ -1,4 +1,4 @@
-﻿import { Flag } from "@demotic/clisis-core/flag/flag"
+import { Flag } from "@demotic/clisis-core/flag/flag"
 import { ConfigV1 } from "@demotic/clisis-core/v1/config/config"
 import { SessionV1 } from "@demotic/clisis-core/v1/session"
 import { Cause, Duration, Effect, Layer, Scope } from "effect"

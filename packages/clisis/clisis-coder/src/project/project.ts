@@ -1,4 +1,4 @@
-﻿import { and, eq, sql } from "drizzle-orm"
+import { and, eq, sql } from "drizzle-orm"
 import { Database } from "@demotic/clisis-core/database/database"
 import { ProjectDirectoryTable, ProjectTable } from "@demotic/clisis-core/project/sql"
 import { SessionTable } from "@demotic/clisis-core/session/sql"

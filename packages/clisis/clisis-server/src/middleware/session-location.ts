@@ -1,4 +1,4 @@
-﻿import { Database } from "@demotic/clisis-core/database/database"
+import { Database } from "@demotic/clisis-core/database/database"
 import { LocationServiceMap } from "@demotic/clisis-core/location-layer"
 import { AbsolutePath } from "@demotic/clisis-core/schema"
 import { SessionV2 } from "@demotic/clisis-core/session"

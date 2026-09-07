@@ -1,4 +1,4 @@
-﻿import { describe, expect } from "bun:test"
+import { describe, expect } from "bun:test"
 import { FSUtil } from "@demotic/clisis-core/fs-util"
 import { Effect, Layer } from "effect"
 import path from "path"

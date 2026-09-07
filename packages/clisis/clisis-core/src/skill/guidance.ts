@@ -1,4 +1,4 @@
-﻿export * as SkillGuidance from "./guidance"
+export * as SkillGuidance from "./guidance"
 
 import { Context, Effect, Layer, Schema } from "effect"
 import { AgentV2 } from "../agent"

@@ -1,4 +1,4 @@
-﻿// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
 
 exports[`clisis-coder CLI help-text snapshots every documented command emits stable help text: clisis-coder acp --help 1`] = `
 "clisis-coder acp

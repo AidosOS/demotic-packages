@@ -1,4 +1,4 @@
-﻿export * as TuiConfig from "."
+export * as TuiConfig from "."
 
 import { createBindingLookup } from "@opentui/keymap/extras"
 import { Schema } from "effect"

@@ -1,4 +1,4 @@
-﻿# Owl WorkMate Computer Use
+# Owl WorkMate Computer Use
 
 Native macOS computer-use runtime for Owl WorkMate.
 Packaged Owl WorkMate builds wrap this runtime in a bundled `Computer Use.app`

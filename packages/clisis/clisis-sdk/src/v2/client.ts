@@ -1,4 +1,4 @@
-﻿export * from "./gen/types.gen.js"
+export * from "./gen/types.gen.js"
 export type {
   FileSystemBinaryContent as LocationFileSystemBinaryContent,
   FileSystemEntry as LocationFileSystemEntry,

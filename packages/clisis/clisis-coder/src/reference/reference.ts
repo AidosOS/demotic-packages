@@ -1,4 +1,4 @@
-﻿import path from "path"
+import path from "path"
 import { Effect, Context, Layer, Scope } from "effect"
 import { FSUtil } from "@demotic/clisis-core/fs-util"
 import { Global } from "@demotic/clisis-core/global"

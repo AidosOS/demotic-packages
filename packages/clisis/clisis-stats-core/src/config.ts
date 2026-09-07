@@ -1,4 +1,4 @@
-﻿import { Config, ConfigProvider, Effect, Layer, Schema } from "effect"
+import { Config, ConfigProvider, Effect, Layer, Schema } from "effect"
 import * as Context from "effect/Context"
 import { Resource } from "sst/resource"
 

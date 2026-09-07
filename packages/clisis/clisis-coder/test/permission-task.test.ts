@@ -1,4 +1,4 @@
-﻿import { PermissionV1 } from "@demotic/clisis-core/v1/permission"
+import { PermissionV1 } from "@demotic/clisis-core/v1/permission"
 import { describe, test, expect } from "bun:test"
 import { Effect } from "effect"
 import { Permission } from "../src/permission"

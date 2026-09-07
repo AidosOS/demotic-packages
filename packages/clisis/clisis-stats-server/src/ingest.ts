@@ -1,4 +1,4 @@
-﻿import { Buffer } from "node:buffer"
+import { Buffer } from "node:buffer"
 import { FirehoseClient, PutRecordBatchCommand } from "@aws-sdk/client-firehose"
 import { Effect, Layer, Schema } from "effect"
 import * as Context from "effect/Context"

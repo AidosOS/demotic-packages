@@ -1,4 +1,4 @@
-﻿# Effect TODO
+# Effect TODO
 
 Short roadmap for Effect cleanup in `packages/ClisisCoder`.
 

@@ -1,4 +1,4 @@
-﻿export * as SkillDiscovery from "./discovery"
+export * as SkillDiscovery from "./discovery"
 
 import path from "path"
 import { Context, Effect, Layer, Schedule, Schema } from "effect"

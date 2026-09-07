@@ -1,4 +1,4 @@
-﻿import { z } from "zod"
+import { z } from "zod"
 import { and, eq, getTableColumns, isNull, sql } from "drizzle-orm"
 import { fn } from "./util/fn"
 import { Database } from "./drizzle"

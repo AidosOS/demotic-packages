@@ -1,4 +1,4 @@
-﻿# Owl WorkMate Start
+# Owl WorkMate Start
 
 You are an agent helping a user install and set up Owl WorkMate.
 

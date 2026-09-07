@@ -1,4 +1,4 @@
-﻿import "./index.css"
+import "./index.css"
 import { Link, Meta, Title } from "@solidjs/meta"
 import { ProviderIcon } from "@demotic/clisis-ui/provider-icon"
 import { geoEquirectangular, geoPath } from "d3-geo"

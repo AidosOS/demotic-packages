@@ -1,4 +1,4 @@
-﻿export * as Git from "./git"
+export * as Git from "./git"
 
 import path from "path"
 import { Context, Effect, Layer, Schema, Stream } from "effect"

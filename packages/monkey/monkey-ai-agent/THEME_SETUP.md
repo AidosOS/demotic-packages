@@ -1,4 +1,4 @@
-﻿# Theme Setup Guide
+# Theme Setup Guide
 
 This library uses `next-themes` to manage light and dark modes. For the theme switching buttons to work correctly, you must wrap your application with the provided `AgentThemeProvider`.
 

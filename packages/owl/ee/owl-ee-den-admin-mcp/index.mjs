@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env node
+#!/usr/bin/env node
 // den-admin-mcp — read-only admin analytics MCP server for the Owl WorkMate Den database.
 //
 // Tools: den_overview, den_growth, den_retention, den_company_users,

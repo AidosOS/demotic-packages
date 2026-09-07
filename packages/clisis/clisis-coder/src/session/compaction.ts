@@ -1,4 +1,4 @@
-﻿import { SessionV1 } from "@demotic/clisis-core/v1/session"
+import { SessionV1 } from "@demotic/clisis-core/v1/session"
 import { ConfigV1 } from "@demotic/clisis-core/v1/config/config"
 import { Session } from "./session"
 import { SessionID, MessageID, PartID } from "./schema"

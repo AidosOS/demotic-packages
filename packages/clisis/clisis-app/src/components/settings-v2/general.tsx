@@ -1,4 +1,4 @@
-﻿import { Component, Show, createMemo, createResource, onMount } from "solid-js"
+import { Component, Show, createMemo, createResource, onMount } from "solid-js"
 import { ButtonV2 } from "@demotic/clisis-ui/v2/button-v2"
 import { Icon } from "@demotic/clisis-ui/icon"
 import { SelectV2 } from "@demotic/clisis-ui/v2/select-v2"

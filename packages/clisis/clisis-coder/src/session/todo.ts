@@ -1,4 +1,4 @@
-﻿import { SessionID } from "./schema"
+import { SessionID } from "./schema"
 import { Effect, Layer, Context, Schema } from "effect"
 import { Database } from "@demotic/clisis-core/database/database"
 import { eq } from "drizzle-orm"

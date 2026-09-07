@@ -1,4 +1,4 @@
-﻿import path from "path"
+import path from "path"
 import { serviceUse } from "@demotic/clisis-core/effect/service-use"
 import { Global } from "@demotic/clisis-core/global"
 import { Effect, Layer, Context, Option, Schema } from "effect"

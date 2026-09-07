@@ -1,4 +1,4 @@
-﻿import { InstanceState } from "@/effect/instance-state"
+import { InstanceState } from "@/effect/instance-state"
 import { SessionID } from "./schema"
 import { NonNegativeInt } from "@demotic/clisis-core/schema"
 import { Effect, Layer, Context, Schema } from "effect"

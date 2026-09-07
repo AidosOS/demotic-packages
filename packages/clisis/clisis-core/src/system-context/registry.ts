@@ -1,4 +1,4 @@
-﻿export * as SystemContextRegistry from "./registry"
+export * as SystemContextRegistry from "./registry"
 
 import { Context, Effect, Layer, Ref, Scope } from "effect"
 import { SystemContext } from "./index"

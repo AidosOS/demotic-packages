@@ -1,4 +1,4 @@
-﻿import { Session } from "@/session/session"
+import { Session } from "@/session/session"
 import { SessionID } from "@/session/schema"
 import { Effect, Layer, Scope, Context } from "effect"
 import { Config } from "@/config/config"

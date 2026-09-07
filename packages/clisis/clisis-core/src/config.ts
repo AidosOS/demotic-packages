@@ -1,4 +1,4 @@
-﻿export * as Config from "./config"
+export * as Config from "./config"
 
 import path from "path"
 import { type ParseError, parse } from "jsonc-parser"

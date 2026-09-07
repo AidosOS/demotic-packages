@@ -1,4 +1,4 @@
-﻿import { AppIcon } from "@demotic/clisis-ui/app-icon"
+import { AppIcon } from "@demotic/clisis-ui/app-icon"
 import { Button } from "@demotic/clisis-ui/button"
 import { DropdownMenu } from "@demotic/clisis-ui/dropdown-menu"
 import { Icon } from "@demotic/clisis-ui/icon"

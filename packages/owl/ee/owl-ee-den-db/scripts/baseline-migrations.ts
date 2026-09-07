@@ -1,4 +1,4 @@
-﻿/**
+/**
  * One-time baseline for databases that were previously managed with
  * `db:push` (state-based) and have no `__drizzle_migrations` table.
  *

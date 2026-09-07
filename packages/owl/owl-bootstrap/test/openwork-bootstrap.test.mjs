@@ -1,4 +1,4 @@
-﻿import { createServer } from "node:http"
+import { createServer } from "node:http"
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs"
 import { tmpdir } from "node:os"
 import { join, resolve } from "node:path"

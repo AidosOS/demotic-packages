@@ -1,4 +1,4 @@
-﻿export * as MoveSession from "./move-session"
+export * as MoveSession from "./move-session"
 
 import { Context, DateTime, Effect, Layer, Schema } from "effect"
 import { EventV2 } from "../event"

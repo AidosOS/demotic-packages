@@ -1,4 +1,4 @@
-﻿import * as http from "node:http"
+import * as http from "node:http"
 import * as tls from "node:tls"
 
 type NodeHttpWithEnvProxy = typeof http & {

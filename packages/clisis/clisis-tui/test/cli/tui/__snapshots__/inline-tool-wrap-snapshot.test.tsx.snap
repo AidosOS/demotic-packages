@@ -1,4 +1,4 @@
-﻿// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
 
 exports[`TUI inline tool wrapping snapshots consecutive grep, glob, and read rows at a narrow width 1`] = `
 "   âœ± Grep "ClisisCoder.*DB|database|sqlite|drizzle|dev.*db|data.

@@ -1,4 +1,4 @@
-﻿import "./index.css"
+import "./index.css"
 import { Title, Meta } from "@solidjs/meta"
 //import { HttpHeader } from "@solidjs/start"
 import video from "../asset/lander/ClisisCoder-min.mp4"

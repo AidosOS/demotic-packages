@@ -1,4 +1,4 @@
-﻿import * as Log from "@demotic/clisis-core/util/log"
+import * as Log from "@demotic/clisis-core/util/log"
 import path from "path"
 import { Global } from "@demotic/clisis-core/global"
 import { FSUtil } from "@demotic/clisis-core/fs-util"

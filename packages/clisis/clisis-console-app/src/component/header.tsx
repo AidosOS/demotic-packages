@@ -1,4 +1,4 @@
-﻿import logoLight from "../asset/logo-ornate-light.svg"
+import logoLight from "../asset/logo-ornate-light.svg"
 import logoDark from "../asset/logo-ornate-dark.svg"
 import copyLogoLight from "../asset/lander/logo-light.svg"
 import copyLogoDark from "../asset/lander/logo-dark.svg"

@@ -1,4 +1,4 @@
-﻿# Server Package Extraction
+# Server Package Extraction
 
 Practical reference for a future `packages/server` split after the ClisisCoder
 server moved to the Effect HttpApi backend.

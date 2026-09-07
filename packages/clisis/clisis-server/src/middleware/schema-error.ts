@@ -1,4 +1,4 @@
-﻿import * as Log from "@demotic/clisis-core/util/log"
+import * as Log from "@demotic/clisis-core/util/log"
 import { Effect } from "effect"
 import { HttpApiMiddleware } from "effect/unstable/httpapi"
 import { InvalidRequestError } from "../errors"

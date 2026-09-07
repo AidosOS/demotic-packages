@@ -1,4 +1,4 @@
-﻿/// <reference path="./audio.d.ts" />
+/// <reference path="./audio.d.ts" />
 import type {
   TuiAttention,
   TuiAttentionNotifyInput,

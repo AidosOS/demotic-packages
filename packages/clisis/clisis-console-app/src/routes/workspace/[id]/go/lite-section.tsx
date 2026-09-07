@@ -1,4 +1,4 @@
-﻿import { action, useParams, useAction, useSubmission, json, query, createAsync } from "@solidjs/router"
+import { action, useParams, useAction, useSubmission, json, query, createAsync } from "@solidjs/router"
 import { createStore } from "solid-js/store"
 import { createMemo, For, Show } from "solid-js"
 import { Modal } from "~/component/modal"

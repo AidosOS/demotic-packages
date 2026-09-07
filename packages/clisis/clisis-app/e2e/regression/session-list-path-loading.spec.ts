@@ -1,4 +1,4 @@
-﻿import { test } from "@playwright/test"
+import { test } from "@playwright/test"
 import { fixture, pageMessages } from "../smoke/session-timeline.fixture"
 import { mockclisisCoderServer } from "../utils/mock-server"
 import { expectAppVisible } from "../utils/waits"

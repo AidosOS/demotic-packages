@@ -1,4 +1,4 @@
-﻿import { $ } from "bun"
+import { $ } from "bun"
 import { ConfigV1 } from "@demotic/clisis-core/v1/config/config"
 import * as fs from "fs/promises"
 import os from "os"

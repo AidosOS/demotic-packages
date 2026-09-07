@@ -1,4 +1,4 @@
-﻿import { afterEach, describe, expect, mock, spyOn, test } from "bun:test"
+import { afterEach, describe, expect, mock, spyOn, test } from "bun:test"
 import { clisisCoderClient, type Provider } from "@demotic/clisis-sdk/v2"
 import type { Resolved } from "@demotic/clisis-tui/config"
 import { TuiConfig } from "@/config/tui"

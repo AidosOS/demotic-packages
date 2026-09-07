@@ -23,7 +23,7 @@ type StackEntry = {
 };
 
 export function parseFrontmatter(src: string): { data: FrontmatterObject; body: string } {
-  const text = src.replace(/^﻿/, '');
+  const text = src.replace(/^/, '');
 
   let markerStart = -1;
   if (text.startsWith('---\n')) {

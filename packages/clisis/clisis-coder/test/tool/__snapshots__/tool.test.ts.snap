@@ -1,4 +1,4 @@
-﻿// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
 
 exports[`tool.ls basic 1`] = `
 "packages/clisis-coder/test/fixtures/example/

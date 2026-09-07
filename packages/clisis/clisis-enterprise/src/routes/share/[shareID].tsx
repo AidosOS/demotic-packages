@@ -1,4 +1,4 @@
-﻿import { Message, Model, Part, Session, SessionStatus, SnapshotFileDiff, UserMessage } from "@demotic/clisis-sdk/v2"
+import { Message, Model, Part, Session, SessionStatus, SnapshotFileDiff, UserMessage } from "@demotic/clisis-sdk/v2"
 import { SessionTurn } from "@demotic/clisis-ui/session-turn"
 import { SessionReview } from "@demotic/clisis-ui/session-review"
 import { DataProvider } from "@demotic/clisis-ui/context"

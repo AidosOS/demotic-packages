@@ -1,4 +1,4 @@
-﻿import { afterEach, describe, expect, mock, spyOn } from "bun:test"
+import { afterEach, describe, expect, mock, spyOn } from "bun:test"
 import { Context, Effect, Layer } from "effect"
 import { Flag } from "@demotic/clisis-core/flag/flag"
 import { SyncPaths } from "../../src/server/routes/instance/httpapi/groups/sync"

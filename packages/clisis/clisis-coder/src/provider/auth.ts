@@ -1,4 +1,4 @@
-﻿import type { AuthOAuthResult, Hooks } from "@demotic/clisis-plugin"
+import type { AuthOAuthResult, Hooks } from "@demotic/clisis-plugin"
 import { serviceUse } from "@demotic/clisis-core/effect/service-use"
 import { Auth } from "@/auth"
 import { InstanceState } from "@/effect/instance-state"

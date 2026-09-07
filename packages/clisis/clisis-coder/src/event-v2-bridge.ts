@@ -1,4 +1,4 @@
-﻿// clisisCoder publish boundary for core events. Attach routed instance location
+// clisisCoder publish boundary for core events. Attach routed instance location
 // so direct EventV2 consumers can isolate directory/workspace streams.
 import { InstanceRef, WorkspaceRef } from "@/effect/instance-ref"
 import { GlobalBus } from "@/bus/global"

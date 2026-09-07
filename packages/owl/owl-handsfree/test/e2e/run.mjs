@@ -1,4 +1,4 @@
-﻿// Computer-use e2e quality benchmark.
+// Computer-use e2e quality benchmark.
 //
 // Measures snapshot/click/type accuracy and latency against a deterministic
 // local HTML page in Chrome, with ground truth verified independently via the

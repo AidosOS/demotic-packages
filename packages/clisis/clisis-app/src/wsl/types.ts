@@ -1,4 +1,4 @@
-﻿export type WslRuntimeCheck = {
+export type WslRuntimeCheck = {
   available: boolean
   version: string | null
   error: string | null

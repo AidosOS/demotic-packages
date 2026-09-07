@@ -1,4 +1,4 @@
-﻿interface ImportMetaEnv {
+interface ImportMetaEnv {
   readonly CLISIS_CODER_CHANNEL: string
 }
 

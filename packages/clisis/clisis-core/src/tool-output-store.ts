@@ -1,4 +1,4 @@
-﻿export * as ToolOutputStore from "./tool-output-store"
+export * as ToolOutputStore from "./tool-output-store"
 
 import path from "path"
 import { Context, Duration, Effect, Layer, Option, Schedule, Schema } from "effect"

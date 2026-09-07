@@ -1,4 +1,4 @@
-﻿;(function () {
+;(function () {
   var key = "ClisisCoder-theme-id"
   var themeId = localStorage.getItem(key) || "demotic-blue"
 

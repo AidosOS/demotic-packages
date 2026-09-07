@@ -1,4 +1,4 @@
-﻿# HTTP Route Patterns
+# HTTP Route Patterns
 
 Current guidance for `packages/ClisisCoder/src/server/routes/instance/httpapi`.
 

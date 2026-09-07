@@ -1,4 +1,4 @@
-﻿import { PermissionV1 } from "@demotic/clisis-core/v1/permission"
+import { PermissionV1 } from "@demotic/clisis-core/v1/permission"
 import { afterEach, describe, expect } from "bun:test"
 import { Cause, Effect, Exit, Layer, Stream } from "effect"
 import path from "path"

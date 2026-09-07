@@ -1,4 +1,4 @@
-﻿export const dict = {
+export const dict = {
   "command.category.suggested": "SuggÃ©rÃ©",
   "command.category.view": "Affichage",
   "command.category.project": "Projet",

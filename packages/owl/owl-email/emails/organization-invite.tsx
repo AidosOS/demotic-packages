@@ -1,4 +1,4 @@
-﻿import {
+import {
   OrganizationInviteEmail,
   type OrganizationInviteEmailProps,
 } from "../src/templates/organization-invite"

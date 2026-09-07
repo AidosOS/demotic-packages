@@ -1,4 +1,4 @@
-﻿import type { APIEvent } from "@solidjs/start/server"
+import type { APIEvent } from "@solidjs/start/server"
 import { and, Database, eq, isNull, lt, or, sql } from "@demotic/clisis-console-core/drizzle/index.js"
 import { KeyTable } from "@demotic/clisis-console-core/schema/key.sql.js"
 import { BillingTable, LiteTable, SubscriptionTable, UsageTable } from "@demotic/clisis-console-core/schema/billing.sql.js"

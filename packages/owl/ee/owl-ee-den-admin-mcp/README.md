@@ -1,4 +1,4 @@
-﻿# den-admin-mcp
+# den-admin-mcp
 
 Read-only admin analytics MCP server for the Owl WorkMate Den database. Ask Owl WorkMate
 things like "what's our weekly growth rate?", "show retention for the last 8

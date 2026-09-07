@@ -1,4 +1,4 @@
-﻿export * as SessionRunnerModel from "./model"
+export * as SessionRunnerModel from "./model"
 
 import { type Model } from "@demotic/clisis-llm"
 import * as AnthropicMessages from "@demotic/clisis-llm/protocols/anthropic-messages"

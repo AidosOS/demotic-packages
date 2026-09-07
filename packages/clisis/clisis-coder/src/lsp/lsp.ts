@@ -1,4 +1,4 @@
-﻿import { EventV2Bridge } from "@/event-v2-bridge"
+import { EventV2Bridge } from "@/event-v2-bridge"
 import { EventV2 } from "@demotic/clisis-core/event"
 import * as Log from "@demotic/clisis-core/util/log"
 import * as LSPClient from "./client"

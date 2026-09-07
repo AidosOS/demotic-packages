@@ -1,4 +1,4 @@
-﻿// Subprocess integration tests for `clisisCoder run` (non-interactive mode).
+// Subprocess integration tests for `clisisCoder run` (non-interactive mode).
 // These exercise the real CLI binary against a TestLLMServer running in the
 // same process. See `test/lib/cli-process.ts` for the harness â€” each test uses
 // `clisis-coder.run(message, opts?)` to spawn `bun src/index.ts run ...` with

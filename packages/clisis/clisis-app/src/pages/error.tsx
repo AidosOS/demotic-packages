@@ -1,4 +1,4 @@
-﻿import { TextField } from "@demotic/clisis-ui/text-field"
+import { TextField } from "@demotic/clisis-ui/text-field"
 import * as Sentry from "@sentry/solid"
 import { Logo } from "@demotic/clisis-ui/logo"
 import { Button } from "@demotic/clisis-ui/button"

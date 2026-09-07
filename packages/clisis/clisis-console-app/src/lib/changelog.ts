@@ -1,4 +1,4 @@
-﻿import { query } from "@solidjs/router"
+import { query } from "@solidjs/router"
 
 type Release = {
   tag_name: string

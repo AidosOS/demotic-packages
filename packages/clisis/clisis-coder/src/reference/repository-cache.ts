@@ -1,4 +1,4 @@
-﻿import path from "path"
+import path from "path"
 import { Context, Effect, Layer, Schema } from "effect"
 import { FSUtil } from "@demotic/clisis-core/fs-util"
 import { Flock } from "@demotic/clisis-core/util/flock"

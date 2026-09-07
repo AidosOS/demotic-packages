@@ -1,4 +1,4 @@
-﻿export * as SessionRunner from "./index"
+export * as SessionRunner from "./index"
 
 import type { LLMError } from "@demotic/clisis-llm"
 import { Context, Effect, Schema } from "effect"

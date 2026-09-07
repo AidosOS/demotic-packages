@@ -1,4 +1,4 @@
-﻿export * as ApplicationTools from "./application-tools"
+export * as ApplicationTools from "./application-tools"
 
 import { Context, Effect, Layer, Scope } from "effect"
 import { enableMapSet } from "immer"

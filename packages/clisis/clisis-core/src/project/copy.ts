@@ -1,4 +1,4 @@
-﻿export * as ProjectCopy from "./copy"
+export * as ProjectCopy from "./copy"
 
 import { and, eq, inArray } from "drizzle-orm"
 import { Context, Effect, Layer, Schema } from "effect"

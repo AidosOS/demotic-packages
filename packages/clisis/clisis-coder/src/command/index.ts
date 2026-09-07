@@ -1,4 +1,4 @@
-﻿import { InstanceState } from "@/effect/instance-state"
+import { InstanceState } from "@/effect/instance-state"
 import { EffectBridge } from "@/effect/bridge"
 import type { InstanceContext } from "@/project/instance-context"
 import { SessionID, MessageID } from "@/session/schema"

@@ -1,4 +1,4 @@
-﻿import { Context } from "effect"
+import { Context } from "effect"
 
 const clisisCoderOrigin = /^https:\/\/([a-z0-9-]+\.)*clisisCoder\.ai$/
 

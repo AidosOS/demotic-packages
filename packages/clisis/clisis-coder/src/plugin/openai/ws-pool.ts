@@ -1,4 +1,4 @@
-﻿import WebSocket from "ws"
+import WebSocket from "ws"
 import * as Log from "@demotic/clisis-core/util/log"
 import { ProviderError } from "@/provider/error"
 import { isRecord } from "@/util/record"

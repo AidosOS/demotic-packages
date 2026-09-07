@@ -1,4 +1,4 @@
-﻿export * as Auth from "./auth"
+export * as Auth from "./auth"
 
 import path from "path"
 import { Effect, Layer, Option, Schema, Context, SynchronizedRef } from "effect"

@@ -1,4 +1,4 @@
-﻿export * as Ripgrep from "./ripgrep"
+export * as Ripgrep from "./ripgrep"
 
 import { Context, Effect, Fiber, Layer, Schema, Stream } from "effect"
 import { ChildProcess } from "effect/unstable/process"

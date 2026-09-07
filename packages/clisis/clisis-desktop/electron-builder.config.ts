@@ -1,4 +1,4 @@
-﻿import { execFile } from "node:child_process"
+import { execFile } from "node:child_process"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import { promisify } from "node:util"

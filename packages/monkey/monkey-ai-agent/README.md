@@ -1,4 +1,4 @@
-﻿# AI Agent
+# AI Agent
 
 A premium React component for AI interactions.
 

@@ -1,4 +1,4 @@
-﻿export * as PtyTicket from "./ticket"
+export * as PtyTicket from "./ticket"
 
 import { WorkspaceV2 } from "../workspace"
 import { PositiveInt } from "../schema"

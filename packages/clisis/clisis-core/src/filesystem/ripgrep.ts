@@ -1,4 +1,4 @@
-﻿import path from "path"
+import path from "path"
 import { serviceUse } from "../effect/service-use"
 import { FSUtil } from "../fs-util"
 import { Cause, Context, Effect, Fiber, Layer, Queue, Schema, Stream } from "effect"

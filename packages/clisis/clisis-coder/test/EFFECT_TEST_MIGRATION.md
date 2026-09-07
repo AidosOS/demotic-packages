@@ -1,4 +1,4 @@
-﻿# Effect Test Migration
+# Effect Test Migration
 
 Move tests that exercise Effect services out of Promise-land and into the
 shared `testEffect` pattern.

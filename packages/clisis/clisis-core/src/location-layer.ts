@@ -1,4 +1,4 @@
-﻿import { Layer, LayerMap } from "effect"
+import { Layer, LayerMap } from "effect"
 import { Location } from "./location"
 import { Policy } from "./policy"
 import { Config } from "./config"

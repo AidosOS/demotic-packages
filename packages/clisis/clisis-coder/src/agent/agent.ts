@@ -1,4 +1,4 @@
-﻿import { PermissionV1 } from "@demotic/clisis-core/v1/permission"
+import { PermissionV1 } from "@demotic/clisis-core/v1/permission"
 import { Config } from "@/config/config"
 import { serviceUse } from "@demotic/clisis-core/effect/service-use"
 import { Provider } from "@/provider/provider"

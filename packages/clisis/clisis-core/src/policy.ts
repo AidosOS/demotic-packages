@@ -1,4 +1,4 @@
-﻿export * as Policy from "./policy"
+export * as Policy from "./policy"
 
 import { Context, Effect as EffectRuntime, Layer, Schema } from "effect"
 import { Wildcard } from "./util/wildcard"

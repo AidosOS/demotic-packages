@@ -1,4 +1,4 @@
-﻿<!--
+<!--
   Built-in skill. Name and description are registered in code at
   packages/core/src/plugin/skill.ts
   and CUSTOMIZE_ClisisCoder_SKILL_DESCRIPTION). The body below becomes the

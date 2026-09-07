@@ -1,4 +1,4 @@
-﻿import "./index.css"
+import "./index.css"
 import { Meta, Title } from "@solidjs/meta"
 import { A } from "@solidjs/router"
 import { createSignal, type JSX, onMount, Show } from "solid-js"

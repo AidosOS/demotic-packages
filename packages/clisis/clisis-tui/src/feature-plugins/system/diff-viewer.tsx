@@ -1,4 +1,4 @@
-﻿/** @jsxImportSource @opentui/solid */
+/** @jsxImportSource @opentui/solid */
 import type { TuiPlugin, TuiPluginApi, TuiRouteCurrent } from "@demotic/clisis-plugin/tui"
 import type { SnapshotFileDiff, VcsFileDiff } from "@demotic/clisis-sdk/v2"
 import {

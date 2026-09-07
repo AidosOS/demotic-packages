@@ -1,4 +1,4 @@
-﻿# Bun shell migration plan
+# Bun shell migration plan
 
 Practical phased replacement of Bun `$` calls.
 

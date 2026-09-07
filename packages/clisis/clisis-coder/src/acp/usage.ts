@@ -1,4 +1,4 @@
-﻿import type { AgentSideConnection, Usage } from "@agentclientprotocol/sdk"
+import type { AgentSideConnection, Usage } from "@agentclientprotocol/sdk"
 import * as Log from "@demotic/clisis-core/util/log"
 import type { AssistantMessage as clisisCoderAssistantMessage, Message } from "@demotic/clisis-sdk/v2"
 import { InstanceRef } from "@/effect/instance-ref"

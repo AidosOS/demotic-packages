@@ -1,4 +1,4 @@
-﻿import "../../brand/index.css"
+import "../../brand/index.css"
 import "./index.css"
 import { Title, Meta } from "@solidjs/meta"
 import { Header } from "~/component/header"

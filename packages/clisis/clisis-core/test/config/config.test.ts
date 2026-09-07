@@ -1,4 +1,4 @@
-﻿import path from "path"
+import path from "path"
 import fs from "fs/promises"
 import { describe, expect } from "bun:test"
 import { Effect, Layer, Schema } from "effect"

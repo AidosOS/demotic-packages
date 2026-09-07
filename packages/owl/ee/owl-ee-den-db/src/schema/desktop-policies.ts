@@ -1,4 +1,4 @@
-﻿import { relations, sql } from "drizzle-orm"
+import { relations, sql } from "drizzle-orm"
 import { boolean, index, json, mysqlTable, timestamp, uniqueIndex, varchar } from "drizzle-orm/mysql-core"
 import type { DesktopPolicyValue } from "@demotic/owl-types/den/desktop-policies"
 import { denTypeIdColumn } from "../columns"

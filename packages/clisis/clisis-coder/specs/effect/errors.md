@@ -1,4 +1,4 @@
-﻿# Typed Error Migration
+# Typed Error Migration
 
 This note expands the `ERR`, `RENDER`, and `HTTP` tracks from
 [`todo.md`](./todo.md). It is the current reference for expected failures,

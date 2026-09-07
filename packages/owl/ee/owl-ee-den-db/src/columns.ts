@@ -1,4 +1,4 @@
-﻿import * as crypto from "node:crypto"
+import * as crypto from "node:crypto"
 import { customType, timestamp, varchar } from "drizzle-orm/mysql-core"
 import {
   type DenTypeId,

@@ -1,4 +1,4 @@
-﻿export * as SkillV2 from "./skill"
+export * as SkillV2 from "./skill"
 
 import path from "path"
 import { Context, Effect, Layer, Schema } from "effect"

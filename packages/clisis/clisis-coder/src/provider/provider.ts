@@ -1,4 +1,4 @@
-﻿import os from "os"
+import os from "os"
 import { ConfigV1 } from "@demotic/clisis-core/v1/config/config"
 import fuzzysort from "fuzzysort"
 import { Config } from "@/config/config"

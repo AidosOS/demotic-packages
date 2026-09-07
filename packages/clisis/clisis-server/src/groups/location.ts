@@ -1,4 +1,4 @@
-﻿import { Location } from "@demotic/clisis-core/location"
+import { Location } from "@demotic/clisis-core/location"
 import { LocationServiceMap } from "@demotic/clisis-core/location-layer"
 import { FileSystem } from "@demotic/clisis-core/filesystem"
 import { AbsolutePath } from "@demotic/clisis-core/schema"

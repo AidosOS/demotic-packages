@@ -1,4 +1,4 @@
-﻿export * as ServerAuth from "./auth"
+export * as ServerAuth from "./auth"
 
 import { Config as EffectConfig, Context, Effect, Layer, Option, Redacted } from "effect"
 

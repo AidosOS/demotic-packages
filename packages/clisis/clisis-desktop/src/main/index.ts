@@ -1,4 +1,4 @@
-﻿import { randomUUID } from "node:crypto"
+import { randomUUID } from "node:crypto"
 import { mkdirSync, rmSync } from "node:fs"
 import * as http from "node:http"
 import { createServer } from "node:net"

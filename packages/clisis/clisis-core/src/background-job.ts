@@ -1,4 +1,4 @@
-﻿export * as BackgroundJob from "./background-job"
+export * as BackgroundJob from "./background-job"
 
 import { Cause, Clock, Context, Deferred, Effect, Exit, Layer, Scope, SynchronizedRef } from "effect"
 import { Identifier } from "./id/id"

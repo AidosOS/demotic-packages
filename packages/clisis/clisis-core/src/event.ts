@@ -1,4 +1,4 @@
-﻿export * as EventV2 from "./event"
+export * as EventV2 from "./event"
 
 import { Cause, Context, Effect, Layer, Option, PubSub, Schema, Stream } from "effect"
 import { and, asc, eq, gt } from "drizzle-orm"

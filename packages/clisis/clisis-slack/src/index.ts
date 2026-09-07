@@ -1,4 +1,4 @@
-﻿import { App } from "@slack/bolt"
+import { App } from "@slack/bolt"
 import { createClisisCoder, type ToolPart } from "@demotic/clisis-sdk"
 
 const app = new App({

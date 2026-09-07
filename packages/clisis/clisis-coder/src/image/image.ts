@@ -1,4 +1,4 @@
-﻿import { Config } from "@/config/config"
+import { Config } from "@/config/config"
 import { SessionV1 } from "@demotic/clisis-core/v1/session"
 import type { MessageV2 } from "@/session/message-v2"
 import * as Log from "@demotic/clisis-core/util/log"

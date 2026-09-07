@@ -1,4 +1,4 @@
-﻿import { PermissionV1 } from "@demotic/clisis-core/v1/permission"
+import { PermissionV1 } from "@demotic/clisis-core/v1/permission"
 import path from "path"
 import { SessionV1 } from "@demotic/clisis-core/v1/session"
 import os from "os"

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Stage 1 proof harness (TASK-1). Verifies, against a real database, that the memory
  * schema, typeids, and FULLTEXT index are actually in place — the claims that must hold
  * on a freshly bootstrapped DB where migration-only indexes are silently dropped (B2).

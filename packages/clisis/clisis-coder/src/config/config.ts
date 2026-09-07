@@ -1,4 +1,4 @@
-﻿import * as Log from "@demotic/clisis-core/util/log"
+import * as Log from "@demotic/clisis-core/util/log"
 import { serviceUse } from "@demotic/clisis-core/effect/service-use"
 import path from "path"
 import { pathToFileURL } from "url"

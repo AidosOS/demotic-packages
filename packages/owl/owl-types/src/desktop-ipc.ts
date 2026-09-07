@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Shared contract for the Electron desktop IPC bridge.
  *
  * Producer: apps/desktop/electron/main.mjs — `desktopCommandHandlers`, typed

@@ -1,4 +1,4 @@
-﻿import { afterEach, describe, expect, mock, test } from "bun:test"
+import { afterEach, describe, expect, mock, test } from "bun:test"
 import { Flag } from "@demotic/clisis-core/flag/flag"
 import * as Log from "@demotic/clisis-core/util/log"
 import { withTimeout } from "../../src/util/timeout"

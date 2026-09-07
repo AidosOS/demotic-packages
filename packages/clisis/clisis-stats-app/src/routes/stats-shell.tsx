@@ -1,4 +1,4 @@
-﻿import clisisCoderWordmarkDark from "../asset/logo-ornate-dark.svg"
+import clisisCoderWordmarkDark from "../asset/logo-ornate-dark.svg"
 import { query } from "@solidjs/router"
 import { createEffect, createMemo, createSignal, For, onCleanup, onMount, Show } from "solid-js"
 

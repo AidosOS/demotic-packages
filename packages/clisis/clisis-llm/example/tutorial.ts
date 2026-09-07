@@ -1,4 +1,4 @@
-﻿import { Config, Effect, Formatter, Layer, Schema, Stream } from "effect"
+import { Config, Effect, Formatter, Layer, Schema, Stream } from "effect"
 import { LLM, LLMClient, Message, ProviderID, Tool, ToolRuntime } from "@demotic/clisis-llm"
 import { Route, Auth, Endpoint, Framing, Protocol, RequestExecutor, WebSocketExecutor } from "@demotic/clisis-llm/route"
 import { OpenAI } from "@demotic/clisis-llm/providers"

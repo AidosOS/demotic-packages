@@ -1,4 +1,4 @@
-﻿import type { NamedError } from "@demotic/clisis-core/util/error"
+import type { NamedError } from "@demotic/clisis-core/util/error"
 import { SessionV1 } from "@demotic/clisis-core/v1/session"
 import { Cause, Clock, Duration, Effect, Schedule } from "effect"
 import { MessageV2 } from "./message-v2"

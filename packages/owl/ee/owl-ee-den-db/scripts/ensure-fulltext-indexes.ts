@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Idempotently create the FULLTEXT indexes that Drizzle's DSL cannot express.
  *
  * Runs as a post-`db:migrate` step (and is reachable via bootstrap) so the index exists on

@@ -1,4 +1,4 @@
-﻿import { contextBridge, ipcRenderer } from "electron"
+import { contextBridge, ipcRenderer } from "electron"
 import type { ElectronAPI, WslServersEvent } from "./types"
 import type { UpdaterState } from "@demotic/clisis-app/updater"
 

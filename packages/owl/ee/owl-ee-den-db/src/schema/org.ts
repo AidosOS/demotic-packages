@@ -1,4 +1,4 @@
-﻿import { relations, sql } from "drizzle-orm"
+import { relations, sql } from "drizzle-orm"
 import { index, json, mysqlTable, text, timestamp, uniqueIndex, varchar } from "drizzle-orm/mysql-core"
 import type { DesktopAppRestrictions } from "@demotic/owl-types/den/desktop-app-restrictions"
 import { denTypeIdColumn, mediumBlobColumn } from "../columns"

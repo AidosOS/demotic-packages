@@ -1,4 +1,4 @@
-﻿import { Global } from "@demotic/clisis-core/global"
+import { Global } from "@demotic/clisis-core/global"
 import { InstallationVersion } from "@demotic/clisis-core/installation/version"
 import { createClisisCoderClient } from "@demotic/clisis-sdk/v2/client"
 import { ServerAuth } from "@demotic/clisis-server/auth"

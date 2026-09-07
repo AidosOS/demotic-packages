@@ -1,4 +1,4 @@
-﻿import type { TuiPluginApi } from "@demotic/clisis-plugin/tui"
+import type { TuiPluginApi } from "@demotic/clisis-plugin/tui"
 import { createMemo, For, type Accessor } from "solid-js"
 import { DEFAULT_THEMES, useTheme } from "../../context/theme"
 import { useCommandShortcut } from "../../keymap"

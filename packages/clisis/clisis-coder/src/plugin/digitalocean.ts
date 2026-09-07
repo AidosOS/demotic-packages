@@ -1,4 +1,4 @@
-﻿import type { Hooks, PluginInput } from "@demotic/clisis-plugin"
+import type { Hooks, PluginInput } from "@demotic/clisis-plugin"
 import type { Model } from "@demotic/clisis-sdk/v2"
 import * as Log from "@demotic/clisis-core/util/log"
 import { InstallationVersion } from "@demotic/clisis-core/installation/version"

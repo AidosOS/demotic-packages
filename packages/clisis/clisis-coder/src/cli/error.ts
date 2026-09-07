@@ -1,4 +1,4 @@
-﻿import { NamedError } from "@demotic/clisis-core/util/error"
+import { NamedError } from "@demotic/clisis-core/util/error"
 import { errorFormat } from "@/util/error"
 import { isRecord } from "@/util/record"
 

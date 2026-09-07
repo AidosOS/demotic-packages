@@ -1,4 +1,4 @@
-﻿export * as Image from "./image"
+export * as Image from "./image"
 
 import { Context, Effect, Layer, Schema } from "effect"
 import { Config } from "./config"

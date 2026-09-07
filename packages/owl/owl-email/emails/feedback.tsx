@@ -1,4 +1,4 @@
-﻿import { FeedbackEmail, type FeedbackEmailProps } from "../src/templates/feedback"
+import { FeedbackEmail, type FeedbackEmailProps } from "../src/templates/feedback"
 
 export default function FeedbackPreview(props: FeedbackEmailProps) {
   return <FeedbackEmail {...props} />

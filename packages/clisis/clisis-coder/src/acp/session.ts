@@ -1,4 +1,4 @@
-﻿import type { McpServer } from "@agentclientprotocol/sdk"
+import type { McpServer } from "@agentclientprotocol/sdk"
 import type { Message, Part } from "@demotic/clisis-sdk/v2"
 import { ProviderV2 } from "@demotic/clisis-core/provider"
 import { ModelV2 } from "@demotic/clisis-core/model"

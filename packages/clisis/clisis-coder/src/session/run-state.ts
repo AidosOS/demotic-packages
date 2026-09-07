@@ -1,4 +1,4 @@
-﻿import { InstanceState } from "@/effect/instance-state"
+import { InstanceState } from "@/effect/instance-state"
 import { SessionV1 } from "@demotic/clisis-core/v1/session"
 import { Runner } from "@/effect/runner"
 import { BackgroundJob } from "@/background/job"

@@ -1,4 +1,4 @@
-﻿import { ConfigPermissionV1 } from "@demotic/clisis-core/v1/config/permission"
+import { ConfigPermissionV1 } from "@demotic/clisis-core/v1/config/permission"
 import { InstanceState } from "@/effect/instance-state"
 import * as Log from "@demotic/clisis-core/util/log"
 import { Wildcard } from "@demotic/clisis-core/util/wildcard"

@@ -1,4 +1,4 @@
-﻿import { Effect, Layer, Context, Schema } from "effect"
+import { Effect, Layer, Context, Schema } from "effect"
 import { SessionV1 } from "@demotic/clisis-core/v1/session"
 import { EventV2Bridge } from "@/event-v2-bridge"
 import { Snapshot } from "@/snapshot"
